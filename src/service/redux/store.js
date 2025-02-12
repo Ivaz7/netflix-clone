@@ -1,11 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { tmdbApiSlice } from "./API/tmdbApiSlicee.js";
-import populerMovieReducer from "./slice/populerMovie.js";
+import moviaDataReducer from "./slice/movieData.js";
 
 export const store = configureStore({
   reducer: {
     [tmdbApiSlice.reducerPath]: tmdbApiSlice.reducer,
-    populerMovie: populerMovieReducer,
+    movieData: moviaDataReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(tmdbApiSlice.middleware),
