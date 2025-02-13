@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useGetPopularMoviesQuery } from "../service/redux/API/tmdbApiSlicee.js";
 import { useDispatch } from "react-redux";
 import { setPopularMovies } from "../service/redux/slice/movieData.js";
+import { Link } from "react-router-dom";
 
 const SignUp = () => {  
   const { data, isLoading, isError } = useGetPopularMoviesQuery();
@@ -26,9 +27,14 @@ const SignUp = () => {
   console.log(data);
 
   return (
-    <main>
-    
-    </main>
+    <div className="hero-bg w-100 h-100">
+      <header className="d-flex justify-content-around align-items-center p-3">
+        <Link to={"/"}>
+          <img src="netflix-logo.png" alt="logo" className="netflix-header" />
+        </Link>
+        <div></div>
+      </header>
+    </div>
   );
 }
 

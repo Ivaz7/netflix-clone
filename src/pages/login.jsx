@@ -1,8 +1,8 @@
 const Login = () => {
   return (
-    <main>
-      
-    </main>
+    <div>
+
+    </div>
   );
 };
 
