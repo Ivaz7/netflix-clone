@@ -26,9 +26,9 @@ const SignUp = () => {
   console.log(data);
 
   return (
-    <>
+    <main>
     
-    </>
+    </main>
   );
 }
 
