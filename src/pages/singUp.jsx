@@ -1,15 +1,15 @@
 import { useEffect } from "react";
 import { useGetPopularMoviesQuery } from "../service/redux/API/tmdbApiSlicee.js";
 import { useDispatch } from "react-redux";
-import { setPopulerMovie } from "../service/redux/slice/movieData.js";
+import { setPopularMovies } from "../service/redux/slice/movieData.js";
 
 const SignUp = () => {  
-  const { data, isLoading, isError, reset } = useGetPopularMoviesQuery();
+  const { data, isLoading, isError } = useGetPopularMoviesQuery();
   const dispatch = useDispatch();
 
   useEffect(() => {
     if (data) {
-      dispatch(setPopulerMovie(data.results));
+      dispatch(setPopularMovies(data.results));
     }
   }, [dispatch, data]);
 
@@ -19,7 +19,6 @@ const SignUp = () => {
     return (
       <div>
         <div>Something went wrong...</div>
-        <button onClick={() => reset()}>Try again</button>
       </div>
     );
   };

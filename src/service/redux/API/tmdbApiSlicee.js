@@ -15,7 +15,25 @@ export const tmdbApiSlice = createApi({
     getPopularMovies: builder.query({
       query: () => `/movie/popular`,
     }),
+    getPopularTVShows: builder.query({
+      query: () => `/tv/popular`,
+    }),
+    searchMoviesAndTVShows: builder.query({
+      query: (query) => `/search/multi?query=${encodeURIComponent(query)}`,
+    }),
+    getSimilarMovies: builder.query({
+      query: (movieId) => `/movie/${movieId}/similar`,
+    }),
+    getSimilarTVShows: builder.query({
+      query: (tvId) => `/tv/${tvId}/similar`,
+    }),
   }),
 });
 
-export const { useGetPopularMoviesQuery } = tmdbApiSlice;
+export const {
+  useGetPopularMoviesQuery,
+  useGetPopularTVShowsQuery,
+  useSearchMoviesAndTVShowsQuery,
+  useGetSimilarMoviesQuery,
+  useGetSimilarTVShowsQuery,
+} = tmdbApiSlice;
