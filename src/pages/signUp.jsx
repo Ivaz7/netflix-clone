@@ -9,7 +9,6 @@ const SignUp = () => {
     const passwordConfirm = e.target.passwordConfirm.value;
 
     if (password !== passwordConfirm) {
-      
       return;
     }
 
@@ -26,31 +25,29 @@ const SignUp = () => {
       </header>
 
       <main className="h-100 d-flex flex-column justify-content-center align-items-center">
-        <div className="form-container p-4 d-flex flex-column gap-2">
-          <h4 className="text-white text-center mb-3">Sign Up</h4>
+        <div className="form-container p-5 d-flex flex-column gap-2 rounded">
+          <h2 className="text-white mb-3">Sign Up</h2>
           <form onSubmit={handleSubmit}>
-            <div className="mb-2">
+            <div className="mb-4 form-floating">
+              <input name="email" type="email" className="form-control text-white" id="email" placeholder="Email address" />
               <label htmlFor="email" className="form-label mb-1 text-white">Email address</label>
-              <input type="email" className="form-control text-white" id="email" placeholder="you@example.com" aria-describedby="emailHelp" />
             </div>
-            <div className="mb-2">
+            <div className="mb-4 form-floating">
+              <input name="username" type="text" className="form-control text-white" id="username" placeholder="Username" />
               <label htmlFor="username" className="form-label mb-1 text-white">Username</label>
-              <input type="text" className="form-control text-white" id="username" placeholder="Your Nickname Example" aria-describedby="username" />
             </div>
-            <div className="mb-2">
+            <div className="mb-4 form-floating">
+              <input name="password" type="password" className="form-control text-white" id="password" placeholder="Password" />
               <label htmlFor="password" className="form-label mb-1 text-white">Password</label>
-              <input type="password" className="form-control text-white" id="password" placeholder="*******" aria-describedby="password" />
             </div>
-            <div className="mb-2">
-              <label htmlFor="passwordConfirm" className="form-label mb-1 text-white">Password Confirmation</label>
-              <input type="password" className="form-control text-white" id="passwordConfirm" placeholder="*******" aria-describedby="password confirmation" />
+            <div className="mb-4 form-floating">
+              <input name="passwordConfirm" type="password" className="form-control text-white" id="passwordConfirm" placeholder="Confirm Password" />
+              <label htmlFor="passwordConfirm" className="form-label mb-1 text-white">Confirm Password</label>
             </div>
-            <button type="submit" className="mb-2 mt-2 w-100 rounded">Sign Up</button>
+            <button type="submit" className="mb-4 w-100 rounded p-2">Sign Up</button>
             <div className="d-flex justify-content-center gap-2">
-              <label>Already sign up?</label> 
-              <a className="m-0"  href="/login">
-                Sing In
-              </a>
+              <label>Already have an account?</label> 
+              <Link to="/login" className="m-0">Sign In</Link>
             </div>
           </form>
         </div>
