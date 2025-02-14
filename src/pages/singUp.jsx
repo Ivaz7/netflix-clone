@@ -1,39 +1,64 @@
-import { useEffect } from "react";
-import { useGetPopularMoviesQuery } from "../service/redux/API/tmdbApiSlicee.js";
-import { useDispatch } from "react-redux";
-import { setPopularMovies } from "../service/redux/slice/movieData.js";
 import { Link } from "react-router-dom";
 
 const SignUp = () => {  
-  const { data, isLoading, isError } = useGetPopularMoviesQuery();
-  const dispatch = useDispatch();
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const email = e.target.email.value;
+    const username = e.target.username.value;
+    const password = e.target.password.value;
+    const passwordConfirm = e.target.passwordConfirm.value;
 
-  useEffect(() => {
-    if (data) {
-      dispatch(setPopularMovies(data.results));
+    if (password !== passwordConfirm) {
+      
+      return;
     }
-  }, [dispatch, data]);
 
-  if (isLoading) return <div>Loading...</div>;
-
-  if (isError) {
-    return (
-      <div>
-        <div>Something went wrong...</div>
-      </div>
-    );
-  };
-
-  console.log(data);
+    console.log(email, username, password, passwordConfirm);
+  }
 
   return (
-    <div className="hero-bg w-100 h-100">
-      <header className="d-flex justify-content-around align-items-center p-3">
+    <div className="hero-bg w-100 h-100 d-flex flex-column gap-3">
+      <header className="d-flex justify-content-around align-items-center p-2">
         <Link to={"/"}>
           <img src="netflix-logo.png" alt="logo" className="netflix-header" />
         </Link>
         <div></div>
       </header>
+
+      <main>
+        <div className="container">
+          <div className="row">
+            <div className="form-container col-12 mx-auto mt-5 p-4">
+              <h4 className="text-white text-center mb-3">Sign Up</h4>
+              <form onSubmit={handleSubmit}>
+                <div className="mb-2">
+                  <label htmlFor="email" className="form-label mb-1 text-white">Email address</label>
+                  <input type="email" className="form-control text-white" id="email" placeholder="you@example.com" aria-describedby="emailHelp" />
+                </div>
+                <div className="mb-2">
+                  <label htmlFor="username" className="form-label mb-1 text-white">Username</label>
+                  <input type="text" className="form-control text-white" id="username" placeholder="Your Nickname Example" aria-describedby="username" />
+                </div>
+                <div className="mb-2">
+                  <label htmlFor="password" className="form-label mb-1 text-white">Password</label>
+                  <input type="password" className="form-control text-white" id="password" placeholder="*******" aria-describedby="password" />
+                </div>
+                <div className="mb-2">
+                  <label htmlFor="passwordConfirm" className="form-label mb-1 text-white">Password Confirmation</label>
+                  <input type="password" className="form-control text-white" id="passwordConfirm" placeholder="*******" aria-describedby="password confirmation" />
+                </div>
+                <button type="submit" className="mb-2 mt-2 w-100 rounded">Sign Up</button>
+                <div className="d-flex justify-content-center gap-2">
+                  <label>Already sign up?</label> 
+                  <a className="m-0"  href="/login">
+                    Sing In
+                  </a>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </main>
     </div>
   );
 }
