@@ -11,11 +11,10 @@ const Login = () => {
 
   return (
     <div className="hero-bg w-100 h-100 d-flex flex-column gap-3">
-      <header className="position-fixed top-0 start-0 w-100 d-flex justify-content-around align-items-center p-2">
+      <header className="position-fixed top-0 start-0 w-100 d-flex justify-content-around align-items-center p-3">
         <Link to={"/"}>
           <img src="netflix-logo.png" alt="logo" className="netflix-header" />
         </Link>
-        <div></div>
       </header>
 
       <main className="h-100 d-flex flex-column justify-content-center align-items-center">
