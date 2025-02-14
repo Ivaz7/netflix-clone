@@ -61,4 +61,17 @@
       text-decoration: underline;
     }
   }
+  
+  .not-allowed {
+    border: 2px solid config.$redLightNetflix;
+  }
+}
+
+.input-allowed-not {
+  display: none;
+}
+
+.input-allowed-yes {
+  display: block;
+  color: config.$redLightNetflix;
 }
