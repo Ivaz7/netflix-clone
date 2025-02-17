@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import InputGetStarted from "./inputGetStarted";
-import DemoSection from "./demoSection";
+import DemoSection from "./demoSection/demoSection";
 
 const AuthScreen = () => {
   return (
@@ -15,7 +15,7 @@ const AuthScreen = () => {
         </Link>
       </header>
 
-      <div className="getStartedContainer hero-bg-darker w-100 h-100 d-flex flex-column justify-content-center align-items-center gap-3">
+      <div className="getStartedContainer hero-bg w-100 h-100 d-flex flex-column justify-content-center align-items-center gap-3">
         <h1>Unlimited movies, TV shows, and more</h1>
 
         <p>Ready to watch? Enter your email to create or restart your membership.</p>
@@ -23,7 +23,7 @@ const AuthScreen = () => {
         <InputGetStarted />
       </div>
 
-      <main className="d-flex flex-column justify-content-center align-items-center gap-5">
+      <main className="d-flex flex-column justify-content-center align-items-center gap-5 mb-5">
         <DemoSection />
       </main>
     </div>

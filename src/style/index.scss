@@ -5,4 +5,5 @@
 @use './authScreen/authScreen';
 @use './authScreen/getStartedContainer';
 @use './authScreen/inputGetStarted';
-@use './authScreen/videoContainer';
+@use './authScreen/demoSection/videoContainer';
+@use './authScreen/demoSection/downloadDemo';

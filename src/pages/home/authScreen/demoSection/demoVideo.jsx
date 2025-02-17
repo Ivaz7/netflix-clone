@@ -1,4 +1,4 @@
-const DemoSection = () => {
+const DemoVideo = () => {
   return (
     <div className="d-flex flex-column flex-md-row justify-content-center align-items-center gap-5">
       <div>
@@ -15,7 +15,7 @@ const DemoSection = () => {
         </video>
       </div>
     </div>
-  );
+  )
 }
 
-export default DemoSection;
+export default DemoVideo;

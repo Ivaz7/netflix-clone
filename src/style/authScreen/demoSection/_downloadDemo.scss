@@ -1,0 +1,29 @@
+.download-image-container {
+  position: relative;
+
+  .phone-image {
+    position: relative;
+  }
+
+  .download-info-container {
+    position: absolute;
+    top: 70%;
+    left: 20%;
+    border: 1px solid gray;
+    padding: 0.5rem 0;
+    border-radius: 0.5rem;
+
+    img {
+      width: 20%;
+    }
+  }
+
+  h6 {
+    margin: 0;
+  }
+
+  p {
+    margin: 0;
+    color: rgb(67, 162, 251);
+  }
+}
