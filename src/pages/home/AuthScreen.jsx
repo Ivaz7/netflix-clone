@@ -14,7 +14,7 @@ const AuthScreen = () => {
         </Link>
       </header>
 
-      <div className="getStartedContainer hero-bg w-100 h-100 d-flex flex-column justify-content-center align-items-center gap-3">
+      <div className="getStartedContainer hero-bg-darker w-100 h-100 d-flex flex-column justify-content-center align-items-center gap-3">
         <h1>Unlimited movies, TV shows, and more</h1>
 
         <p>Ready to watch? Enter your email to create or restart your membership.</p>
