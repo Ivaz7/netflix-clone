@@ -1,0 +1,47 @@
+.getStartedContainer {
+  position: relative;
+  margin-bottom: 10.5vh;
+
+  h1 {
+    width: 50%;
+    font-size: 4rem;
+    font-weight: 700;
+    color: white;
+    margin: 0;
+    text-align: center;
+  }
+
+  p {
+    width: 50%;
+    font-size: 1.3rem;
+    text-align: center;
+  }
+}
+
+.getStartedContainer::before {
+  content: '';
+  position: absolute;
+  z-index: 1;
+  top: 95%;
+  left: -25%;
+  width: 150%;
+  height: 15vh;
+
+  background: linear-gradient(to right, rgba(33, 13, 22, 1) 16%, rgba(184, 40, 105, 1), rgba(229, 9, 20, 1), rgba(184, 40, 105, 1), rgba(33, 13, 22, 1) 84%);
+  border-top-left-radius: 50% 100%;
+  border-top-right-radius: 50% 100%;
+}
+
+.getStartedContainer::after {
+  content: '';
+  position: absolute;
+  z-index: 2;
+  top: 95.5%;
+  left: -25%;
+  width: 150%;
+  height: 15vh;
+
+  background: radial-gradient(50% 500% at 50% -420%, rgba(64, 97, 231, 0.4) 80%, rgba(0, 0, 0, 0.1) 100%), black;
+  border-top-left-radius: 50% 100%;
+  border-top-right-radius: 50% 100%;
+}

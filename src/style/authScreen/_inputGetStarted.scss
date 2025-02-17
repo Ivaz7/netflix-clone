@@ -1,70 +1,45 @@
-@use './config' as config;
+@use '../config' as config;
 
-.form-container {
-  background-color: rgb(0, 0, 0, 0.5);
-  color: white;
-  width: 30%;
-  display: inline-flex;
-
-  *::placeholder {
-    color: rgba(169, 169, 169, 0.5);
-  }
-
-  input,button,label {
-    font-size: 0.9rem;
-  }
+.inputGetStartedContainer#inputGetStartedContainer {
+  background-color: transparent;
 
   input  {
     background-color: rgba(33, 33, 33, 0.5);
     border: 2px solid rgba(169, 169, 169, 0.5);
-  }
-
-  label {
-    font-size: 1rem;
-    margin: 0;
+    color: white;
+    width: 25vw;
   }
 
   .form-floating label {
     background: none;
+    color: white;
   }
 
   .form-floating label::after {
     background-color: transparent !important;
   }
-  
-  
+
   .form-floating .form-control:focus {
     background-color: rgba(33, 33, 33, 0.7);
     border: 2px solid rgba(169, 169, 169, 0.5);
     outline: 2px solid white;
     outline-offset: 1px;
     box-shadow: none;
-    color: white;
   }
-  
 
-  button {
+  .getStartedButton {
     background-color: config.$redLightNetflix;
     border: none;
     color: white;
+    padding: 0.8rem 1.5rem;
+    font-size: 1.3rem;
+    font-weight: bold;
+    border-radius: 0.3rem;
+    text-decoration: none;
 
     &:hover {
       background-color: darken(config.$redLightNetflix, 10%);
     }
-  }
-
-  a {
-    color: white;
-    font-weight: bold;
-    text-decoration: none;
-  
-    &:hover {
-      text-decoration: underline;
-    }
-  }
-  
-  .not-allowed {
-    border: 2px solid config.$redLightNetflix;
   }
 }
 

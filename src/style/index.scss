@@ -1,3 +1,7 @@
 @use './heroBg';
 @use './netflix-header';
 @use './formContainer';
+@use './sign-in-button-authScreen';
+@use './authScreen/authScreen';
+@use './authScreen/getStartedContainer';
+@use './authScreen/inputGetStarted';

@@ -1,0 +1,17 @@
+@use './config' as config;
+
+.sign-in-button-authScreen {
+  position: fixed;
+  left: 80%;
+  top: 4%;
+
+  text-decoration: none;
+  color: white;
+  background-color: config.$redLightNetflix;
+  padding: 0.4rem 0.6rem;
+  border-radius: 0.2rem;
+
+  &:hover {
+    background-color: darken(config.$redLightNetflix, 10%);
+  }
+}

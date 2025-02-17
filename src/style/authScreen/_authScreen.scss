@@ -1,0 +1,17 @@
+@use '../config' as config;
+
+.authScreen {
+  background-color: black;
+  overflow-x: hidden;
+
+  header {
+    z-index: 2;
+  }
+
+  div, main {
+    background-color: inherit;
+    color: white;
+  }
+
+
+}
