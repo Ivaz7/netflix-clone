@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import InputGetStarted from "./inputGetStarted";
+import DemoSection from "./demoSection";
 
 const AuthScreen = () => {
   return (
@@ -22,8 +23,8 @@ const AuthScreen = () => {
         <InputGetStarted />
       </div>
 
-      <main>
-        something
+      <main className="d-flex flex-column justify-content-center align-items-center gap-5">
+        <DemoSection />
       </main>
     </div>
   );

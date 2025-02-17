@@ -1,0 +1,14 @@
+.video-container {
+  position: relative;
+
+  img {
+    position: relative;
+    z-index: 2;
+  }
+
+  .video-play {
+    position: absolute;
+    top: 20.25%;
+    left: 13.5%;
+    width: 73.5%;  }
+}
