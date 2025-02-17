@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import InputGetStarted from "../../components/inputGetStarted";
+import InputGetStarted from "./inputGetStarted";
 
 const AuthScreen = () => {
   return (

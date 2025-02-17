@@ -1,4 +1,4 @@
-import AuthScreen from "./AuthScreen";
+import AuthScreen from "./authScreen/AuthScreen";
 import HomeScreen from "./homeScreen";
 
 const Home = () => { 
