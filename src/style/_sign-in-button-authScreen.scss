@@ -1,4 +1,5 @@
 @use './config' as config;
+@use 'sass:color';
 
 .sign-in-button-authScreen {
   position: absolute;
@@ -13,6 +14,6 @@
   border-radius: 0.2rem;
 
   &:hover {
-    background-color: darken(config.$redLightNetflix, 10%);
+    background-color: color.adjust(config.$redLightNetflix, $lightness: -10%);    
   }
 }

@@ -1,4 +1,5 @@
 @use '../config' as config;
+@use 'sass:color';
 
 .inputGetStartedContainer#inputGetStartedContainer {
   background-color: transparent;
@@ -42,7 +43,7 @@
     text-decoration: none;
 
     &:hover {
-      background-color: darken(config.$redLightNetflix, 10%);
+      background-color: color.adjust(config.$redLightNetflix, $lightness: -10%);    
     }
   }
 
