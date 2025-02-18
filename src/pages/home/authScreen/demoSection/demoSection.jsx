@@ -1,5 +1,6 @@
 import DemoDevice from "./demoDevice";
 import DemoDownload from "./demoDownload";
+import DemoProfile from "./demoProfile";
 import DemoVideo from "./demoVideo";
 
 const DemoSection = () => {
@@ -8,6 +9,7 @@ const DemoSection = () => {
       <DemoVideo />
       <DemoDownload />
       <DemoDevice />
+      <DemoProfile />
     </div>
   );
 }
