@@ -27,6 +27,12 @@ const AuthScreen = () => {
       <main className="d-flex flex-column justify-content-center align-items-center gap-5 mb-5">
         <DemoSection />
         <QAndAsection />
+
+        <div className="d-flex flex-column gap-2">
+          <p>Ready to watch? Enter your email to create or restart your membership.</p>
+  
+          <InputGetStarted />
+        </div>
       </main>
     </div>
   );
