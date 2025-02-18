@@ -6,9 +6,17 @@
     z-index: 2;
   }
 
-  .video-play {
+  .video-play-demoHome {
     position: absolute;
     top: 20.25%;
     left: 13.5%;
-    width: 73.5%;  }
+    width: 73.5%;  
+  }
+
+  .video-play-device {
+    position: absolute;
+    top: 11%;
+    left: 19%;
+    width: 61%;  
+  }
 }

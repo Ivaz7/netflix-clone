@@ -10,7 +10,7 @@ const DemoVideo = () => {
       <div className="video-container">
         <img src="tv.png" alt="tv" />
 
-        <video className="video-play" autoPlay={true} playsInline muted loop>
+        <video className="video-play-demoHome" autoPlay={true} playsInline muted loop>
           <source src="hero-vid.mp4" type="video/mp4"/>
         </video>
       </div>
