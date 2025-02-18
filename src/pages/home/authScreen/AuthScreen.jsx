@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import InputGetStarted from "./inputGetStarted";
 import DemoSection from "./demoSection/demoSection";
 import QAndAsection from "./Q&Asection/qAndAsection";
+import Footer from "../../../components/footer";
 
 const AuthScreen = () => {
   return (
@@ -34,6 +35,8 @@ const AuthScreen = () => {
           <InputGetStarted />
         </div>
       </main>
+      
+      <Footer />
     </div>
   );
 }

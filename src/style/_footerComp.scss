@@ -1,0 +1,18 @@
+footer {
+  padding: 3rem 10rem;
+  width: 100%;
+  background-color: black;
+
+  * {
+    color: rgb(189, 189, 189);
+  }
+
+  a {
+    color: white;
+    text-decoration: none;
+
+    &:hover, &:active {
+      text-decoration: underline;
+    }
+  }
+}

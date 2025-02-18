@@ -9,6 +9,10 @@
       .isOpenQuestion {
         transform: rotate(45deg);
       }
+
+      &:hover, &:active {
+        background-color: rgb(67, 67, 67);
+      }
     }
 
     .answer-section {
