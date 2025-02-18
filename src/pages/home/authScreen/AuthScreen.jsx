@@ -5,8 +5,8 @@ import QAndAsection from "./Q&Asection/qAndAsection";
 
 const AuthScreen = () => {
   return (
-    <div className="authScreen w-100 h-100">
-      <header className="position-fixed top-0 start-0 w-100 d-flex justify-content-around align-items-center p-3">
+    <div className="authScreen position-relative w-100 h-100">
+      <header className="position-absoulte top-0 start-0 w-100 h-0 d-flex justify-content-around align-items-center">
         <Link to="/">
           <img src="netflix-logo.png" alt="logo" className="netflix-header" />
         </Link>

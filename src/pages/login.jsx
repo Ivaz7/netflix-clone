@@ -27,8 +27,8 @@ const Login = () => {
   };
 
   return (
-    <div className="hero-bg w-100 h-100 d-flex flex-column gap-3">
-      <header className="position-fixed top-0 start-0 w-100 d-flex justify-content-around align-items-center p-3">
+    <div className="hero-bg position-relative w-100 h-100 d-flex flex-column gap-3">
+      <header>
         <Link to="/">
           <img src="netflix-logo.png" alt="logo" className="netflix-header" />
         </Link>

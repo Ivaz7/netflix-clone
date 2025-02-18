@@ -1,6 +1,7 @@
 .netflix-header {
   height: 3rem;
-  position: fixed;
+  position: absolute;
+  z-index: 100;
   left: 10%;
   top: 4%;
 }
