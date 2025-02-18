@@ -25,7 +25,7 @@ const AuthScreen = () => {
         <InputGetStarted />
       </div>
 
-      <main className="d-flex flex-column justify-content-center align-items-center gap-5 mb-5">
+      <main className="d-flex flex-column justify-content-center align-items-center gap-5">
         <DemoSection />
         <QAndAsection />
 
@@ -35,7 +35,7 @@ const AuthScreen = () => {
           <InputGetStarted />
         </div>
       </main>
-      
+
       <Footer />
     </div>
   );
