@@ -1,10 +1,14 @@
 footer {
-  padding: 3rem 10rem;
+  padding: 3rem min(10vw, 10rem);
   width: 100%;
   background-color: black;
-
+  
   * {
     color: rgb(189, 189, 189);
+  }
+  
+  h6, a {
+    background-color: black;
   }
 
   a {

@@ -41,14 +41,14 @@ const SignUp = () => {
 
   return (
     <div className="w-100 h-100">
-      <div className="hero-bg position-relative w-100 h-100 d-flex flex-column gap-3">
+      <div className="hero-bg w-100 h-100 d-flex flex-column gap-3">
         <header>
           <Link to={"/"}>
-            <img src="netflix-logo.png" alt="logo" className="netflix-header" />
+            <img src="netflix-logo.png" alt="logo" className="netflix-header-without-position" />
           </Link>
         </header>
 
-        <main className="h-100 d-flex flex-column justify-content-center align-items-center">
+        <main className="d-flex flex-column justify-content-center align-items-center">
           <div className="form-container p-5 d-flex flex-column gap-2 rounded">
             <h2 className="text-white mb-3">Sign Up</h2>
             <form onSubmit={handleSubmit}>
@@ -66,7 +66,7 @@ const SignUp = () => {
 
                 <label htmlFor="email" className="form-label mb-1 text-white">Email address</label>
 
-                <div className={`mt-2 input-allowed-${validation.email ? "yes" : "not"}`}><i className="fa-regular fa-circle-xmark"></i> Please enter a valid email.</div>
+                <p className={`mt-2 input-allowed-${validation.email ? "yes" : "not"}`}><i className="fa-regular fa-circle-xmark"></i> Please enter a valid email.</p>
               </div>
               <div className="mb-4 form-floating">
                 <input 
@@ -82,7 +82,7 @@ const SignUp = () => {
 
                 <label htmlFor="username" className="form-label mb-1 text-white">Username</label>
 
-                <div className={`mt-2 input-allowed-${validation.username ? "yes" : "not"}`}><i className="fa-regular fa-circle-xmark"></i> Please enter a valid username with atleast 4 character.</div>
+                <p className={`mt-2 input-allowed-${validation.username ? "yes" : "not"}`}><i className="fa-regular fa-circle-xmark"></i> Please enter a valid username with atleast 4 character.</p>
               </div>
               <div className="mb-4 form-floating">
                 <input 
@@ -98,7 +98,7 @@ const SignUp = () => {
 
                 <label htmlFor="password" className="form-label mb-1 text-white">Password</label>
 
-                <div className={`mt-2 input-allowed-${validation.password ? "yes" : "not"}`}><i className="fa-regular fa-circle-xmark"></i> Please enter 4 to 10 characther atleast with number and letter.</div>
+                <p className={`mt-2 input-allowed-${validation.password ? "yes" : "not"}`}><i className="fa-regular fa-circle-xmark"></i> Please enter 4 to 10 characther atleast with number and letter.</p>
               </div>
               <div className="mb-4 form-floating">
                 <input 
@@ -114,7 +114,7 @@ const SignUp = () => {
 
                 <label htmlFor="passwordConfirm" className="form-label mb-1 text-white">Confirm Password</label>
 
-                <div className={`mt-2 input-allowed-${validation.passwordConfirm ? "yes" : "not"}`}><i className="fa-regular fa-circle-xmark"></i> Your password is not the same</div>
+                <p className={`mt-2 input-allowed-${validation.passwordConfirm ? "yes" : "not"}`}><i className="fa-regular fa-circle-xmark"></i> Your password is not the same</p>
               </div>
               <button type="submit" className="mb-4 w-100 rounded p-2">Sign Up</button>
               <div className="d-flex justify-content-center gap-2">
