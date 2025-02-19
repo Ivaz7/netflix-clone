@@ -1,8 +1,11 @@
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { setSignUpEmail } from "../../../service/redux/slice/signUpEmailSlice";
 
 const InputGetStarted = () => {
-  const [email, setEmail] = useState("");
+  const email = useSelector((state) => state.signUpEmail.email);
+  const dispatch = useDispatch();
 
   const [emailStatus, setEmailStatus] = useState(false);
 
@@ -17,7 +20,7 @@ const InputGetStarted = () => {
           type="email" 
           placeholder="Email address" 
           value={email} 
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={(e) => dispatch(setSignUpEmail(e.target.value))}
           onBlur={(e) => setEmailStatus(!validationEmail(e.target.value))}
           className={`input-get-started form-control ${emailStatus ? "notAllowed" : ""}`}
         />
@@ -29,7 +32,8 @@ const InputGetStarted = () => {
 
       <Link to="/signUp" className="getStartedButton d-flex justify-content-center align-items-center gap-3">
         Get Started
-        <i className="fa-solid fa-chevron-right"></i></Link>
+        <i className="fa-solid fa-chevron-right"></i>
+      </Link>
     </div>
   );
 }

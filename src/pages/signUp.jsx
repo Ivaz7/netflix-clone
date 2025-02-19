@@ -1,9 +1,22 @@
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Footer from "../components/footer";
+import { useDispatch, useSelector } from "react-redux";
+import { setSignUpEmail } from "../service/redux/slice/signUpEmailSlice";
 
 const SignUp = () => {
-  const [email, setEmail] = useState("");
+  const email = useSelector((state) => state.signUpEmail.email);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (email) {
+      setValidation((prev) => ({
+        ...prev,
+        email: !validateEmail(email),
+      }))
+    } 
+  }, [email])
+
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
@@ -60,7 +73,7 @@ const SignUp = () => {
                   placeholder="Email address" 
                   className={`form-control text-white ${validation.email ? "not-allowed" : ""}`} 
                   value={email} 
-                  onChange={e => setEmail(e.target.value)} 
+                  onChange={e => dispatch(setSignUpEmail(e.target.value))} 
                   onBlur={e => handleBlur("email", e.target.value)}
                 />
 
