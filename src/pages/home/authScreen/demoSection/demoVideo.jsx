@@ -1,6 +1,6 @@
 const DemoVideo = () => {
   return (
-    <div className="d-flex flex-column flex-md-row justify-content-center align-items-center gap-5">
+    <div className="d-flex flex-column-reverse flex-lg-row justify-content-center align-items-center gap-4 gap-lg-5">
       <div>
         <h2 className="text-center"> 
           Watch on Smart TVs, Playstation, Xbox, Chromecast, Apple TV, Blu-ray players, and more.

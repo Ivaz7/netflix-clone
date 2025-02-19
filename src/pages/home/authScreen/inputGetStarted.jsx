@@ -9,7 +9,7 @@ const InputGetStarted = () => {
   const validationEmail = (value) => /\S+@\S+\.\S+/.test(value);
 
   return (
-    <div className="inputGetStartedContainer d-flex flex-column flex-sm-row justify-content-center align-items-center gap-2" id="inputGetStartedContainer">
+    <div className="inputGetStartedContainer d-flex flex-column flex-md-row justify-content-center align-items-center gap-2" id="inputGetStartedContainer">
       <div className="form-floating">
         <input 
           name="email" 

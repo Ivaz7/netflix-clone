@@ -1,10 +1,22 @@
 .qAndAsection {
+  h2 {
+    font-size: clamp(1rem, 1vw + 1rem, 1.535rem);
+  }
+
   .dropDown-container {
     cursor: pointer;
 
     .question-section {
       background-color: rgb(45, 45, 45);
       margin-bottom: 0.1rem;
+
+      h4 {
+        font-size: clamp(0.8rem, 1vw + 0.9rem, 1.355rem);
+      } 
+
+      svg {
+        width: clamp(1.2rem, 1vw + 1.3rem, 2.1rem);
+      }
 
       .isOpenQuestion {
         transform: rotate(45deg);
@@ -23,14 +35,22 @@
       transition: max-height 0.25s cubic-bezier(0.32, 0.94, 0.6, 1), visibility 0s, opacity 0s;
       opacity: 0;
       visibility: none;
+
+      h4 {
+        font-size: clamp(0.8rem, 1vw + 0.9rem, 1.355rem);
+      }
     }
 
     .isOpenAnswer {
       background-color: rgb(45, 45, 45);
       visibility: visible;
-      max-height: 20rem;
-      padding: 1.4rem;
+      max-height: 30rem;
+      padding: clamp(0.6rem, 1vw + 0.9rem, 1.4rem);
       opacity: 1;
+
+      h4 {
+        font-size: clamp(0.8rem, 1vw + 0.9rem, 1.355rem);
+      }
     }
   }
 }

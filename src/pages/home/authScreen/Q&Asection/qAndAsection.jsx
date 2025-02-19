@@ -18,7 +18,7 @@ const QAndAsection = () => {
   })
 
   return (  
-    <div className="qAndAsection w-100 d-flex flex-column justify-content-center align-items-center gap-5">
+    <div className="qAndAsection w-100 d-flex flex-column justify-content-center align-items-center gap-2 gap-md-4 gap-lg-5">
       <h2 className="text-start w-100">
         Frequently Asked Questions
       </h2>

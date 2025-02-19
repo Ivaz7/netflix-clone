@@ -32,7 +32,7 @@ const Login = () => {
       <div className="hero-bg d-flex flex-column gap-3">
         <header>
           <Link to="/">
-            <img src="netflix-logo.png" alt="logo" className="netflix-header-without-position" />
+            <img src="netflix-logo.png" alt="logo" className="netflix-header" />
           </Link>
         </header>
   

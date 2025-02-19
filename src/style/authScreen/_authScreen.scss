@@ -1,25 +1,30 @@
 @use '../config' as config;
 
+.outer-authScreen {
+  background-color: black;
+  width: 100%;
+  overflow-x: hidden;
+  height: 100%;
+}
+
 .authScreen {
   background-color: black;
-  overflow-x: hidden;
+  width: 100%;
+  height: 100%;
 
   p {
-    font-size: 1.3rem;
+    font-size: clamp(0.9rem, 1vw + 0.5rem, 1.3rem);
     text-align: center;
+    margin: 0;
   }
-
-  header {
-    z-index: 100;
-  }
-
+  
   div, main {
     background-color: inherit;
     color: white;
   }
 
   main {
-    padding: 1rem 10rem;
+    padding: 1rem min(10vw, 10rem);
     padding-bottom: 0;
   }
 }

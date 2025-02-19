@@ -1,6 +1,6 @@
 const DemoDownload = () => {
   return (
-    <div className="d-flex flex-column flex-md-row justify-content-center align-items-center gap-5">
+    <div className="d-flex flex-column flex-lg-row justify-content-center align-items-center gap-4 gap-lg-5">
       <div className="download-image-container">
         <img src="stranger-things-lg.png" alt="phone" className="phone-image" />
 

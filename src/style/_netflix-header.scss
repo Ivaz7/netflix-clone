@@ -1,13 +1,8 @@
 .netflix-header {
   height: 3rem;
-  position: absolute;
-  z-index: 100;
-  left: 10%;
-  top: 4%;
+  margin: 2rem 5rem;
 }
 
-.netflix-header-without-position {
+.netflix-header-noMargin {
   height: 3rem;
-  margin-top: 3%;
-  margin-left: 10%;
 }

@@ -1,6 +1,6 @@
 const DemoDevice = () => {
   return (
-    <div className="d-flex flex-column flex-md-row justify-content-center align-items-center gap-5">
+    <div className="d-flex flex-column-reverse flex-lg-row justify-content-center align-items-center gap-3 gap-lg-5">
       <div>
         <h2 className="text-center"> 
           Watch everywhere.

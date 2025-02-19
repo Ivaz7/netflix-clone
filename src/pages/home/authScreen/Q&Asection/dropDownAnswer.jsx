@@ -12,16 +12,16 @@ const DropDownAnswer = ({ question, answer, status, index }) => {
   });
 
   return (
-    <div className="dropDown-container w-100">
+    <div className="dropDown-container">
       <div 
         onClick={() => dispatch(setQandAStatus(index))}
-        className="question-section d-flex justify-content-between align-items-center p-4"
+        className="question-section d-flex justify-content-between align-items-center p-3 p-lg-4"
       >
         <h4 className="m-0">{question}</h4>
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" role="img" viewBox="0 0 36 36" width="36" height="36" data-icon="PlusLarge" aria-hidden="true" className={`m-0 p-0 ${status ? "isOpenQuestion" : ""}`}><path fillRule="evenodd" clipRule="evenodd" d="M17 17V3H19V17H33V19H19V33H17V19H3V17H17Z" fill="currentColor"></path></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" role="img" viewBox="0 0 36 36" data-icon="PlusLarge" aria-hidden="true" className={`m-0 p-0 ${status ? "isOpenQuestion" : ""}`}><path fillRule="evenodd" clipRule="evenodd" d="M17 17V3H19V17H33V19H19V33H17V19H3V17H17Z" fill="currentColor"></path></svg>
       </div>
 
-      <div className={`${status ? "isOpenAnswer" : "answer-section"} d-flex flex-column justify-content-center align-items-center gap-3`}> 
+      <div className={`${status ? "isOpenAnswer" : "answer-section"} d-flex flex-column justify-content-center align-items-center gap-1 gap-md-2 gap-lg-3`}> 
         {rednerAnswer}
       </div>
     </div>

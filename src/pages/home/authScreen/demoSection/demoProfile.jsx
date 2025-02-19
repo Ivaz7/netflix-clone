@@ -1,7 +1,7 @@
 const DemoProfile = () => {
   return (
-    <div className="d-flex flex-column flex-md-row justify-content-center align-items-center gap-5">
-      <img src="kids.png" alt="kids profile" />
+    <div className="d-flex flex-column flex-lg-row justify-content-center align-items-center gap-3 gap-lg-5">
+      <img src="kids.png" alt="kids profile" className="profile-img" />
 
       <div>
         <h2 className="text-center">

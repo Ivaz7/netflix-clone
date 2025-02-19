@@ -1,29 +1,49 @@
+.getStarted-outer-container {
+  width: 100%;
+  margin-bottom: 3rem;
+  height: 45rem;
+}
+
 .getStartedContainer {
   position: relative;
-  margin-bottom: 10.5vh;
+  width: 100rem;
+  height: 100%;
 
-  h1 {
-    width: 50%;
-    font-size: 4rem;
-    font-weight: 700;
-    color: white;
-    margin: 0;
-    text-align: center;
+  header {
+    min-height: 14.3vh;
+    width: 100%;
   }
 
-  p {
-    width: 50%;
+  .main-input {
+    background-color: transparent;
+    margin-bottom: 10%;
+
+    h1 {
+      width: 50%;
+      min-width: 25rem;
+      font-size: clamp(2rem, 4vw + 1rem, 4rem);
+      font-weight: 700;
+      color: white;
+      margin: 0;
+      text-align: center;
+    }
+  
+    p {
+      width: 50%;
+      min-width: 25rem;
+    }
   }
+
 }
 
 .getStartedContainer::before {
   content: '';
   position: absolute;
   z-index: 1;
-  top: 95%;
+  top: 97%;
   left: -25%;
   width: 150%;
-  height: 15vh;
+  height: 15%;
 
   background: linear-gradient(to right, rgba(33, 13, 22, 1) 16%, rgba(184, 40, 105, 1), rgba(229, 9, 20, 1), rgba(184, 40, 105, 1), rgba(33, 13, 22, 1) 84%);
   border-top-left-radius: 50% 100%;
@@ -34,10 +54,10 @@
   content: '';
   position: absolute;
   z-index: 2;
-  top: 95.5%;
+  top: 97.5%;
   left: -25%;
   width: 150%;
-  height: 15vh;
+  height: 15%;
 
   background: radial-gradient(50% 500% at 50% -420%, rgba(64, 97, 231, 0.4) 80%, rgba(0, 0, 0, 0.1) 100%), black;
   border-top-left-radius: 50% 100%;
