@@ -21,7 +21,13 @@ export const fireBaseAuthSlice = createApi({
       async queryFn({ email, password }) {
         try {
           const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-          return { data: userCredential.user };
+          return { 
+            data: {
+              uid: userCredential.user.uid,
+              email: userCredential.user.email,
+              displayName: userCredential.user.displayName,
+            } 
+          };
         } catch (error) {
           return { error: error.message };
         }

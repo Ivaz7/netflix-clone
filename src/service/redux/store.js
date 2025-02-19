@@ -14,7 +14,14 @@ export const store = configureStore({
     [fireBaseAuthSlice.reducerPath]: fireBaseAuthSlice.reducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware()
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [
+          "fireBaseAuth/signUpUser/fulfilled",
+          "fireBaseAuth/checkEmailExists/fulfilled",
+        ],
+      },
+    })
       .concat(tmdbApiSlice.middleware)
       .concat(fireBaseAuthSlice.middleware),
 });
