@@ -28,8 +28,8 @@ const Login = () => {
   };
 
   return (
-    <div className="w-100 h-100">
-      <div className="hero-bg w-100 h-100 d-flex flex-column gap-3">
+    <div className="outerForm-container">
+      <div className="hero-bg d-flex flex-column gap-3">
         <header>
           <Link to="/">
             <img src="netflix-logo.png" alt="logo" className="netflix-header-without-position" />
