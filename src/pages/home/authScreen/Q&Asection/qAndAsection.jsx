@@ -6,14 +6,14 @@ const QAndAsection = () => {
 
   const renderQandA = dataQandA.map((data, index) => {
     return (
-      <>
+      <div key={index}>
         <DropDownAnswer
-          question={data.question}
+          question={data.question}kalo pake rtk query 
           answer={data.answer}
           status={data.status}
           index={index}
         />
-      </>
+      </div>
     )
   })
 

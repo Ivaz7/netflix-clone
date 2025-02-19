@@ -3,10 +3,14 @@ import { useEffect, useState } from "react";
 import Footer from "../components/footer";
 import { useDispatch, useSelector } from "react-redux";
 import { setSignUpEmail } from "../service/redux/slice/signUpEmailSlice";
+import { useNavigate } from "react-router-dom";
+import { useSignUpUserMutation } from "../service/redux/API/fireBaseAuthSlice";
 
 const SignUp = () => {
   const email = useSelector((state) => state.signUpEmail.email);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [signUpUser, { isLoading, error, reset }] = useSignUpUserMutation();
 
   useEffect(() => {
     if (email) {
@@ -17,7 +21,6 @@ const SignUp = () => {
     } 
   }, [email])
 
-  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
   const [validation, setValidation] = useState({
@@ -32,8 +35,6 @@ const SignUp = () => {
       ...prev,
       [field]: field === "email"
         ? !validateEmail(value)
-        : field === "username"
-        ? !validateUsername(value)
         : field === "password"
         ? !validatePassword(value)
         : !validatePasswordConfirm(value)
@@ -42,14 +43,36 @@ const SignUp = () => {
   
 
   const validateEmail = (value) => /\S+@\S+\.\S+/.test(value);
-  const validateUsername = (value) => value.length > 3;
   const validatePassword = (value) => /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{4,10}$/.test(value);
   const validatePasswordConfirm = (value) => value === password;
   
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    console.log(email, username, password, passwordConfirm);
+    console.log(email, password, passwordConfirm);
+
+    if (!email || !password || !passwordConfirm) {
+      alert("Please fill all fields!");
+      return;
+    }
+
+    try {
+      const result = await signUpUser({ email, password }).unwrap();
+      console.log("Success:", result);
+      navigate("/"); 
+    } catch (err) {
+      console.error("Signup failed:", err);
+      alert(err.message); 
+    }
+  }
+
+  if (isLoading) {
+    return <div>Loading ... </div>
+  }
+
+  if (error) {
+    alert(error)
+    reset();
   }
 
   return (
@@ -80,22 +103,6 @@ const SignUp = () => {
                 <label htmlFor="email" className="form-label mb-1 text-white">Email address</label>
 
                 <p className={`mt-2 input-allowed-${validation.email ? "yes" : "not"}`}><i className="fa-regular fa-circle-xmark"></i> Please enter a valid email.</p>
-              </div>
-              <div className="mb-4 form-floating">
-                <input 
-                  name="username" 
-                  type="text" 
-                  id="username"   
-                  placeholder="Username" 
-                  className={`form-control text-white ${validation.username ? "not-allowed" : ""}`}  
-                  value={username} 
-                  onChange={e => setUsername(e.target.value)} 
-                  onBlur={e => handleBlur("username", e.target.value)}
-                />
-
-                <label htmlFor="username" className="form-label mb-1 text-white">Username</label>
-
-                <p className={`mt-2 input-allowed-${validation.username ? "yes" : "not"}`}><i className="fa-regular fa-circle-xmark"></i> Please enter a valid username with atleast 4 character.</p>
               </div>
               <div className="mb-4 form-floating">
                 <input 
