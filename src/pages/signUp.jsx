@@ -43,7 +43,7 @@ const SignUp = () => {
   
 
   const validateEmail = (value) => /\S+@\S+\.\S+/.test(value);
-  const validatePassword = (value) => /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{4,10}$/.test(value);
+  const validatePassword = (value) => /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,20}$/.test(value);
   const validatePasswordConfirm = (value) => value === password;
   
   const handleSubmit = async (e) => {
@@ -118,7 +118,7 @@ const SignUp = () => {
 
                 <label htmlFor="password" className="form-label mb-1 text-white">Password</label>
 
-                <p className={`mt-2 input-allowed-${validation.password ? "yes" : "not"}`}><i className="fa-regular fa-circle-xmark"></i> Please enter 4 to 10 characther atleast with number and letter.</p>
+                <p className={`mt-2 input-allowed-${validation.password ? "yes" : "not"}`}><i className="fa-regular fa-circle-xmark"></i> Please enter 6 to 20 characther atleast with number and letter.</p>
               </div>
               <div className="mb-4 form-floating">
                 <input 

@@ -10,7 +10,7 @@
   height: 100%;
 
   header {
-    min-height: 14.3vh;
+    min-height: min(14.3vh, 10rem);
     width: 100%;
   }
 
