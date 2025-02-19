@@ -5,6 +5,7 @@
   padding: 0;
   box-sizing: border-box; 
   transition: all 0.15s ease-in-out; 
+  scrollbar-color: #5f6368 #202124;
 }
 
 html, body, #root {
