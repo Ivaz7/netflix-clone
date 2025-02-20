@@ -36,4 +36,4 @@ export const fireBaseAuthSlice = createApi({
   }),
 });
 
-export const { useCheckEmailExistsQuery, useSignUpUserMutation } = fireBaseAuthSlice;
+export const { useLazyCheckEmailExistsQuery, useSignUpUserMutation } = fireBaseAuthSlice;

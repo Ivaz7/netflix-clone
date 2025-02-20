@@ -3,20 +3,26 @@ import { useEffect, useState } from "react";
 import Footer from "../components/footer";
 import { useDispatch, useSelector } from "react-redux";
 import { setSignUpEmail } from "../service/redux/slice/signUpEmailSlice";
-import { useSignUpUserMutation, useCheckEmailExistsQuery } from "../service/redux/API/fireBaseAuthSlice";
+import { useSignUpUserMutation, useLazyCheckEmailExistsQuery } from "../service/redux/API/fireBaseAuthSlice";
 
 const SignUp = () => {
   const email = useSelector((state) => state.signUpEmail.email);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [signUpUser, { isLoading, error, reset }] = useSignUpUserMutation();
-  const { data: emailExists, refetch } = useCheckEmailExistsQuery(email, { skip: !email });
+  const [triggerEmailCheck, { data: emailExists }] = useLazyCheckEmailExistsQuery();
 
   useEffect(() => {
     if (email) {
-      if (validateEmail(email)) {
-        console.log(emailExists)
-        refetch();
+      if (validateEmail(email)) {        
+        const delay = setTimeout(() => {
+          triggerEmailCheck(email);
+          if (emailExists) {
+            console.log(emailExists)
+          }
+        }, 1000); 
+
+        return () => clearTimeout(delay); 
       }
 
       setValidation((prev) => ({
@@ -24,7 +30,7 @@ const SignUp = () => {
         email: !validateEmail(email),
       }))
     } 
-  }, [email, refetch, emailExists])
+  }, [email, emailExists, triggerEmailCheck])
 
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
@@ -37,8 +43,10 @@ const SignUp = () => {
 
   const handleBlur = (field, value) => {
     if (field === "email" && validateEmail(value)) {
-      console.log(emailExists)
-      refetch()
+      triggerEmailCheck(email)
+      if (emailExists) {
+        console.log(emailExists)
+      }
     }
 
     setValidation((prev) => ({
