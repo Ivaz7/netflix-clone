@@ -32,7 +32,7 @@ const Login = () => {
         </header>
   
         <main className="d-flex flex-column justify-content-center align-items-center">
-          <div className="form-container p-5 d-flex flex-column gap-2 rounded">
+          <div className="form-container d-flex flex-column gap-2 rounded">
             <h2 className="text-white mb-3">Sign In</h2>
             <form onSubmit={handleSubmit}  className="d-flex flex-column justify-content-center gap-3">
               <InputForm 
@@ -56,9 +56,9 @@ const Login = () => {
                 validation={validation}
                 setValidation={setValidation}
               />
-              <button type="submit" className="w-100 rounded p-2">Sign In</button>
+              <button type="submit" className="mb-4 w-100 rounded p-2">Sign In</button>
 
-              <div className="d-flex justify-content-center gap-2">
+              <div className="d-flex justify-content-center align-items-center gap-2">
                 <label>Don&apos;t have an Account?</label>
                 <Link to="/signUp" className="m-0">Sign Up</Link>
               </div>

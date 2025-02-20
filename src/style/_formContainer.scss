@@ -9,7 +9,8 @@
 .form-container {
   background-color: rgb(0, 0, 0, 0.5);
   color: white;
-  width: min(100vw, 30rem);
+  width: min(100vw, 25rem);
+  padding: clamp(1rem, 10vw + 0.7rem, 4rem);
   height: fit-content;
   display: inline-flex;
 

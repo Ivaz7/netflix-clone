@@ -82,7 +82,7 @@ const SignUp = () => {
         </header>
 
         <main className="d-flex flex-column justify-content-center align-items-center">
-          <div className="form-container p-5 d-flex flex-column gap-2 rounded">
+          <div className="form-container d-flex flex-column gap-2 rounded">
             <h2 className="text-white mb-3">Sign Up</h2>
             <form onSubmit={handleSubmit} className="d-flex flex-column justify-content-center gap-3">
               <InputForm 
@@ -120,7 +120,7 @@ const SignUp = () => {
               
               <button type="submit" className="mb-4 w-100 rounded p-2">Sign Up</button>
 
-              <div className="d-flex justify-content-center gap-2">
+              <div className="d-flex justify-content-center align-items-center gap-2">
                 <label>Already have an account?</label> 
                 <Link to="/login" className="m-0">Sign In</Link>
               </div>
