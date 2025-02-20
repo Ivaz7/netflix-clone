@@ -1,7 +1,12 @@
 import { Link } from "react-router-dom";
 import InputForm from "../../../../components/inputForm";
+import { useState } from "react";
 
 const InputAuthSignUp = () => {
+    const [validation, setValidation] = useState({
+      email: false,
+    });
+
   return (
     <div className="d-flex flex-column gap-2">
       <p>Ready to watch? Enter your email to create or restart your membership.</p>
@@ -13,6 +18,8 @@ const InputAuthSignUp = () => {
             type="email"
             placeholder="Email Address"
             warning="Please enter a valid email."
+            validation={validation}
+            setValidation={setValidation}
           />
         </div>
 

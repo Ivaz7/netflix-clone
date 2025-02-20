@@ -1,8 +1,17 @@
 import { Link } from "react-router-dom";
 import Footer from "../components/footer";
 import InputForm from "../components/inputForm";
+import { useState } from "react";
 
 const Login = () => {
+    const [signInEmail, setSignInEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [validation, setValidation] = useState({
+      email: false,
+      password: false,
+    });
+  
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -31,6 +40,10 @@ const Login = () => {
                 type="email"
                 placeholder="Email Address"
                 warning="Please enter a valid email."
+                signInEmail={signInEmail}
+                setSignInEmail={setSignInEmail}
+                validation={validation}
+                setValidation={setValidation}
               />
 
               <InputForm 
@@ -38,6 +51,10 @@ const Login = () => {
                 type="password"
                 placeholder="Password"
                 warning="Please enter a password"
+                password={password}
+                setPassword={setPassword}
+                validation={validation}
+                setValidation={setValidation}
               />
               <button type="submit" className="w-100 rounded p-2">Sign In</button>
 

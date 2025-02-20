@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Footer from "../components/footer";
 import { useSelector } from "react-redux";
 import { useSignUpUserMutation, useLazyCheckEmailExistsQuery } from "../service/redux/API/fireBaseAuthSlice";
@@ -8,6 +8,14 @@ import InputForm from "../components/inputForm";
 const SignUp = () => {
   const email = useSelector((state) => state.signUpEmail.email);
   const navigate = useNavigate();
+
+  const [password, setPassword] = useState("");
+  const [passwordConfirm, setPasswordConfirm] = useState("");
+  const [validation, setValidation] = useState({
+    email: false,
+    password: false,
+    passwordConfirm: false,
+  });
 
   const emailCheckTimeOutRef = useRef(null);
 
@@ -83,6 +91,8 @@ const SignUp = () => {
                 placeholder="Email Address"
                 warning="Please enter a valid email."
                 handleFocusEmail={handleFocusEmail}
+                validation={validation}
+                setValidation={setValidation}
               />
 
               <InputForm 
@@ -90,6 +100,10 @@ const SignUp = () => {
                 type="password"
                 placeholder="Password"
                 warning="Please enter 6 to 20 characters with at least one number and one letter."
+                password={password}
+                setPassword={setPassword}
+                validation={validation}
+                setValidation={setValidation}
               />
 
               <InputForm 
@@ -97,6 +111,11 @@ const SignUp = () => {
                 type="password"
                 placeholder="Confirm Password"
                 warning="Your password does not match."
+                password={password}
+                passwordConfirm={passwordConfirm}
+                setPasswordConfirm={setPasswordConfirm}
+                validation={validation}
+                setValidation={setValidation}
               />
               
               <button type="submit" className="mb-4 w-100 rounded p-2">Sign Up</button>
