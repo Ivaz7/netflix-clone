@@ -3,28 +3,28 @@ import { useState } from "react";
 import Footer from "../components/footer";
 
 const Login = () => {
-  const [emailOrUsername, setEmailOrUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [validation, setValidation] = useState({
-    emailOrUsername: false,
+    email: false,
     password: false,
   });
 
   const handleBlur = (field, value) => {
     setValidation((prev) => ({
       ...prev,
-      [field]: field === "emailOrUsername"
-        ? !validateEmailOrUsername(value)
+      [field]: field === "email"
+        ? !validateEmail(value)
         : !validatePassword(value),
     }));
   };
 
-  const validateEmailOrUsername = (value) => value.length > 1;
+  const validateEmail = (value) => /\S+@\S+\.\S+/.test(value);
   const validatePassword = (value) => value.length > 1;
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(emailOrUsername, password);
+    console.log(email, password);
   };
 
   return (
@@ -42,20 +42,21 @@ const Login = () => {
             <form onSubmit={handleSubmit}>
               <div className="mb-4 form-floating">
                 <input
-                  name="emailOrUsername"
+                  autoComplete="off"
+                  name="email"
                   type="text"
-                  id="emailOrUsername"
-                  placeholder="Username Or Email"
-                  className={`form-control text-white ${validation.emailOrUsername ? "not-allowed" : ""}`}
-                  value={emailOrUsername}
-                  onChange={(e) => setEmailOrUsername(e.target.value)}
-                  onBlur={(e) => handleBlur("emailOrUsername", e.target.value)}
+                  id="email"
+                  placeholder="Email"
+                  className={`form-control text-white ${validation.email ? "not-allowed" : ""}`}
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  onBlur={(e) => handleBlur("email", e.target.value)}
                 />
   
-                <label htmlFor="emailOrUsername" className="form-label mb-1 text-white">Username Or Email</label>
+                <label htmlFor="email" className="form-label mb-1 text-white">Email</label>
   
-                <p className={`mt-2 input-allowed-${validation.emailOrUsername ? "yes" : "not"}`}>
-                  <i className="fa-regular fa-circle-xmark"></i> Please enter your email or username.
+                <p className={`mt-2 input-allowed-${validation.email ? "yes" : "not"}`}>
+                  <i className="fa-regular fa-circle-xmark"></i> Please enter a valid email.
                 </p>
               </div>
               <div className="mb-4 form-floating">

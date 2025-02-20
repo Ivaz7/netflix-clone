@@ -1,25 +1,30 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Footer from "../components/footer";
 import { useDispatch, useSelector } from "react-redux";
 import { setSignUpEmail } from "../service/redux/slice/signUpEmailSlice";
-import { useNavigate } from "react-router-dom";
-import { useSignUpUserMutation } from "../service/redux/API/fireBaseAuthSlice";
+import { useSignUpUserMutation, useCheckEmailExistsQuery } from "../service/redux/API/fireBaseAuthSlice";
 
 const SignUp = () => {
   const email = useSelector((state) => state.signUpEmail.email);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [signUpUser, { isLoading, error, reset }] = useSignUpUserMutation();
+  const { data: emailExists, refetch } = useCheckEmailExistsQuery(email, { skip: !email });
 
   useEffect(() => {
     if (email) {
+      if (validateEmail(email)) {
+        console.log(emailExists)
+        refetch();
+      }
+
       setValidation((prev) => ({
         ...prev,
         email: !validateEmail(email),
       }))
     } 
-  }, [email])
+  }, [email, refetch, emailExists])
 
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
@@ -31,6 +36,11 @@ const SignUp = () => {
   });
 
   const handleBlur = (field, value) => {
+    if (field === "email" && validateEmail(value)) {
+      console.log(emailExists)
+      refetch()
+    }
+
     setValidation((prev) => ({
       ...prev,
       [field]: field === "email"
@@ -90,6 +100,7 @@ const SignUp = () => {
             <form onSubmit={handleSubmit}>
               <div className="mb-4 form-floating">
                 <input 
+                  autoComplete="off"
                   name="email" 
                   type="email" 
                   id="email" 

@@ -15,6 +15,7 @@ const InputGetStarted = () => {
     <div className="inputGetStartedContainer d-flex flex-column flex-md-row justify-content-center align-items-center gap-2" id="inputGetStartedContainer">
       <div className="form-floating">
         <input 
+          autoComplete="off"
           name="email" 
           id="email" 
           type="email" 
