@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Footer from "../components/footer";
 import { useDispatch, useSelector } from "react-redux";
 import { setSignUpEmail } from "../service/redux/slice/signUpEmailSlice";
@@ -9,20 +9,35 @@ const SignUp = () => {
   const email = useSelector((state) => state.signUpEmail.email);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const emailCheckTimeOutRef = useRef(null);
+
+  const [password, setPassword] = useState("");
+  const [passwordConfirm, setPasswordConfirm] = useState("");
   const [signUpUser, { isLoading, error, reset }] = useSignUpUserMutation();
   const [triggerEmailCheck, { data: emailExists }] = useLazyCheckEmailExistsQuery();
+  const [validation, setValidation] = useState({
+    email: false,
+    username: false,
+    password: false,
+    passwordConfirm: false,
+  });
+
+  const validateEmail = (value) => /\S+@\S+\.\S+/.test(value);
+  const validatePassword = (value) => /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,20}$/.test(value);
+  const validatePasswordConfirm = (value) => value === password;
 
   useEffect(() => {
     if (email) {
       if (validateEmail(email)) {        
-        const delay = setTimeout(() => {
+        emailCheckTimeOutRef.current = setTimeout(() => {
           triggerEmailCheck(email);
           if (emailExists) {
             console.log(emailExists)
           }
         }, 1000); 
 
-        return () => clearTimeout(delay); 
+        return () => clearTimeout(emailCheckTimeOutRef); 
       }
 
       setValidation((prev) => ({
@@ -32,21 +47,22 @@ const SignUp = () => {
     } 
   }, [email, emailExists, triggerEmailCheck])
 
-  const [password, setPassword] = useState("");
-  const [passwordConfirm, setPasswordConfirm] = useState("");
-  const [validation, setValidation] = useState({
-    email: false,
-    username: false,
-    password: false,
-    passwordConfirm: false,
-  });
+  const handleFocusEmail = () => {
+    if (emailCheckTimeOutRef.current) {
+      clearTimeout(emailCheckTimeOutRef.current);
+    }
+  }  
 
   const handleBlur = (field, value) => {
-    if (field === "email" && validateEmail(value)) {
-      triggerEmailCheck(email)
-      if (emailExists) {
-        console.log(emailExists)
-      }
+    if (field === "email" && validateEmail(email)) {        
+      emailCheckTimeOutRef.current = setTimeout(() => {
+        triggerEmailCheck(email);
+        if (emailExists) {
+          console.log(emailExists)
+        }
+      }, 1000); 
+
+      return () => clearTimeout(emailCheckTimeOutRef); 
     }
 
     setValidation((prev) => ({
@@ -59,10 +75,6 @@ const SignUp = () => {
     }));
   };
   
-
-  const validateEmail = (value) => /\S+@\S+\.\S+/.test(value);
-  const validatePassword = (value) => /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,20}$/.test(value);
-  const validatePasswordConfirm = (value) => value === password;
   
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -117,6 +129,7 @@ const SignUp = () => {
                   value={email} 
                   onChange={e => dispatch(setSignUpEmail(e.target.value))} 
                   onBlur={e => handleBlur("email", e.target.value)}
+                  onFocus={handleFocusEmail}
                 />
 
                 <label htmlFor="email" className="form-label mb-1 text-white">Email address</label>

@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  email: ""
+  email: JSON.parse(localStorage.getItem("email")) || ""
 };
 
 export const signUpEmailSlice = createSlice({
@@ -10,6 +10,7 @@ export const signUpEmailSlice = createSlice({
   reducers: {
     setSignUpEmail: (state, action) => {
       state.email = action.payload
+      localStorage.setItem("email", JSON.stringify(action.payload));
     }
   }
 })

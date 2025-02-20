@@ -10,6 +10,9 @@ const Login = () => {
     password: false,
   });
 
+  const validateEmail = (value) => /\S+@\S+\.\S+/.test(value);
+  const validatePassword = (value) => value.length > 1;
+
   const handleBlur = (field, value) => {
     setValidation((prev) => ({
       ...prev,
@@ -18,9 +21,6 @@ const Login = () => {
         : !validatePassword(value),
     }));
   };
-
-  const validateEmail = (value) => /\S+@\S+\.\S+/.test(value);
-  const validatePassword = (value) => value.length > 1;
 
   const handleSubmit = (e) => {
     e.preventDefault();
