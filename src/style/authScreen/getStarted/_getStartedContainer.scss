@@ -6,7 +6,7 @@
 
 .getStartedContainer {
   position: relative;
-  width: 100rem;
+  width: min(100rem, 100%);
   height: 100%;
 
   header {
@@ -17,20 +17,15 @@
   .main-input {
     background-color: transparent;
     margin-bottom: 10%;
+    padding: 1rem min(10vw, 10rem);
 
     h1 {
-      width: 50%;
-      min-width: 25rem;
+      width: min(50rem, 100%);
       font-size: clamp(2rem, 4vw + 1rem, 4rem);
       font-weight: 700;
       color: white;
       margin: 0;
       text-align: center;
-    }
-  
-    p {
-      width: 50%;
-      min-width: 25rem;
     }
   }
 

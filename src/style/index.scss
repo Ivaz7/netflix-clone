@@ -3,8 +3,8 @@
 @use './formContainer';
 @use './sign-in-button-authScreen';
 @use './authScreen/authScreen';
-@use './authScreen/getStartedContainer';
-@use './authScreen/inputGetStarted';
+@use './authScreen/getStarted/getStartedContainer';
+@use './authScreen/getStarted/InputAuthSignUp';
 @use './authScreen/demoSection/videoContainer';
 @use './authScreen/demoSection/downloadDemo';
 @use './authScreen/qAndAsection';
