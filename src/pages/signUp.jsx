@@ -1,107 +1,66 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import Footer from "../components/footer";
-import { useDispatch, useSelector } from "react-redux";
-import { setSignUpEmail } from "../service/redux/slice/signUpEmailSlice";
+import { useSelector } from "react-redux";
 import { useSignUpUserMutation, useLazyCheckEmailExistsQuery } from "../service/redux/API/fireBaseAuthSlice";
+import InputForm from "../components/inputForm";
 
 const SignUp = () => {
   const email = useSelector((state) => state.signUpEmail.email);
-  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const emailCheckTimeOutRef = useRef(null);
 
-  const [password, setPassword] = useState("");
-  const [passwordConfirm, setPasswordConfirm] = useState("");
   const [signUpUser, { isLoading, error, reset }] = useSignUpUserMutation();
   const [triggerEmailCheck, { data: emailExists }] = useLazyCheckEmailExistsQuery();
-  const [validation, setValidation] = useState({
-    email: false,
-    username: false,
-    password: false,
-    passwordConfirm: false,
-  });
 
   const validateEmail = (value) => /\S+@\S+\.\S+/.test(value);
-  const validatePassword = (value) => /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,20}$/.test(value);
-  const validatePasswordConfirm = (value) => value === password;
 
   useEffect(() => {
-    if (email) {
-      if (validateEmail(email)) {        
-        emailCheckTimeOutRef.current = setTimeout(() => {
-          triggerEmailCheck(email);
-          if (emailExists) {
-            console.log(emailExists)
-          }
-        }, 1000); 
+    if (email && validateEmail(email)) {
+      emailCheckTimeOutRef.current = setTimeout(() => {
+        triggerEmailCheck(email);
+        console.log(emailExists)
+      }, 1000);
 
-        return () => clearTimeout(emailCheckTimeOutRef); 
-      }
-
-      setValidation((prev) => ({
-        ...prev,
-        email: !validateEmail(email),
-      }))
-    } 
-  }, [email, emailExists, triggerEmailCheck])
+      return () => clearTimeout(emailCheckTimeOutRef.current);
+    }
+  }, [email, triggerEmailCheck, emailExists]);
 
   const handleFocusEmail = () => {
     if (emailCheckTimeOutRef.current) {
       clearTimeout(emailCheckTimeOutRef.current);
     }
-  }  
-
-  const handleBlur = (field, value) => {
-    if (field === "email" && validateEmail(email)) {        
-      emailCheckTimeOutRef.current = setTimeout(() => {
-        triggerEmailCheck(email);
-        if (emailExists) {
-          console.log(emailExists)
-        }
-      }, 1000); 
-
-      return () => clearTimeout(emailCheckTimeOutRef); 
-    }
-
-    setValidation((prev) => ({
-      ...prev,
-      [field]: field === "email"
-        ? !validateEmail(value)
-        : field === "password"
-        ? !validatePassword(value)
-        : !validatePasswordConfirm(value)
-    }));
   };
-  
-  
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    console.log(email, password, passwordConfirm);
-
+  
+    const formData = new FormData(e.target);
+    const email = formData.get("email");
+    const password = formData.get("password");
+    const passwordConfirm = formData.get("passwordConfirm");
+  
     if (!email || !password || !passwordConfirm) {
       alert("Please fill all fields!");
       return;
     }
-
+  
     try {
-      const result = await signUpUser({ email, password }).unwrap();
-      console.log("Success:", result);
-      navigate("/"); 
+      await signUpUser({ email, password }).unwrap();
+      navigate("/");
     } catch (err) {
       console.error("Signup failed:", err);
-      alert(err.message); 
+      alert(err.message);
     }
-  }
-
+  };
+  
   if (isLoading) {
-    return <div>Loading ... </div>
+    return <div>Loading ... </div>;
   }
 
   if (error) {
-    alert(error)
+    alert(error);
     reset();
   }
 
@@ -117,58 +76,31 @@ const SignUp = () => {
         <main className="d-flex flex-column justify-content-center align-items-center">
           <div className="form-container p-5 d-flex flex-column gap-2 rounded">
             <h2 className="text-white mb-3">Sign Up</h2>
-            <form onSubmit={handleSubmit}>
-              <div className="mb-4 form-floating">
-                <input 
-                  autoComplete="off"
-                  name="email" 
-                  type="email" 
-                  id="email" 
-                  placeholder="Email address" 
-                  className={`form-control text-white ${validation.email ? "not-allowed" : ""}`} 
-                  value={email} 
-                  onChange={e => dispatch(setSignUpEmail(e.target.value))} 
-                  onBlur={e => handleBlur("email", e.target.value)}
-                  onFocus={handleFocusEmail}
-                />
+            <form onSubmit={handleSubmit} className="d-flex flex-column justify-content-center gap-3">
+              <InputForm 
+                name="email"
+                type="email"
+                placeholder="Email Address"
+                warning="Please enter a valid email."
+                handleFocusEmail={handleFocusEmail}
+              />
 
-                <label htmlFor="email" className="form-label mb-1 text-white">Email address</label>
+              <InputForm 
+                name="password"
+                type="password"
+                placeholder="Password"
+                warning="Please enter 6 to 20 characters with at least one number and one letter."
+              />
 
-                <p className={`mt-2 input-allowed-${validation.email ? "yes" : "not"}`}><i className="fa-regular fa-circle-xmark"></i> Please enter a valid email.</p>
-              </div>
-              <div className="mb-4 form-floating">
-                <input 
-                  name="password" 
-                  type="password" 
-                  id="password"    
-                  placeholder="Password" 
-                  className={`form-control text-white ${validation.password ? "not-allowed" : ""}`}  
-                  value={password} 
-                  onChange={e => setPassword(e.target.value)} 
-                  onBlur={e => handleBlur("password", e.target.value)}
-                />
-
-                <label htmlFor="password" className="form-label mb-1 text-white">Password</label>
-
-                <p className={`mt-2 input-allowed-${validation.password ? "yes" : "not"}`}><i className="fa-regular fa-circle-xmark"></i> Please enter 6 to 20 characther atleast with number and letter.</p>
-              </div>
-              <div className="mb-4 form-floating">
-                <input 
-                  name="passwordConfirm" 
-                  type="password" 
-                  id="passwordConfirm" 
-                  placeholder="Confirm Password" 
-                  className={`form-control text-white ${validation.passwordConfirm ? "not-allowed" : ""}`}  
-                  value={passwordConfirm} 
-                  onChange={e => setPasswordConfirm(e.target.value)} 
-                  onBlur={e => handleBlur("passwordConfirm", e.target.value)}
-                />
-
-                <label htmlFor="passwordConfirm" className="form-label mb-1 text-white">Confirm Password</label>
-
-                <p className={`mt-2 input-allowed-${validation.passwordConfirm ? "yes" : "not"}`}><i className="fa-regular fa-circle-xmark"></i> Your password is not the same</p>
-              </div>
+              <InputForm 
+                name="passwordConfirm"
+                type="password"
+                placeholder="Confirm Password"
+                warning="Your password does not match."
+              />
+              
               <button type="submit" className="mb-4 w-100 rounded p-2">Sign Up</button>
+
               <div className="d-flex justify-content-center gap-2">
                 <label>Already have an account?</label> 
                 <Link to="/login" className="m-0">Sign In</Link>
@@ -177,10 +109,9 @@ const SignUp = () => {
           </div>
         </main>
       </div>
-
       <Footer />
     </div>
   );
-}
+};
 
 export default SignUp;

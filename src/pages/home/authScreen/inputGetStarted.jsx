@@ -1,37 +1,19 @@
-import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { setSignUpEmail } from "../../../service/redux/slice/signUpEmailSlice";
+import InputForm from "../../../components/inputForm";
 
 const InputGetStarted = () => {
-  const email = useSelector((state) => state.signUpEmail.email);
-  const dispatch = useDispatch();
-
-  const [emailStatus, setEmailStatus] = useState(false);
-
-  const validationEmail = (value) => /\S+@\S+\.\S+/.test(value);
-
   return (
-    <div className="inputGetStartedContainer d-flex flex-column flex-md-row justify-content-center align-items-center gap-2" id="inputGetStartedContainer">
-      <div className="form-floating">
-        <input 
-          autoComplete="off"
-          name="email" 
-          id="email" 
-          type="email" 
-          placeholder="Email address" 
-          value={email} 
-          onChange={(e) => dispatch(setSignUpEmail(e.target.value))}
-          onBlur={(e) => setEmailStatus(!validationEmail(e.target.value))}
-          className={`input-get-started form-control ${emailStatus ? "notAllowed" : ""}`}
+    <div className="inputGetStartedContainer d-flex flex-column flex-md-row justify-content-center gap-2" id="inputGetStartedContainer">
+      <div className="flex-grow-1">
+        <InputForm 
+          name="email"
+          type="email"
+          placeholder="Email Address"
+          warning="Please enter a valid email."
         />
-
-        <p className={`input-warning input-allowed-${emailStatus ? "yes" : "not"}`}><i className="fa-regular fa-circle-xmark"></i> Email is required</p>
-
-        <label htmlFor="email" className="input-label form-label">Email address</label>
       </div>
 
-      <Link to="/signUp" className="getStartedButton d-flex justify-content-center align-items-center gap-3">
+      <Link to="/signUp" className="getStartedButton align-self-center d-flex justify-content-center align-items-center gap-3">
         Get Started
         <i className="fa-solid fa-chevron-right"></i>
       </Link>
