@@ -1,6 +1,6 @@
 import { createApi, fakeBaseQuery } from "@reduxjs/toolkit/query/react";
-import { auth } from "../../../backEndFireBase/fireBaseAuth";
-import { createUserWithEmailAndPassword, fetchSignInMethodsForEmail } from "firebase/auth";
+import { auth } from "../../../backEndFireBase/firebaseConfig";
+import { createUserWithEmailAndPassword, fetchSignInMethodsForEmail, signInWithEmailAndPassword } from "firebase/auth";
 
 export const fireBaseAuthSlice = createApi({
   reducerPath: "fireBaseAuth",
@@ -25,7 +25,6 @@ export const fireBaseAuthSlice = createApi({
             data: {
               uid: userCredential.user.uid,
               email: userCredential.user.email,
-              displayName: userCredential.user.displayName,
             } 
           };
         } catch (error) {
@@ -33,7 +32,23 @@ export const fireBaseAuthSlice = createApi({
         }
       },
     }),
+
+    loginUser: builder.mutation({
+      async queryFn({ email, password }) {
+        try {
+          const userCredential = await signInWithEmailAndPassword(auth, email, password);
+          return {
+            data: {
+              uid: userCredential.user.uid,
+              email: userCredential.user.email,
+            }
+          }
+        } catch (error) {
+          return { error: error.message }
+        }
+      }
+    })
   }),
 });
 
-export const { useLazyCheckEmailExistsQuery, useSignUpUserMutation } = fireBaseAuthSlice;
+export const { useLazyCheckEmailExistsQuery, useSignUpUserMutation, useLoginUserMutation } = fireBaseAuthSlice;

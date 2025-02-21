@@ -4,6 +4,7 @@ import moviaDataReducer from "./slice/movieData.js";
 import QandAReducer from "./slice/QandAData.js";
 import signUpEmailReducer from "./slice/signUpEmailSlice.js";
 import { fireBaseAuthSlice } from "./API/fireBaseAuthSlice.js";
+import { firebaseDBSlice } from "./API/firebaseDB.js"; 
 
 export const store = configureStore({
   reducer: {
@@ -12,6 +13,7 @@ export const store = configureStore({
     QandAData: QandAReducer,
     signUpEmail: signUpEmailReducer,
     [fireBaseAuthSlice.reducerPath]: fireBaseAuthSlice.reducer,
+    [firebaseDBSlice.reducerPath]: firebaseDBSlice.reducer, 
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
@@ -23,5 +25,6 @@ export const store = configureStore({
       },
     })
       .concat(tmdbApiSlice.middleware)
-      .concat(fireBaseAuthSlice.middleware),
+      .concat(fireBaseAuthSlice.middleware)
+      .concat(firebaseDBSlice.middleware), 
 });

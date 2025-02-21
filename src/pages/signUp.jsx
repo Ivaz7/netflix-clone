@@ -44,11 +44,6 @@ const SignUp = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
   
-    const formData = new FormData(e.target);
-    const email = formData.get("email");
-    const password = formData.get("password");
-    const passwordConfirm = formData.get("passwordConfirm");
-  
     if (!email || !password || !passwordConfirm) {
       alert("Please fill all fields!");
       return;

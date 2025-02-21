@@ -2,25 +2,50 @@ import { Link } from "react-router-dom";
 import Footer from "../components/footer";
 import InputForm from "../components/inputForm";
 import { useState } from "react";
+import { useLoginUserMutation } from "../service/redux/API/fireBaseAuthSlice";
+import { useSetDatabaseMutation } from "../service/redux/API/firebaseDB";
 
 const Login = () => {
-    const [signInEmail, setSignInEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [validation, setValidation] = useState({
-      email: false,
-      password: false,
-    });
+  const [signInEmail, setSignInEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [validation, setValidation] = useState({
+    email: false,
+    password: false,
+  });
   
+  const [signInTrigger, { isLoading, error, reset }] = useLoginUserMutation()
+  const [setDatabase, { error: databaseError }] = useSetDatabaseMutation();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
-    const formData = new FormData(e.target);
-    const email = formData.get("email");
-    const password = formData.get("password");
     
-    console.log(email, password);
+    if (!signInEmail || !password) {
+      alert("Please fill all fields!");
+      return;
+    }
+
+    console.log(signInEmail, password);
+
+    try {
+      const result = await signInTrigger({ email: signInEmail, password: password }).unwrap();
+      console.log(result);
+      console.log("Setting database for:", result.uid, result.email);
+      const data = await setDatabase({ email: result.email, userId: result.uid });
+      console.log(data);
+    } catch (e) {
+      console.error("Signup failed:", e);
+      console.error("Setdatabase failed:", databaseError);
+    }
   };
+
+  if (isLoading) {
+    return <div>Loading ... </div>;
+  }
+
+  if (error) {
+    alert(error);
+    reset();
+  }
 
   return (
     <div className="outerForm-container">
