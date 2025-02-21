@@ -12,7 +12,7 @@ const InputAuthSignUp = () => {
       <p>Ready to watch? Enter your email to create or restart your membership.</p>
 
       <div className="InputAuthSignUp d-flex flex-column flex-md-row justify-content-center gap-2" id="InputAuthSignUp">
-        <div className="flex-grow-1">
+        <div className="input-div flex-grow-1">
           <InputForm 
             name="email"
             type="email"

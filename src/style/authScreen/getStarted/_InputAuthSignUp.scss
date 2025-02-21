@@ -4,6 +4,10 @@
 .InputAuthSignUp#InputAuthSignUp {
   background-color: transparent;
   width: 100%;
+
+  .input-div {
+    height: 3rem;
+  }
  
   .getStartedButton {
     background-color: config.$redLightNetflix;

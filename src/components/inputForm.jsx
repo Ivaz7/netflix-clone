@@ -100,7 +100,7 @@ const InputForm = ({ name, type, placeholder, warning, password, setPassword, pa
           onFocus={handleFocusEmail}
         />
 
-        <p className={`input-warning input-allowed-${validation[name] ? "yes" : "not"}`}><i className="fa-regular fa-circle-xmark"></i> {warning}</p>
+        <p className={`text-start input-warning input-allowed-${validation[name] ? "yes" : "not"}`}><i className="fa-regular fa-circle-xmark"></i> {warning}</p>
 
         <label htmlFor={type}>{placeholder}</label>
       </div>
