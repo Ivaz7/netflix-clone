@@ -88,7 +88,6 @@ const InputForm = ({ name, type, placeholder, warning, password, setPassword, pa
     <>
       <div className="form-floating">
         <input 
-          autoComplete="off"
           name={name}
           id={name}
           type={type} 
