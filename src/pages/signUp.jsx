@@ -51,7 +51,7 @@ const SignUp = () => {
   
     try {
       await signUpUser({ email, password }).unwrap();
-      navigate("/");
+      navigate("/login");
     } catch (err) {
       console.error("Signup failed:", err);
       alert(err.message);

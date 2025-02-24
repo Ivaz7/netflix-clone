@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Footer from "../components/footer";
 import InputForm from "../components/inputForm";
 import { useState } from "react";
@@ -6,6 +6,8 @@ import { useLoginUserMutation } from "../service/redux/API/fireBaseAuthSlice";
 import { useSetDatabaseMutation } from "../service/redux/API/firebaseDB";
 
 const Login = () => {
+  const navigate = useNavigate();
+
   const [signInEmail, setSignInEmail] = useState("");
   const [password, setPassword] = useState("");
   const [validation, setValidation] = useState({
@@ -24,14 +26,13 @@ const Login = () => {
       return;
     }
 
-    console.log(signInEmail, password);
-
     try {
       const result = await signInTrigger({ email: signInEmail, password: password }).unwrap();
-      console.log(result);
-      console.log("Setting database for:", result.uid, result.email);
       const data = await setDatabase({ email: result.email, userId: result.uid });
       console.log(data);
+      if (data) {
+        navigate("/")
+      }
     } catch (e) {
       console.error("Signup failed:", e);
       console.error("Setdatabase failed:", databaseError);
