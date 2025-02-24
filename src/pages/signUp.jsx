@@ -4,10 +4,19 @@ import Footer from "../components/footer";
 import { useSelector } from "react-redux";
 import { useSignUpUserMutation, useLazyCheckEmailExistsQuery } from "../service/redux/API/fireBaseAuthSlice";
 import InputForm from "../components/inputForm";
+import useAuthStatus from "../customHooks/authStatus";
 
 const SignUp = () => {
   const email = useSelector((state) => state.signUpEmail.email);
   const navigate = useNavigate();
+
+  const { user, isLoadingAuthStatus } = useAuthStatus();
+
+  useEffect(() => {
+    if (user) {
+      navigate("/")
+    }
+  }, [user, navigate])
 
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
@@ -57,8 +66,12 @@ const SignUp = () => {
       alert(err.message);
     }
   };
+
+  if (user) {
+    return;
+  }
   
-  if (isLoading) {
+  if (isLoading || isLoadingAuthStatus) {
     return <div>Loading ... </div>;
   }
 

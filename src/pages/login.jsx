@@ -1,13 +1,22 @@
 import { Link, useNavigate } from "react-router-dom";
 import Footer from "../components/footer";
 import InputForm from "../components/inputForm";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useLoginUserMutation } from "../service/redux/API/fireBaseAuthSlice";
 import { useSetDefaultDBMutation } from "../service/redux/API/firebaseDB";
+import useAuthStatus from "../customHooks/authStatus";
 
 const Login = () => {
   const navigate = useNavigate();
 
+  const { user, isLoadingAuthStatus } = useAuthStatus();
+
+  useEffect(() => {
+    if (user) {
+      navigate("/")
+    }
+  }, [user, navigate])
+  
   const [signInEmail, setSignInEmail] = useState("");
   const [password, setPassword] = useState("");
   const [validation, setValidation] = useState({
@@ -25,7 +34,7 @@ const Login = () => {
       alert("Please fill all fields!");
       return;
     }
-
+    
     try {
       const result = await signInTrigger({ email: signInEmail, password: password }).unwrap();
       const data = await setDatabase({ email: result.email, userId: result.uid });
@@ -39,7 +48,11 @@ const Login = () => {
     }
   };
 
-  if (isLoading) {
+  if (user) {
+    return;
+  }
+
+  if (isLoading || isLoadingAuthStatus) {
     return <div>Loading ... </div>;
   }
 
