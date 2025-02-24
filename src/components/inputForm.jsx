@@ -1,8 +1,9 @@
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from "react-redux";
 import { setSignUpEmail } from '../service/redux/slice/signUpEmailSlice';
+import { forwardRef } from 'react';
 
-const InputForm = ({ name, type, placeholder, warning, password, setPassword, passwordConfirm, setPasswordConfirm,  validation, setValidation, handleFocusEmail, signInEmail, setSignInEmail }) => {
+const InputForm = forwardRef(({ name, type, placeholder, warning, password, setPassword, passwordConfirm, setPasswordConfirm,  validation, setValidation, handleFocusEmail, signInEmail, setSignInEmail }, ref) => {
   const email = useSelector((state) => state.signUpEmail.email);
   const dispatch = useDispatch();
 
@@ -97,6 +98,7 @@ const InputForm = ({ name, type, placeholder, warning, password, setPassword, pa
           onChange={(e) => handleChange(e)}
           onBlur={handleBlur}
           onFocus={handleFocusEmail}
+          ref={ref}
         />
 
         <p className={`text-start input-warning input-allowed-${validation[name] ? "yes" : "not"}`}><i className="fa-regular fa-circle-xmark"></i> {warning}</p>
@@ -105,23 +107,25 @@ const InputForm = ({ name, type, placeholder, warning, password, setPassword, pa
       </div>
     </>
   )
-}
+})
+
+InputForm.displayName = "InputForm";
 
 InputForm.propTypes = {
   name: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
   placeholder: PropTypes.string.isRequired,
   warning: PropTypes.string.isRequired,
-  password: PropTypes.string.isRequired,
-  setPassword: PropTypes.func.isRequired,
-  passwordConfirm: PropTypes.string.isRequired,
-  setPasswordConfirm: PropTypes.func.isRequired,
-  validation: PropTypes.object.isRequired,
-  setValidation: PropTypes.func.isRequired,
-  handleFocusEmail: PropTypes.func.isRequired,
-  status: PropTypes.string.isRequired,
-  signInEmail: PropTypes.string.isRequired,
-  setSignInEmail: PropTypes.func.isRequired,
+  password: PropTypes.string,
+  setPassword: PropTypes.func,
+  passwordConfirm: PropTypes.string,
+  setPasswordConfirm: PropTypes.func,
+  validation: PropTypes.object,
+  setValidation: PropTypes.func,
+  handleFocusEmail: PropTypes.func,
+  status: PropTypes.string,
+  signInEmail: PropTypes.string,
+  setSignInEmail: PropTypes.func,
 };
 
 

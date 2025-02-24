@@ -2,7 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 import Footer from "../components/footer";
 import { useSelector } from "react-redux";
-import { useSignUpUserMutation, useLazyCheckEmailExistsQuery } from "../service/redux/API/fireBaseAuthSlice";
+import { useSignUpUserMutation } from "../service/redux/API/fireBaseAuthSlice";
 import InputForm from "../components/inputForm";
 import useAuthStatus from "../customHooks/authStatus";
 
@@ -29,20 +29,6 @@ const SignUp = () => {
   const emailCheckTimeOutRef = useRef(null);
 
   const [signUpUser, { isLoading, error, reset }] = useSignUpUserMutation();
-  const [triggerEmailCheck, { data: emailExists }] = useLazyCheckEmailExistsQuery();
-
-  const validateEmail = (value) => /\S+@\S+\.\S+/.test(value);
-
-  useEffect(() => {
-    if (email && validateEmail(email)) {
-      emailCheckTimeOutRef.current = setTimeout(() => {
-        triggerEmailCheck(email);
-        console.log(emailExists)
-      }, 1000);
-
-      return () => clearTimeout(emailCheckTimeOutRef.current);
-    }
-  }, [email, triggerEmailCheck, emailExists]);
 
   const handleFocusEmail = () => {
     if (emailCheckTimeOutRef.current) {
