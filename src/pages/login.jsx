@@ -3,7 +3,7 @@ import Footer from "../components/footer";
 import InputForm from "../components/inputForm";
 import { useState } from "react";
 import { useLoginUserMutation } from "../service/redux/API/fireBaseAuthSlice";
-import { useSetDatabaseMutation } from "../service/redux/API/firebaseDB";
+import { useSetDefaultDBMutation } from "../service/redux/API/firebaseDB";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -16,7 +16,7 @@ const Login = () => {
   });
   
   const [signInTrigger, { isLoading, error, reset }] = useLoginUserMutation()
-  const [setDatabase, { error: databaseError }] = useSetDatabaseMutation();
+  const [setDatabase, { error: databaseError }] = useSetDefaultDBMutation();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
