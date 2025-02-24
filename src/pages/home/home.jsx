@@ -6,6 +6,7 @@ import { onAuthStateChanged } from "firebase/auth";
 
 const Home = () => { 
   const [user, setUser] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const isLogin = onAuthStateChanged(auth, (u) => {
@@ -14,11 +15,16 @@ const Home = () => {
       } else {
         setUser(false)
       }
+
+      setIsLoading(false)
     })
 
     return () => isLogin();
   })
 
+  if (isLoading) {
+    return <div>Loading ...</div>
+  }
 
   if (user) {
     return <HomeScreen />;
