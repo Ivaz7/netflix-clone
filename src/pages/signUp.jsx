@@ -4,19 +4,19 @@ import Footer from "../components/footer";
 import { useSelector } from "react-redux";
 import { useSignUpUserMutation } from "../service/redux/API/fireBaseAuthSlice";
 import InputForm from "../components/inputForm";
-import useAuthStatus from "../customHooks/authStatus";
+import { useGetDataQuery } from "../service/redux/API/firebaseDB";
 
 const SignUp = () => {
   const email = useSelector((state) => state.signUpEmail.email);
   const navigate = useNavigate();
 
-  const { user, isLoadingAuthStatus } = useAuthStatus();
+  const { data, isLoading: isLoadingGetData } = useGetDataQuery();
 
   useEffect(() => {
-    if (user) {
+    if (data.loginStatus) {
       navigate("/")
     }
-  }, [user, navigate])
+  }, [data, navigate])
 
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
@@ -53,11 +53,11 @@ const SignUp = () => {
     }
   };
 
-  if (user) {
+  if (data.loginStatus) {
     return;
   }
   
-  if (isLoading || isLoadingAuthStatus) {
+  if (isLoading || isLoadingGetData) {
     return <div>Loading ... </div>;
   }
 

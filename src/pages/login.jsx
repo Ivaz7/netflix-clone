@@ -3,19 +3,18 @@ import Footer from "../components/footer";
 import InputForm from "../components/inputForm";
 import { useEffect, useState } from "react";
 import { useLoginUserMutation } from "../service/redux/API/fireBaseAuthSlice";
-import { useSetDefaultDBMutation } from "../service/redux/API/firebaseDB";
-import useAuthStatus from "../customHooks/authStatus";
+import { useGetDataQuery, useSetDefaultDBMutation } from "../service/redux/API/firebaseDB";
 
 const Login = () => {
   const navigate = useNavigate();
 
-  const { user, isLoadingAuthStatus } = useAuthStatus();
+  const { data: dataSnapshot, isLoading: isLoadingGetData, refetch } = useGetDataQuery(undefined, { refetchOnFocus: true });
 
   useEffect(() => {
-    if (user) {
+    if (dataSnapshot.loginStatus) {
       navigate("/")
     }
-  }, [user, navigate])
+  }, [dataSnapshot, navigate])
   
   const [signInEmail, setSignInEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -38,9 +37,11 @@ const Login = () => {
     try {
       const result = await signInTrigger({ email: signInEmail, password: password }).unwrap();
       const data = await setDatabase({ email: result.email, userId: result.uid });
-      console.log(data);
       if (data) {
-        navigate("/")
+        refetch();
+        if (dataSnapshot.loginStatus) {
+          navigate("/")
+        }
       }
     } catch (e) {
       console.error("Signup failed:", e);
@@ -48,11 +49,11 @@ const Login = () => {
     }
   };
 
-  if (user) {
+  if (dataSnapshot.loginStatus) {
     return;
   }
 
-  if (isLoading || isLoadingAuthStatus) {
+  if (isLoading || isLoadingGetData) {
     return <div>Loading ... </div>;
   }
 

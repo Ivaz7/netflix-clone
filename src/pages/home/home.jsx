@@ -1,18 +1,25 @@
+import { useLocation } from "react-router-dom";
+import { useGetDataQuery } from "../../service/redux/API/firebaseDB";
 import AuthScreen from "./authScreen/AuthScreen";
-import HomeScreen from "./homeScreen";
-import useAuthStatus from "../../customHooks/authStatus";
+import UserOption from "./homeScreen/userOption";
+import { useEffect } from "react";
 
 const Home = () => { 
-  const { user, isLoadingAuthStatus: isLoading } = useAuthStatus();
+  const { data, isLoading, refetch } = useGetDataQuery(undefined, { refetchOnFocus: true });
+  const location = useLocation();
+
+  useEffect(() => {
+    refetch();
+  }, [location, refetch])
 
   if (isLoading) {
-    return <div>Loading ...</div>
+    return <div>Loading ... </div>
   }
 
-  if (user) {
-    return <HomeScreen />;
+  if (!data.loginStatus) {
+    return <AuthScreen />;
   } else {
-    return <AuthScreen />
+    return <UserOption />;
   };
 }
 
