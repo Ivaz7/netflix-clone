@@ -4,7 +4,12 @@ import { useGetDataQuery } from "../../../service/redux/API/firebaseDB";
 const UserOption = () => {
   const navigate = useNavigate();
   const { data, isLoading } = useGetDataQuery();
-  const userOptionArr = data.snapshotVal.userOption;
+  
+  if (isLoading) {
+    return <div>Loading ... </div>
+  }
+
+  const userOptionArr = data.userOption;
 
   const renderUserOptionArr = userOptionArr.map((val, inx) => {
     const { name, statusAge } = val;
@@ -20,10 +25,6 @@ const UserOption = () => {
     const searchParam = new URLSearchParams();
     searchParam.set("userOption", inx)
     navigate(`/home?${searchParam.toString()}`)
-  }
-
-  if (isLoading) {
-    <div>Loading ... </div>
   }
 
   return (

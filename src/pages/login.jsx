@@ -3,18 +3,10 @@ import Footer from "../components/footer";
 import InputForm from "../components/inputForm";
 import { useEffect, useState } from "react";
 import { useLoginUserMutation } from "../service/redux/API/fireBaseAuthSlice";
-import { useGetDataQuery, useSetDefaultDBMutation } from "../service/redux/API/firebaseDB";
+import { useGetLoginStatusQuery, useSetDefaultDBMutation } from "../service/redux/API/firebaseDB";
 
 const Login = () => {
   const navigate = useNavigate();
-
-  const { data: dataSnapshot, isLoading: isLoadingGetData, refetch } = useGetDataQuery(undefined, { refetchOnFocus: true });
-
-  useEffect(() => {
-    if (dataSnapshot && dataSnapshot.loginStatus) {
-      navigate("/")
-    }
-  }, [dataSnapshot, navigate])
   
   const [signInEmail, setSignInEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -25,6 +17,27 @@ const Login = () => {
   
   const [signInTrigger, { isLoading, error, reset }] = useLoginUserMutation()
   const [setDatabase, { error: databaseError }] = useSetDefaultDBMutation();
+
+  const { data: dataIsLogin, isLoading: isLoadingIsLogin, refetch } = useGetLoginStatusQuery(undefined, { refetchOnFocus: true });
+
+  useEffect(() => {
+    if (dataIsLogin) {
+      navigate("/")
+    }
+  }, [dataIsLogin, navigate])
+  
+  if (dataIsLogin) {
+    return;
+  }
+
+  if (isLoading || isLoadingIsLogin) {
+    return <div>Loading ... </div>;
+  }
+
+  if (error) {
+    alert(error);
+    reset();
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -39,7 +52,7 @@ const Login = () => {
       const data = await setDatabase({ email: result.email, userId: result.uid });
       if (data) {
         refetch();
-        if (dataSnapshot.loginStatus) {
+        if (dataIsLogin) {
           navigate("/")
         }
       }
@@ -48,19 +61,6 @@ const Login = () => {
       console.error("Setdatabase failed:", databaseError);
     }
   };
-
-  if (dataSnapshot && dataSnapshot.loginStatus) {
-    return;
-  }
-
-  if (isLoading || isLoadingGetData) {
-    return <div>Loading ... </div>;
-  }
-
-  if (error) {
-    alert(error);
-    reset();
-  }
 
   return (
     <div className="outerForm-container">

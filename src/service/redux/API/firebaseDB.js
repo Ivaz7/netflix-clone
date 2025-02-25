@@ -41,6 +41,7 @@ export const firebaseDBSlice = createApi({
         }
       },
     }),
+
     getData: builder.query({
       async queryFn() {
         try {
@@ -60,14 +61,31 @@ export const firebaseDBSlice = createApi({
           });
           
           if (!userUid) {
-            return { data: { loginStatus: false, snapshotVal: null } };
+            return { data: null };
           }
           
           const reference = ref(database, "user/" + userUid);
           const snapshot = await get(reference);
           const snapshotVal = snapshot.exists() ? snapshot.val() : null;
           
-          return { data: { loginStatus: true, snapshotVal } };
+          return { data: snapshotVal };
+        } catch (error) {
+          return { error: error.message };
+        }
+      },
+    }),
+
+    getLoginStatus: builder.query({
+      async queryFn() {
+        try {
+          const isLoggedIn = await new Promise((resolve) => {
+            const unsubscribe = onAuthStateChanged(auth, (user) => {
+              unsubscribe(); 
+              resolve(!!user);
+            });
+          });
+    
+          return { data: isLoggedIn };
         } catch (error) {
           return { error: error.message };
         }
@@ -76,4 +94,4 @@ export const firebaseDBSlice = createApi({
   }),
 });
 
-export const { useSetDefaultDBMutation, useGetDataQuery } = firebaseDBSlice;
+export const { useSetDefaultDBMutation, useGetDataQuery, useGetLoginStatusQuery } = firebaseDBSlice;

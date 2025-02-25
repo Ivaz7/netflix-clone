@@ -1,26 +1,15 @@
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 import Footer from "../components/footer";
 import { useSelector } from "react-redux";
 import { useSignUpUserMutation } from "../service/redux/API/fireBaseAuthSlice";
 import InputForm from "../components/inputForm";
-import { useGetDataQuery } from "../service/redux/API/firebaseDB";
+import { useGetLoginStatusQuery } from "../service/redux/API/firebaseDB";
 
 const SignUp = () => {
   const email = useSelector((state) => state.signUpEmail.email);
   const navigate = useNavigate();
-  const location = useLocation();
-
-  const { data, isLoading: isLoadingGetData, refetch } = useGetDataQuery(undefined, { refetchOnFocus: true });
-
-  useEffect(() => {
-    if (data && data.loginStatus) {
-      navigate("/")
-    }
-
-    refetch();
-  }, [data, navigate, location, refetch])
-
+  
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
   const [validation, setValidation] = useState({
@@ -30,9 +19,29 @@ const SignUp = () => {
   });
 
   const emailCheckTimeOutRef = useRef(null);
-
+  
   const [signUpUser, { isLoading, error, reset }] = useSignUpUserMutation();
+  const { data: dataIsLogin, isLoading: isLoadingGetData } = useGetLoginStatusQuery();
 
+  useEffect(() => {
+    if (dataIsLogin) {
+      navigate("/")
+    }
+  }, [dataIsLogin, navigate])
+
+  if (dataIsLogin) {
+    return;
+  }
+  
+  if (isLoading || isLoadingGetData) {
+    return <div>Loading ... </div>;
+  }
+
+  if (error) {
+    alert(error);
+    reset();
+  }
+  
   const handleFocusEmail = () => {
     if (emailCheckTimeOutRef.current) {
       clearTimeout(emailCheckTimeOutRef.current);
@@ -55,19 +64,6 @@ const SignUp = () => {
       alert(err.message);
     }
   };
-
-  if (data && data.loginStatus) {
-    return;
-  }
-  
-  if (isLoading || isLoadingGetData) {
-    return <div>Loading ... </div>;
-  }
-
-  if (error) {
-    alert(error);
-    reset();
-  }
 
   return (
     <div className="outerForm-container">
