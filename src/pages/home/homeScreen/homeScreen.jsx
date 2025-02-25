@@ -1,13 +1,20 @@
 import { signOut } from "firebase/auth";
 import { auth } from "../../../backEndFireBase/firebaseConfig";
-import { useNavigate } from "react-router-dom";
+import { useSetUserSelectedBackMutation } from "../../../service/redux/API/firebaseDB";
+import PropTypes from "prop-types";
 
-const HomeScreen = () => {
-  const navigate = useNavigate();
+const HomeScreen = ({ refecthData, refetchStatus }) => {
+  const [triggerUserSelectedBack, { isLoading: isLoadingPushedData }] = useSetUserSelectedBackMutation();
 
-  const handleClick = () => {
-    signOut(auth)
-    navigate("/")
+  if (isLoadingPushedData) {
+    return <div>Loading ... </div>
+  }
+
+  const handleClick = async () => {
+    await triggerUserSelectedBack();
+    await signOut(auth);
+    await refecthData();
+    await refetchStatus();
   }
 
   return (
@@ -17,5 +24,10 @@ const HomeScreen = () => {
     </div>
   );
 }
+
+HomeScreen.propTypes = {
+  refecthData: PropTypes.func.isRequired,
+  refetchStatus: PropTypes.func.isRequired,
+};
 
 export default HomeScreen;

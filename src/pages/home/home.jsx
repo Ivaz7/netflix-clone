@@ -1,23 +1,32 @@
-import { useEffect } from "react";
-import { useGetLoginStatusQuery } from "../../service/redux/API/firebaseDB";
+import { useGetDataQuery, useGetLoginStatusQuery } from "../../service/redux/API/firebaseDB";
 import AuthScreen from "./authScreen/AuthScreen";
 import UserOption from "./homeScreen/userOption";
+import HomeScreen from "./homeScreen/homeScreen";
+import { useEffect } from "react";
 
 const Home = () => { 
-  const { data, isLoading, refetch } = useGetLoginStatusQuery(undefined, { refetchOnFocus: true });
+  const { data: dataStatus, isLoading: isLoadingStatus, refetch: refetchStatus } = useGetLoginStatusQuery(undefined, { refetchOnFocus: true });
+  const { data: getData, isLoading: isLoadingData, refetch: refecthData } = useGetDataQuery(undefined, { refetchOnFocus: true });
 
   useEffect(() => {
-    refetch();
-  }, [data, refetch])
+    refecthData();
+    refetchStatus();
+  }, [dataStatus, getData, refecthData, refetchStatus])
 
-  if (isLoading) {
+  if (isLoadingData || isLoadingStatus) {
     return <div>Loading ... </div>
   }
 
-  if (!data) {
+  if (dataStatus && !getData) {
+    return <div>Loading data...</div>;
+  }  
+
+  if (!dataStatus) {
     return <AuthScreen />;
   } else {
-    return <UserOption />;
+    return getData && getData.userSelected !== "empty" 
+      ? <HomeScreen refecthData={refecthData} refetchStatus={refetchStatus}/> 
+      : <UserOption refecthData={refecthData} refetchStatus={refetchStatus}/>;
   };
 }
 
