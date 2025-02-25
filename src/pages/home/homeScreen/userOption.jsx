@@ -12,11 +12,15 @@ const UserOption = ({ refecthData, refetchStatus }) => {
   const userOptionArr = dataGet.userOption;
 
   const renderUserOptionArr = userOptionArr.map((val, inx) => {
-    const { name, statusAge } = val;
+    const { name, statusAge, imgProfile } = val;
 
     return (
       <button key={inx} onClick={() => handleClick(inx)}>
-        {name}, {statusAge ? "18+" : "18-"}
+        <img className="imgProfile" src={`avatar/${imgProfile}`} alt="profile" />
+
+        <div>
+          {name}, {statusAge ? "18+" : "18-"}
+        </div>
       </button>
     )
   })

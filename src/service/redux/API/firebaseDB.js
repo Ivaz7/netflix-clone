@@ -25,12 +25,14 @@ export const firebaseDBSlice = createApi({
                   statusAge: true,
                   history: "empty",
                   myList: "empty",
+                  imgProfile: "avatar1.png",
                 },
                 {
                   name: "Kids",
                   statusAge: false,
                   history: "empty",
                   myList: "empty",
+                  imgProfile: "avatarKids.png",
                 },
               ],
             });
