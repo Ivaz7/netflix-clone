@@ -11,7 +11,7 @@ const Login = () => {
   const { data: dataSnapshot, isLoading: isLoadingGetData, refetch } = useGetDataQuery(undefined, { refetchOnFocus: true });
 
   useEffect(() => {
-    if (dataSnapshot.loginStatus) {
+    if (dataSnapshot && dataSnapshot.loginStatus) {
       navigate("/")
     }
   }, [dataSnapshot, navigate])
@@ -49,7 +49,7 @@ const Login = () => {
     }
   };
 
-  if (dataSnapshot.loginStatus) {
+  if (dataSnapshot && dataSnapshot.loginStatus) {
     return;
   }
 

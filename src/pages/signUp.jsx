@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 import Footer from "../components/footer";
 import { useSelector } from "react-redux";
@@ -9,14 +9,17 @@ import { useGetDataQuery } from "../service/redux/API/firebaseDB";
 const SignUp = () => {
   const email = useSelector((state) => state.signUpEmail.email);
   const navigate = useNavigate();
+  const location = useLocation();
 
-  const { data, isLoading: isLoadingGetData } = useGetDataQuery();
+  const { data, isLoading: isLoadingGetData, refetch } = useGetDataQuery(undefined, { refetchOnFocus: true });
 
   useEffect(() => {
-    if (data.loginStatus) {
+    if (data && data.loginStatus) {
       navigate("/")
     }
-  }, [data, navigate])
+
+    refetch();
+  }, [data, navigate, location, refetch])
 
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
@@ -53,7 +56,7 @@ const SignUp = () => {
     }
   };
 
-  if (data.loginStatus) {
+  if (data && data.loginStatus) {
     return;
   }
   
