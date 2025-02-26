@@ -89,6 +89,7 @@ const InputForm = forwardRef(({ name, type, placeholder, warning, password, setP
     <>
       <div className="form-floating">
         <input 
+          autoComplete={`${typeof signInEmail !== 'undefined' || password ? 'on' : 'off'}`}
           name={name}
           id={name}
           type={type} 

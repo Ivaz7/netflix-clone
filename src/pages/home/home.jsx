@@ -6,27 +6,37 @@ import { useEffect } from "react";
 
 const Home = () => { 
   const { data: dataStatus, isLoading: isLoadingStatus, refetch: refetchStatus } = useGetLoginStatusQuery(undefined, { refetchOnFocus: true });
-  const { data: getData, isLoading: isLoadingData, refetch: refecthData } = useGetDataQuery(undefined, { refetchOnFocus: true });
+  const { data: dataGet, isLoading: isLoadingDataGet, refetch: refetchData } = useGetDataQuery(undefined, { refetchOnFocus: true });
 
   useEffect(() => {
-    refecthData();
+    refetchData();
     refetchStatus();
-  }, [dataStatus, getData, refecthData, refetchStatus])
+  }, [dataStatus, dataGet, refetchData, refetchStatus])
 
-  if (isLoadingData || isLoadingStatus) {
+  if (isLoadingDataGet || isLoadingStatus) {
     return <div>Loading ... </div>
   }
 
-  if (dataStatus && !getData) {
+  if (dataStatus && !dataGet) {
     return <div>Loading data...</div>;
   }  
 
   if (!dataStatus) {
     return <AuthScreen />;
   } else {
-    return getData && getData.userSelected !== "empty" 
-      ? <HomeScreen refecthData={refecthData} refetchStatus={refetchStatus}/> 
-      : <UserOption refecthData={refecthData} refetchStatus={refetchStatus}/>;
+    return dataGet && dataGet.userSelected !== "empty" 
+      ? <HomeScreen 
+          refetchData={refetchData} 
+          refetchStatus={refetchStatus}
+          dataGet={dataGet}
+          isLoadingDataGet={isLoadingDataGet}
+        /> 
+      : <UserOption 
+          refetchData={refetchData} 
+          refetchStatus={refetchStatus}
+          dataGet={dataGet}
+          isLoadingDataGet={isLoadingDataGet}
+        />;
   };
 }
 

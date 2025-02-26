@@ -1,11 +1,10 @@
 import { signOut } from "firebase/auth";
 import { auth } from "../../../backEndFireBase/firebaseConfig";
-import { useGetDataQuery, useSetUserSelectedBackMutation } from "../../../service/redux/API/firebaseDB";
+import { useSetUserSelectedBackMutation } from "../../../service/redux/API/firebaseDB";
 import PropTypes from "prop-types";
 
-const HomeScreen = ({ refecthData, refetchStatus }) => {
+const HomeScreen = ({ refetchData, refetchStatus, dataGet, isLoadingDataGet }) => {
   const [triggerUserSelectedBack, { isLoading: isLoadingPushedData }] = useSetUserSelectedBackMutation();
-  const { data: dataGet, isLoading: isLoadingDataGet } = useGetDataQuery();
 
   const user = dataGet.userOption[dataGet.userSelected];
 
@@ -18,7 +17,7 @@ const HomeScreen = ({ refecthData, refetchStatus }) => {
   const handleClick = async () => {
     await triggerUserSelectedBack();
     await signOut(auth);
-    await refecthData();
+    await refetchData();
     await refetchStatus();
   }
 
@@ -36,8 +35,10 @@ const HomeScreen = ({ refecthData, refetchStatus }) => {
 }
 
 HomeScreen.propTypes = {
-  refecthData: PropTypes.func.isRequired,
+  refetchData: PropTypes.func.isRequired,
   refetchStatus: PropTypes.func.isRequired,
+  dataGet: PropTypes.object.isRequired,
+  isLoadingDataGet: PropTypes.bool.isRequired,
 };
 
 export default HomeScreen;

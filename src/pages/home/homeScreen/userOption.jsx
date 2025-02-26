@@ -1,8 +1,7 @@
-import { useSetChangedUserSelectedMutation, useGetDataQuery } from "../../../service/redux/API/firebaseDB";
+import { useSetChangedUserSelectedMutation } from "../../../service/redux/API/firebaseDB";
 import PropTypes from "prop-types";
 
-const UserOption = ({ refecthData, refetchStatus }) => {
-  const { data: dataGet, isLoading: isLoadingDataGet } = useGetDataQuery();
+const UserOption = ({ refetchData, refetchStatus, dataGet, isLoadingDataGet }) => {
   const [triggerChangedUserSelected, { isLoading: isLoadingPushedData }] = useSetChangedUserSelectedMutation();
   
   if (isLoadingDataGet || isLoadingPushedData) {
@@ -27,7 +26,7 @@ const UserOption = ({ refecthData, refetchStatus }) => {
 
   const handleClick = async (inx) => {
     await triggerChangedUserSelected(inx);
-    await refecthData();
+    await refetchData();
     await refetchStatus();
   }
 
@@ -41,8 +40,10 @@ const UserOption = ({ refecthData, refetchStatus }) => {
 }
 
 UserOption.propTypes = {
-  refecthData: PropTypes.func.isRequired,
+  refetchData: PropTypes.func.isRequired,
   refetchStatus: PropTypes.func.isRequired,
+  dataGet: PropTypes.object.isRequired,
+  isLoadingDataGet: PropTypes.bool.isRequired,
 };
 
 export default UserOption;
