@@ -25,7 +25,7 @@ const HomeScreen = ({ refetchData, refetchStatus, dataGet, isLoadingDataGet }) =
     <div>
       <header>
         <h1>{name}</h1>
-        <img src={`avatar/${imgProfile}`} alt="profile" />
+        <img className="imgProfile" src={`avatar/${imgProfile}`} alt="profile" />
       </header>
 
       <h1>Home Screen</h1>

@@ -1,0 +1,15 @@
+.customFloatingEl {
+  background-color: rgba(4, 4, 4, 0.8);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1000000;
+
+  &__Children {
+    background-color: rgb(32, 32, 32);
+    border: 1px solid rgb(64, 64, 64);
+    border-radius: 0.7rem;
+  }
+}

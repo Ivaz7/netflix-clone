@@ -41,6 +41,10 @@
   .not-allowed {
     border: 2px solid config.$redLightNetflix;
   }
+
+  .not-allowed-userName {
+    border: 2px solid rgb(255, 200, 0);
+  }
 }
 
 .input-allowed-not {
@@ -49,5 +53,11 @@
 
 .input-allowed-yes {
   display: block;
-  color: config.$redLightNetflix;
+  color: config.$redLightNetflix !important;
+}
+
+.input-allowed-yes-userName {
+  display: block;
+  font-size: 0.8rem;
+  color: rgb(255, 200, 0)!important;
 }

@@ -167,6 +167,53 @@ export const firebaseDBSlice = createApi({
         }
       }
     }),
+
+    setAddUserOption: builder.mutation({
+      async queryFn({ imgProfile, name, statusAge }) {
+        try {
+          const userUid = await new Promise((resolve, reject) => {
+            const unsubscribe = onAuthStateChanged(
+              auth,
+              (user) => {
+                unsubscribe();
+                if (user) {
+                  resolve(user.uid);
+                } else {
+                  resolve(null);
+                }
+              },
+              (error) => reject(error)
+            );
+          });
+
+          if (!userUid) {
+            return { data: null };
+          }
+
+          const reference = ref(database, "user/" + userUid);
+          const snapshot = await get(reference);
+          const snapshotVal = snapshot.exists() ? snapshot.val() : null;
+          
+          if (snapshotVal && snapshotVal.userOption) {
+            const { userOption } = snapshotVal;
+          
+            if (Array.isArray(userOption) && userOption.length < 5) {
+              set(ref(database, `user/${userUid}/userOption/${snapshotVal.userOption.length}`), {
+                name: name,
+                imgProfile: imgProfile,
+                statusAge: statusAge,
+                myList: 'empty',
+                history: 'empty',
+              });
+            }
+          }          
+
+          return { data: "User selected updated successfully" };
+        } catch (error) {
+          return { error: error.message };
+        }
+      }
+    })
   }),
 });
 
@@ -176,4 +223,5 @@ export const {
   useGetLoginStatusQuery, 
   useSetChangedUserSelectedMutation, 
   useSetUserSelectedBackMutation,
+  useSetAddUserOptionMutation,
 } = firebaseDBSlice;

@@ -1,6 +1,6 @@
 import { useGetDataQuery, useGetLoginStatusQuery } from "../../service/redux/API/firebaseDB";
 import AuthScreen from "./authScreen/AuthScreen";
-import UserOption from "./homeScreen/userOption";
+import UserOption from "./homeScreen/UserOption/userOption";
 import HomeScreen from "./homeScreen/homeScreen";
 import { useEffect } from "react";
 
