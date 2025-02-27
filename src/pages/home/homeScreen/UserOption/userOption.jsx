@@ -25,9 +25,13 @@ const UserOption = ({ refetchData, refetchStatus, dataGet, isLoadingDataGet }) =
         <button className="userOption_btn d-flex flex-column gap-3" key={inx} onClick={() => handleUserSelected(inx)}>
           <div className="userOption__containerImgProfile">
             <img className="userOption__imgProfile" src={`avatar/${imgProfile}`} alt="profile" />
+            {!statusAge || name === "Kids" ? null : <div className="userOption__containerImgProfile__statusAge">
+              Kids
+              <div className="userOption__containerImgProfile__statusAge__shadow"></div>
+            </div>}
           </div>
 
-          <h5 className={`${statusAge || name === "Kids" ? "" : "statusAge"}`}>
+          <h5>
             {name}
           </h5>
         </button>

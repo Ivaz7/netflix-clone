@@ -22,14 +22,14 @@ export const firebaseDBSlice = createApi({
               userOption: [
                 {
                   name: userName,
-                  statusAge: true,
+                  statusAge: false,
                   history: "empty",
                   myList: "empty",
                   imgProfile: "avatar1.png",
                 },
                 {
                   name: "Kids",
-                  statusAge: false,
+                  statusAge: true,
                   history: "empty",
                   myList: "empty",
                   imgProfile: "avatarKids.png",

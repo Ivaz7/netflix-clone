@@ -10,6 +10,10 @@
       filter: brightness(50%);
     }
 
+    &__statusAge {
+      opacity: 50%;
+    }
+
     .fa-pencil {
       font-size: clamp(1rem, 2vw + 0.9rem, 2.5rem);
       color: rgb(223, 223, 223) !important;

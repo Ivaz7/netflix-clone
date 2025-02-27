@@ -71,6 +71,7 @@ const SettingUserOption = ({ dataGet, setIsAdded, refetchData }) => {
             <div className="flex-grow-1">
               <div className="form-floating">
                 <input 
+                  autoComplete="off"
                   name="Username"
                   type="text"
                   placeholder="Name" 
