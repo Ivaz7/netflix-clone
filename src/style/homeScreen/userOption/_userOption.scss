@@ -31,7 +31,6 @@
         }      
         
         &::after {
-          z-index: 100;
           content: "";
           position: absolute;
           top: 0;
@@ -64,7 +63,7 @@
   border: unset;
   background-color: transparent;
   color: rgb(150, 150, 150) ;
-  padding: clamp(0.5rem, 0.7vw + 0.2rem, 0.6rem) clamp(1rem, 0.7vw + 0.5rem, 1.2rem);
+  padding: clamp(0.5rem, 0.7vw + 0.2rem, 0.6rem) clamp(1rem, 0.7vw + 1rem, 1.5rem);
   border: 0.1rem solid rgb(150, 150, 150);
   transition: 0s;
 

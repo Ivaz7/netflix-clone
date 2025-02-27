@@ -1,18 +1,25 @@
-import { useSetChangedUserSelectedMutation } from "../../../../service/redux/API/firebaseDB";
+import { useGetDataQuery, useGetLoginStatusQuery, useSetChangedUserSelectedMutation } from "../../../../service/redux/API/firebaseDB";
 import PropTypes from "prop-types";
 import { motion } from "framer-motion";
-import AddUserOption from "./addUserOption";
+import AddUserOption from "../UserOption/addUserOption";
 import { useState } from "react";
-import SettingUserOption from "./settingUserOption";
+import SettingUserOption from "../UserOption/settingUserOption";
 import { useNavigate } from "react-router-dom";
 
-const UserOption = ({ refetchData, refetchStatus, dataGet, isLoadingDataGet }) => {
+const UserManageProfile = () => {
+  const { data: dataGet, isLoading: isLoadingDataGet, refetch: refetchData } = useGetDataQuery();
+  const { data: dataStatus, isLoading: isLoadingStatus, refetch: refetchStatus } = useGetLoginStatusQuery();
   const [triggerChangedUserSelected, { isLoading: isLoadingPushedData }] = useSetChangedUserSelectedMutation();
   const [isAdded, setIsAdded] = useState(false);
   const navigate = useNavigate();
-  
-  if (isLoadingDataGet || isLoadingPushedData) {
+
+  if (isLoadingStatus || isLoadingDataGet || isLoadingPushedData) {
     return <div>Loading ... </div>
+  }
+
+  if (!dataStatus) {
+    navigate("/")
+    return;
   }
 
   const userOptionArr = dataGet.userOption;
@@ -24,7 +31,8 @@ const UserOption = ({ refetchData, refetchStatus, dataGet, isLoadingDataGet }) =
       <>
         <button className="userOption_btn d-flex flex-column gap-3" key={inx} onClick={() => handleUserSelected(inx)}>
           <div className="userOption__containerImgProfile">
-            <img className="userOption__imgProfile" src={`avatar/${imgProfile}`} alt="profile" />
+            <img className="userOption__imgManageProfile" src={`avatar/${imgProfile}`} alt="profile" />
+            <i className="fa-solid fa-pencil"></i>
           </div>
 
           <h5 className={`${statusAge || name === "Kids" ? "" : "statusAge"}`}>
@@ -41,8 +49,8 @@ const UserOption = ({ refetchData, refetchStatus, dataGet, isLoadingDataGet }) =
     await refetchStatus();
   }
 
-  const handleManageProfile = () => {
-    navigate("/manageProfile")
+  const handleDone = () => {
+    navigate("/")
   }
 
   return (
@@ -62,9 +70,9 @@ const UserOption = ({ refetchData, refetchStatus, dataGet, isLoadingDataGet }) =
             {userOptionArr.length < 5 && <AddUserOption setIsAdded={setIsAdded} />}
           </div>
 
-          <button onClick={handleManageProfile} className="manageProfileBtn">
+          <button onClick={handleDone} className="doneManageProfileBtn">
             <h5>
-              Manage Profiles 
+              Done 
             </h5>
           </button>
         </motion.div>
@@ -73,11 +81,11 @@ const UserOption = ({ refetchData, refetchStatus, dataGet, isLoadingDataGet }) =
   )
 }
 
-UserOption.propTypes = {
+UserManageProfile.propTypes = {
   refetchData: PropTypes.func.isRequired,
   refetchStatus: PropTypes.func.isRequired,
   dataGet: PropTypes.object.isRequired,
   isLoadingDataGet: PropTypes.bool.isRequired,
 };
 
-export default UserOption;
+export default UserManageProfile;
