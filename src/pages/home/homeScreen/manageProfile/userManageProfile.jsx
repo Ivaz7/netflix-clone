@@ -26,22 +26,20 @@ const UserManageProfile = () => {
     const { name, statusAge, imgProfile } = val;
 
     return (
-      <>
-        <button className="userOption_btn d-flex flex-column gap-3" key={inx} onClick={() => handleUserSelected(inx)}>
-          <div className="userOption__containerImgProfile">
-            <img className="userOption__imgManageProfile" src={`avatar/${imgProfile}`} alt="profile" />
-            <i className="fa-solid fa-pencil"></i>
-            {!statusAge || name === "Kids" ? null : <div className="userOption__containerImgProfile__statusAge mag">
-              Kids
-              <div className="userOption__containerImgProfile__statusAge__shadow"></div>
-            </div>}
-          </div>
+      <button className="userOption_btn d-flex flex-column gap-3" key={inx} onClick={() => handleUserSelected(inx)}>
+        <div className="userOption__containerImgProfile">
+          <img className="userOption__imgManageProfile" src={`avatar/${imgProfile}`} alt="profile" />
+          <i className="fa-solid fa-pencil"></i>
+          {!statusAge || name === "Kids" ? null : <div className="userOption__containerImgProfile__statusAge mag">
+            Kids
+            <div className="userOption__containerImgProfile__statusAge__shadow"></div>
+          </div>}
+        </div>
 
-          <h5>
-            {name}
-          </h5>
-        </button>
-      </>
+        <h5>
+          {name}
+        </h5>
+      </button>
     )
   })
 
@@ -55,7 +53,7 @@ const UserManageProfile = () => {
 
   return (
     <>
-      {isAdded ? <SettingUserOption setIsAdded={setIsAdded} dataGet={dataGet} refetchData={refetchData} /> : <div className="userOption-container">
+      {isAdded ? <SettingUserOption isAdded={isAdded} setIsAdded={setIsAdded} dataGet={dataGet} refetchData={refetchData} /> : <div className="userOption-container">
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}

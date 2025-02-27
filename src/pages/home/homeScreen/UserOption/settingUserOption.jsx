@@ -1,10 +1,10 @@
 import PropTypes from "prop-types";
 import CustomFloatingComp from "../../../../components/customFloatingComp";
 import { avatarList } from "../../../../data/avatarProfileArr";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useSetAddUserOptionMutation } from "../../../../service/redux/API/firebaseDB";
 
-const SettingUserOption = ({ dataGet, setIsAdded, refetchData }) => {
+const SettingUserOption = ({ dataGet, isAdded, setIsAdded, refetchData }) => {
   const userOptionArrLength = dataGet.userOption.length;
   const avatarImg = avatarList[userOptionArrLength];
   const userOptionArrName = dataGet.userOption.map(val => val.name);
@@ -13,6 +13,24 @@ const SettingUserOption = ({ dataGet, setIsAdded, refetchData }) => {
   const [userName, setUserName] = useState("");
   const [validationUserName, setValidationUserName] = useState(false)
   const [warning, setWarning] = useState("");
+
+  const mainRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (mainRef.current && !mainRef.current.contains(e.target)) {
+        setIsAdded(false)
+      }
+    }
+
+    if (isAdded) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+  }, [setIsAdded, isAdded])
 
   const [triggerSetAddUserOption, { isLoading }] = useSetAddUserOptionMutation();
 
@@ -53,7 +71,7 @@ const SettingUserOption = ({ dataGet, setIsAdded, refetchData }) => {
 
   return (
     <CustomFloatingComp>
-      <div className="settingUserOption">
+      <div ref={mainRef} className="settingUserOption">
         <header className="settingUserOption__header d-flex align-items-center justify-content-end">
           <button onClick={handleCancel} className="settingUserOption__header__button">
             <i className="fa-solid fa-x"></i>
@@ -115,6 +133,7 @@ const SettingUserOption = ({ dataGet, setIsAdded, refetchData }) => {
 SettingUserOption.propTypes = {
   dataGet: PropTypes.object.isRequired,
   setIsAdded: PropTypes.func.isRequired,
+  isAdded: PropTypes.bool.isRequired,
   refetchData: PropTypes.func.isRequired,
 }
 
