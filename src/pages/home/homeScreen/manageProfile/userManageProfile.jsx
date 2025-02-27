@@ -1,5 +1,4 @@
 import { useGetDataQuery, useGetLoginStatusQuery } from "../../../../service/redux/API/firebaseDB";
-import PropTypes from "prop-types";
 import { motion } from "framer-motion";
 import AddUserOption from "../UserOption/addUserOption";
 import { useState } from "react";
@@ -81,12 +80,5 @@ const UserManageProfile = () => {
     </>
   )
 }
-
-UserManageProfile.propTypes = {
-  refetchData: PropTypes.func.isRequired,
-  refetchStatus: PropTypes.func.isRequired,
-  dataGet: PropTypes.object.isRequired,
-  isLoadingDataGet: PropTypes.bool.isRequired,
-};
 
 export default UserManageProfile;
