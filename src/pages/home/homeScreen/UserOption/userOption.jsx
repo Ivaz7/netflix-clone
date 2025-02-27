@@ -46,7 +46,7 @@ const UserOption = ({ refetchData, refetchStatus, dataGet, isLoadingDataGet }) =
   }
 
   const handleManageProfile = () => {
-    navigate("/manageProfile")
+    navigate("/UserManageProfile")
   }
 
   return (
