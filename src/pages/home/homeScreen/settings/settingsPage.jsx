@@ -1,5 +1,6 @@
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useGetDataQuery, useGetLoginStatusQuery } from "../../../../service/redux/API/firebaseDB";
+import HeaderSetting from "./headerSetting";
 
 const SettingsPage = () => {
   const { data: dataStatus, isLoading: isLoadingStatus } = useGetLoginStatusQuery();
@@ -25,7 +26,7 @@ const SettingsPage = () => {
   return (
     <>
       <div className="settingsContainer">
-
+        <HeaderSetting dataGet={dataGet} profile={profile} />
       </div>
     </>
   )
