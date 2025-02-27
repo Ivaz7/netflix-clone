@@ -1,8 +1,9 @@
 import PropTypes from "prop-types";
 import CustomFloatingComp from "../../../../components/customFloatingComp";
 import { avatarList } from "../../../../data/avatarProfileArr";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { useSetAddUserOptionMutation } from "../../../../service/redux/API/firebaseDB";
+import { useClickOutside } from "../../../../customHooks/useClickOutside";
 
 const SettingUserOption = ({ dataGet, isAdded, setIsAdded, refetchData }) => {
   const userOptionArrLength = dataGet.userOption.length;
@@ -16,21 +17,7 @@ const SettingUserOption = ({ dataGet, isAdded, setIsAdded, refetchData }) => {
 
   const mainRef = useRef(null);
 
-  useEffect(() => {
-    const handleClickOutside = (e) => {
-      if (mainRef.current && !mainRef.current.contains(e.target)) {
-        setIsAdded(false)
-      }
-    }
-
-    if (isAdded) {
-      document.addEventListener("mousedown", handleClickOutside);
-    }
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    }
-  }, [setIsAdded, isAdded])
+  useClickOutside(mainRef, isAdded, setIsAdded);
 
   const [triggerSetAddUserOption, { isLoading }] = useSetAddUserOptionMutation();
 
