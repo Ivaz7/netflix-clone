@@ -10,8 +10,8 @@
       filter: brightness(50%);
     }
 
-    &__statusAge {
-      opacity: 50%;
+    &__statusAge.mag {
+      opacity: 50% !important;
     }
 
     .fa-pencil {

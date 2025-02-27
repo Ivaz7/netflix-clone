@@ -31,7 +31,7 @@ const UserManageProfile = () => {
           <div className="userOption__containerImgProfile">
             <img className="userOption__imgManageProfile" src={`avatar/${imgProfile}`} alt="profile" />
             <i className="fa-solid fa-pencil"></i>
-            {!statusAge || name === "Kids" ? null : <div className="userOption__containerImgProfile__statusAge">
+            {!statusAge || name === "Kids" ? null : <div className="userOption__containerImgProfile__statusAge mag">
               Kids
               <div className="userOption__containerImgProfile__statusAge__shadow"></div>
             </div>}

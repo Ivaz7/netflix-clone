@@ -1,6 +1,8 @@
-const Footer = () => {
+import PropTypes from "prop-types";
+
+const Footer = ({ type }) => {
   return (
-    <footer className="footer-child-el d-inline-flex flex-column flex-lg-row justify-content-center align-items-center gap-3">
+    <footer className={`${type ? "footer-white" : ""} footer-child-el d-inline-flex flex-column flex-lg-row justify-content-center align-items-center gap-3`}>
       <h6 className="p-2 m-0 text-center">
         Netflix clone for project development purposes only
       </h6>
@@ -14,6 +16,10 @@ const Footer = () => {
       </h6>
     </footer>
   )
+}
+
+Footer.propTypes = {
+  type: PropTypes.string,
 }
 
 export default Footer;
