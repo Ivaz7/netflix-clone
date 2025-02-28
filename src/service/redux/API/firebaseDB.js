@@ -26,6 +26,7 @@ export const firebaseDBSlice = createApi({
                   history: "empty",
                   myList: "empty",
                   imgProfile: "avatar1.png",
+                  pinSecurity: "empty",
                 },
                 {
                   name: "Kids",
@@ -33,6 +34,7 @@ export const firebaseDBSlice = createApi({
                   history: "empty",
                   myList: "empty",
                   imgProfile: "avatarKids.png",
+                  pinSecurity: "empty",
                 },
               ],
             });
@@ -204,6 +206,7 @@ export const firebaseDBSlice = createApi({
                 statusAge: statusAge,
                 myList: 'empty',
                 history: 'empty',
+                pinSecurity: "empty",
               });
             }
           }          

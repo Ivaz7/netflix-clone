@@ -28,8 +28,6 @@ const SettingsPage = () => {
   const name = userOptionSelected.name;
   const statusAge = userOptionSelected.statusAge;
 
-  console.log(userOptionSelected)
-
   return (
     <>
       <div className="settingsContainer d-flex flex-column align-items-center">
