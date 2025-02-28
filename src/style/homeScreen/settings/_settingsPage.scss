@@ -49,11 +49,27 @@
       }
     }
   }
+
+  &__delProBtn {
+    width: 75%;
+
+    &__dummyDiv {
+      width: 2.5rem;
+    }
+
+    &__btn {
+      width: 45rem;
+    }
+  }
 }
 
 @media (max-width: 80rem) {
   .settingsContainer {
     &__main {
+      width: 90%;
+    }
+
+    &__delProBtn {
       width: 90%;
     }
   }
@@ -65,6 +81,14 @@
       width: 95%;
 
       &__contentContainer {
+        width: 100%;
+      }
+    }
+
+    &__delProBtn {
+      width: 95%;
+
+      &__btn {
         width: 100%;
       }
     }

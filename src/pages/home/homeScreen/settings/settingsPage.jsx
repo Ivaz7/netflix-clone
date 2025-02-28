@@ -5,6 +5,7 @@ import ContentSettingPage from "./contentSettingsPage";
 import Footer from "../../../../components/footer";
 import ProfileImg from "../../../../components/profileImg";
 import LoadingComp from "../../../../components/loadingComp";
+import DeleteUserOptionBtn from "./deleteUserOptionBtn";
 
 const SettingsPage = () => {
   const { data: dataStatus, isLoading: isLoadingStatus } = useGetLoginStatusQuery();
@@ -86,6 +87,16 @@ const SettingsPage = () => {
             </div>
           </div>
         </main>
+
+        <div className="settingsContainer__delProBtn d-flex flex-column flex-lg-row align-items-start my-3">
+          <div className="settingsContainer__delProBtn__dummyDiv"></div>
+
+          <div className="settingsContainer__delProBtn__btn  mx-lg-auto">
+            <DeleteUserOptionBtn 
+              index={profile}
+            />
+          </div>
+        </div>
       </div>
 
       <Footer type={true} />

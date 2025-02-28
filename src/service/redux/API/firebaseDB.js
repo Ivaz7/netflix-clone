@@ -179,7 +179,51 @@ export const firebaseDBSlice = createApi({
           return { error: error.message };
         }
       }
+    }),
+
+    setDeleteUserOption: builder.mutation({
+      async queryFn({ index }) {
+        try {
+          const userUid = await new Promise((resolve, reject) => {
+            const unsubscribe = onAuthStateChanged(
+              auth,
+              (user) => {
+                unsubscribe();
+                if (user) {
+                  resolve(user.uid);
+                } else {
+                  resolve(null);
+                }
+              },
+              (error) => reject(error)
+            );
+          });
+    
+          if (!userUid) {
+            return { data: null };
+          }
+    
+          const reference = ref(database, `user/${userUid}`);
+          const snapshot = await get(reference);
+          const snapshotVal = snapshot.exists() ? snapshot.val() : null;
+    
+          if (snapshotVal && Array.isArray(snapshotVal.userOption)) {
+            let updatedUserOption = [...snapshotVal.userOption];
+    
+            if (index >= 0 && index < updatedUserOption.length && updatedUserOption.length > 1) {
+              updatedUserOption.splice(index, 1);
+            }
+    
+            await set(ref(database, `user/${userUid}/userOption`), updatedUserOption);
+          }
+    
+          return { data: "User option deleted successfully" };
+        } catch (error) {
+          return { error: error.message };
+        }
+      },
     })
+    
   }),
 });
 
@@ -189,4 +233,5 @@ export const {
   useGetLoginStatusQuery, 
   useSetChangedUserDataMutation, 
   useSetAddUserOptionMutation,
+  useSetDeleteUserOptionMutation,
 } = firebaseDBSlice;
