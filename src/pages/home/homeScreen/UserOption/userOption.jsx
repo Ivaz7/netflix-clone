@@ -19,7 +19,11 @@ const UserOption = ({ refetchData, refetchStatus, dataGet, isLoadingDataGet }) =
     return <LoadingComp />
   }
 
-  const userOptionArr = dataGet.userOption;
+  if (!dataGet) {
+    return <LoadingComp />;
+  }
+
+  const userOptionArr = dataGet.userOption || [];
 
   const renderUserOptionArr = userOptionArr.map((val, inx) => {
     const { name, statusAge, imgProfile } = val;

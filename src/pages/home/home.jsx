@@ -14,7 +14,7 @@ const Home = () => {
     refetchStatus();
   }, [dataStatus, dataGet, refetchData, refetchStatus])
 
-  if (isLoadingDataGet || isLoadingStatus || (dataStatus && !dataStatus)) {
+  if (isLoadingDataGet || isLoadingStatus) {
     return <LoadingComp />;
   } 
 
