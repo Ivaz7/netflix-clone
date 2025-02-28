@@ -4,25 +4,6 @@
 //  doneManageProfileBtn is underneath
 .userOption-container {
   @extend .userOption-container;
-  .userOption__containerImgProfile {
-    .userOption__imgManageProfile {
-      @extend .userOption__imgProfile;
-      filter: brightness(50%);
-    }
-
-    &__statusAge.mag {
-      filter: brightness(50%);
-    }
-
-    .fa-pencil {
-      font-size: clamp(1rem, 2vw + 0.9rem, 2.5rem);
-      color: rgb(223, 223, 223) !important;
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%,-50%);
-    }
-  }
 }
 
 .doneManageProfileBtn {

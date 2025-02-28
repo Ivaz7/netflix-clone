@@ -5,11 +5,14 @@ import AddUserOption from "./addUserOption";
 import { useState } from "react";
 import SettingUserOption from "./settingUserOption";
 import { useNavigate } from "react-router-dom";
+import ProfileImg from "../../../../components/profileImg";
 
 const UserOption = ({ refetchData, refetchStatus, dataGet, isLoadingDataGet }) => {
   const [triggerChangedUserSelected, { isLoading: isLoadingPushedData }] = useSetChangedUserSelectedMutation();
   const [isAdded, setIsAdded] = useState(false);
   const navigate = useNavigate();
+
+  const [touchIndex, setTouchIndex] = useState(null)
   
   if (isLoadingDataGet || isLoadingPushedData) {
     return <div>Loading ... </div>
@@ -21,14 +24,16 @@ const UserOption = ({ refetchData, refetchStatus, dataGet, isLoadingDataGet }) =
     const { name, statusAge, imgProfile } = val;
 
     return (
-      <button className="userOption_btn d-flex flex-column gap-3" key={name} onClick={() => handleUserSelected(inx)}>
-        <div className="userOption__containerImgProfile">
-          <img className="userOption__imgProfile" src={`avatar/${imgProfile}`} alt="profile" />
-          {!statusAge || name === "Kids" ? null : <div className="userOption__containerImgProfile__statusAge">
-            Kids
-            <div className="userOption__containerImgProfile__statusAge__shadow"></div>
-          </div>}
-        </div>
+      <button className="userOption_btn d-flex flex-column gap-3" key={name} onMouseEnter={() => setTouchIndex(inx)} onMouseLeave={() => setTouchIndex(null)} onClick={() => handleUserSelected(inx)}>
+        <ProfileImg 
+          avatarImg={imgProfile}
+          scale={"clamp(5rem, 10vw + 1rem, 10rem)"}
+          name={name}
+          statusAge={statusAge}
+          fontSizeKids={"clamp(0.9rem, 2vw + 0.2rem, 1.5rem)"}
+          touch={touchIndex === inx}
+          sizeShadow={"1.5px"}
+        />
 
         <h5>
           {name}

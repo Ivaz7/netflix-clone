@@ -20,67 +20,9 @@
       color: rgb(150, 150, 150) !important;
       background-color: transparent;
       
-      .userOption__containerImgProfile {
-        width: clamp(5rem, 10vw + 1rem, 10rem);
-        height: clamp(5rem, 10vw + 1rem, 10rem);
-        border-radius: 0.4rem;
-        position: relative; 
-        z-index: 1;
-
-        &__statusAge {
-          font-size: clamp(0.9rem, 2vw + 0.2rem, 1.5rem);
-          font-weight: 700;
-          font-family: 'Poppins', Arial, Helvetica, sans-serif;
-          color: config.$redLightNetflix;
-          text-shadow: 0.1rem -0.1rem 0 rgb(223, 223, 223), 0.1rem 0.1rem 0 rgb(223, 223, 223), -0.1rem 0.1rem 0 rgb(223, 223, 223), -0.1rem -0.1rem 0 rgb(223, 223, 223);
-          width: fit-content;
-          position: absolute;
-          right: 7%;
-          bottom: 0;
-          z-index: 5;
-          opacity: 100%;
-
-          &__shadow {
-            content: "";
-            position: absolute;
-            z-index: -1;
-            width: 101.5%;
-            height: 30%;
-            left: -0.7%;
-            top: 39%;
-            background-color: rgb(223, 223, 223);
-          }
-        }
-        
-        .userOption__imgProfile {
-          width: inherit;
-          height: inherit;
-          border-radius: inherit;
-        }      
-        
-        &::after {
-          content: "";
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          border-radius: inherit;
-          border: 0.2rem solid transparent; 
-          transition: 250ms;
-          z-index: 10;
-        }
-      }
-      
       &:hover {
         h5 {
           color: rgb(223, 223, 223);
-        }
-        
-        .userOption__containerImgProfile {
-          &::after {
-            border-color: rgb(223, 223, 223) !important;
-          }
         }
       }
     }

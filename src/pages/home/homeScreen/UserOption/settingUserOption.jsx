@@ -4,6 +4,7 @@ import { avatarList } from "../../../../data/avatarProfileArr";
 import { useRef, useState } from "react";
 import { useSetAddUserOptionMutation } from "../../../../service/redux/API/firebaseDB";
 import { useClickOutside } from "../../../../customHooks/useClickOutside";
+import ProfileImg from "../../../../components/profileImg";
 
 const SettingUserOption = ({ dataGet, isAdded, setIsAdded, refetchData }) => {
   const userOptionArrLength = dataGet.userOption.length;
@@ -71,7 +72,10 @@ const SettingUserOption = ({ dataGet, isAdded, setIsAdded, refetchData }) => {
           <h6 className="pb-4">Add a profile for another person watching Netflix.</h6>
 
           <div className="d-flex align-items-center gap-4">
-            <img className="imgProfile" src={`avatar/${avatarImg}`} alt="profile" />
+            <ProfileImg 
+              avatarImg={avatarImg}
+              scale={"5rem"}
+            />
 
             <div className="flex-grow-1">
               <div className="form-floating">

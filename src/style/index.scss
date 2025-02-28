@@ -13,10 +13,10 @@
 @use './components/inputFormComp';
 @use './components/customFloatingEl';
 @use './homeScreen/userOption/settingUserOption';
-@use './imgProfile';
 @use './homeScreen/userOption/userOption';
 @use './homeScreen/userOption/addUserOptinBtn';
 @use './homeScreen/manageProfile/userManageProfile';
 @use './homeScreen/settings/settingsPage';
 @use './homeScreen/settings/headerSetting';
 @use './homeScreen/settings/contentSettingsPage';
+@use './components/profileImg';

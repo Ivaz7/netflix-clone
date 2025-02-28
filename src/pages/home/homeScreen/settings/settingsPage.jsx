@@ -3,6 +3,7 @@ import { useGetDataQuery, useGetLoginStatusQuery } from "../../../../service/red
 import HeaderSetting from "./headerSetting";
 import ContentSettingPage from "./contentSettingsPage";
 import Footer from "../../../../components/footer";
+import ProfileImg from "../../../../components/profileImg";
 
 const SettingsPage = () => {
   const { data: dataStatus, isLoading: isLoadingStatus } = useGetLoginStatusQuery();
@@ -24,6 +25,7 @@ const SettingsPage = () => {
   const userOptionSelected = userOptionArr[profile];
   const avatarImg = userOptionSelected.imgProfile;
   const name = userOptionSelected.name;
+  const statusAge = userOptionSelected.statusAge;
 
   console.log(userOptionSelected)
 
@@ -46,7 +48,15 @@ const SettingsPage = () => {
 
             <div className="settingsContainer__main__contentContainer__contentBox d-flex flex-column gap-2">
               <ContentSettingPage 
-                leftSideImg={<img src={`avatar/${avatarImg}`} height={24} width={24} alt="profile" />}
+                leftSideImg={
+                  <ProfileImg 
+                    avatarImg={avatarImg}
+                    scale={"30px"}
+                    statusAge={statusAge}
+                    fontSizeKids={"6px"}
+                    sizeShadow={"0.5px"}
+                  />
+                }
                 textTop={name}
                 textBottom="Edit personal Profile"
               />

@@ -4,12 +4,15 @@ import AddUserOption from "../UserOption/addUserOption";
 import { useState } from "react";
 import SettingUserOption from "../UserOption/settingUserOption";
 import { useNavigate } from "react-router-dom";
+import ProfileImg from "../../../../components/profileImg";
 
 const UserManageProfile = () => {
   const { data: dataGet, isLoading: isLoadingDataGet, refetch: refetchData } = useGetDataQuery();
   const { data: dataStatus, isLoading: isLoadingStatus } = useGetLoginStatusQuery();
   const [isAdded, setIsAdded] = useState(false);
   const navigate = useNavigate();
+
+  const [touchIndex, setTouchIndex] = useState(null)
 
   if (isLoadingStatus || isLoadingDataGet) {
     return <div>Loading ... </div>
@@ -26,15 +29,18 @@ const UserManageProfile = () => {
     const { name, statusAge, imgProfile } = val;
 
     return (
-      <button className="userOption_btn d-flex flex-column gap-3" key={inx} onClick={() => handleUserSelected(inx)}>
-        <div className="userOption__containerImgProfile">
-          <img className="userOption__imgManageProfile" src={`avatar/${imgProfile}`} alt="profile" />
-          <i className="fa-solid fa-pencil"></i>
-          {!statusAge || name === "Kids" ? null : <div className="userOption__containerImgProfile__statusAge mag">
-            Kids
-            <div className="userOption__containerImgProfile__statusAge__shadow"></div>
-          </div>}
-        </div>
+      <button className="userOption_btn d-flex flex-column gap-3" key={inx} onMouseEnter={() => setTouchIndex(inx)} onMouseLeave={() => setTouchIndex(null)} onClick={() => handleUserSelected(inx)}>
+        <ProfileImg 
+          avatarImg={imgProfile}
+          scale={"clamp(5rem, 10vw + 1rem, 10rem)"}
+          name={name}
+          statusAge={statusAge}
+          fontSizeKids={"clamp(0.9rem, 2vw + 0.2rem, 1.5rem)"}
+          iconFontSize={"clamp(1rem, 2vw + 0.9rem, 2.5rem)"}
+          touch={touchIndex === inx}
+          isUserManager={true}
+          sizeShadow={"1.5px"}
+        />
 
         <h5>
           {name}

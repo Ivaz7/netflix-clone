@@ -3,9 +3,9 @@ import PropTypes from "prop-types";
 const ContentSettingPage = ({ leftSideImg, textTop, textBottom }) => {
   return (
     <>
-      <div className="contentSettingPage d-flex flex-row justify-content-between align-items-center">
-        <div className="contentSettingPage__leftSide d-flex flex-row align-items-center gap-3 flex-grow-1">
-          <div>
+      <div className="contentSettingPage d-flex flex-row justify-content-around align-items-center">
+        <div className="contentSettingPage__leftSide d-flex flex-row align-items-center gap-3">
+          <div className="contentSettingPage__leftSide__img d-flex justify-content-center">
             {leftSideImg}
           </div>
 
