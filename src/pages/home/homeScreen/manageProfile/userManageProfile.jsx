@@ -61,7 +61,7 @@ const UserManageProfile = () => {
           transition={{ duration: 0.2 }}
           className="userOption-container d-flex flex-column justify-content-center align-items-center gap-3 gap-sm-4"
         >
-          <h1 className="text-center">Who&apos;s Watching?</h1>
+          <h1 className="text-center">Manage Profile:</h1>
 
           <div className="userOption d-flex flex-wrap flex-row gap-2 gap-sm-3 gap-md-4 ">
             {renderUserOptionArr}

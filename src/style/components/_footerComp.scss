@@ -24,4 +24,13 @@ footer {
 .footer-white {
   @extend footer;
   background-color: white !important;
+
+  * {
+    color: rgb(25, 25, 25);
+    background-color: white !important;
+  }
+
+  a {
+    color: rgb(107, 107, 107) !important;
+  }
 }
