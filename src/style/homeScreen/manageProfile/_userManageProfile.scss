@@ -11,7 +11,7 @@
     }
 
     &__statusAge.mag {
-      opacity: 50% !important;
+      filter: brightness(50%);
     }
 
     .fa-pencil {
