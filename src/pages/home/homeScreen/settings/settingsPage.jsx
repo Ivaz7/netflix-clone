@@ -42,7 +42,7 @@ const SettingsPage = () => {
           </Link>
 
           <div className="settingsContainer__main__contentContainer mx-lg-auto">
-            <h2>
+            <h2 className="mb-3 mb-md-4 mb-lg-5">
               Manage Profile and History
             </h2>
 
