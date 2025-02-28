@@ -5,6 +5,7 @@ import { useState } from "react";
 import SettingUserOption from "../UserOption/settingUserOption";
 import { useNavigate } from "react-router-dom";
 import ProfileImg from "../../../../components/profileImg";
+import LoadingComp from "../../../../components/loadingComp";
 
 const UserManageProfile = () => {
   const { data: dataGet, isLoading: isLoadingDataGet, refetch: refetchData } = useGetDataQuery();
@@ -15,7 +16,7 @@ const UserManageProfile = () => {
   const [touchIndex, setTouchIndex] = useState(null)
 
   if (isLoadingStatus || isLoadingDataGet) {
-    return <div>Loading ... </div>
+    return <LoadingComp />
   }
 
   if (!dataStatus) {

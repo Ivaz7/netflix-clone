@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import { useSignUpUserMutation } from "../service/redux/API/fireBaseAuthSlice";
 import InputForm from "../components/inputForm";
 import { useGetLoginStatusQuery } from "../service/redux/API/firebaseDB";
+import LoadingComp from "../components/loadingComp";
 
 const SignUp = () => {
   const email = useSelector((state) => state.signUpEmail.email);
@@ -34,7 +35,7 @@ const SignUp = () => {
   }
   
   if (isLoading || isLoadingGetData) {
-    return <div>Loading ... </div>;
+    return <LoadingComp />;
   }
 
   if (error) {

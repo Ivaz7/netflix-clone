@@ -6,6 +6,7 @@ import { useState } from "react";
 import SettingUserOption from "./settingUserOption";
 import { useNavigate } from "react-router-dom";
 import ProfileImg from "../../../../components/profileImg";
+import LoadingComp from "../../../../components/loadingComp";
 
 const UserOption = ({ refetchData, refetchStatus, dataGet, isLoadingDataGet }) => {
   const [triggerChangedUserSelected, { isLoading: isLoadingPushedData }] = useSetChangedUserSelectedMutation();
@@ -15,7 +16,7 @@ const UserOption = ({ refetchData, refetchStatus, dataGet, isLoadingDataGet }) =
   const [touchIndex, setTouchIndex] = useState(null)
   
   if (isLoadingDataGet || isLoadingPushedData) {
-    return <div>Loading ... </div>
+    return <LoadingComp />
   }
 
   const userOptionArr = dataGet.userOption;

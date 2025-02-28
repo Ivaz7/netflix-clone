@@ -2,6 +2,7 @@ import { signOut } from "firebase/auth";
 import { auth } from "../../../backEndFireBase/firebaseConfig";
 import { useSetUserSelectedBackMutation } from "../../../service/redux/API/firebaseDB";
 import PropTypes from "prop-types";
+import LoadingComp from "../../../components/loadingComp";
 
 const HomeScreen = ({ refetchData, refetchStatus, dataGet, isLoadingDataGet }) => {
   const [triggerUserSelectedBack, { isLoading: isLoadingPushedData }] = useSetUserSelectedBackMutation();
@@ -11,7 +12,7 @@ const HomeScreen = ({ refetchData, refetchStatus, dataGet, isLoadingDataGet }) =
   const { name, imgProfile } = user;
 
   if (isLoadingDataGet || isLoadingPushedData) {
-    return <div>Loading ... </div>
+    return <LoadingComp />
   }
 
   const handleClick = async () => {

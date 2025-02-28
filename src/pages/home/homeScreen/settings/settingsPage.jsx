@@ -4,6 +4,7 @@ import HeaderSetting from "./headerSetting";
 import ContentSettingPage from "./contentSettingsPage";
 import Footer from "../../../../components/footer";
 import ProfileImg from "../../../../components/profileImg";
+import LoadingComp from "../../../../components/loadingComp";
 
 const SettingsPage = () => {
   const { data: dataStatus, isLoading: isLoadingStatus } = useGetLoginStatusQuery();
@@ -13,7 +14,7 @@ const SettingsPage = () => {
   const navigate= useNavigate();
 
   if (isLoadingStatus || isLoadingDataGet) {
-    return <div>Loading ... </div>
+    return <LoadingComp />
   }
 
   if (!dataStatus) {

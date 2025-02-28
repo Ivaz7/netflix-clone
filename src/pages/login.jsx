@@ -4,6 +4,7 @@ import InputForm from "../components/inputForm";
 import { useEffect, useState } from "react";
 import { useLoginUserMutation } from "../service/redux/API/fireBaseAuthSlice";
 import { useGetLoginStatusQuery, useSetDefaultDBMutation } from "../service/redux/API/firebaseDB";
+import LoadingComp from "../components/loadingComp";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -31,7 +32,7 @@ const Login = () => {
   }
 
   if (isLoading || isLoadingIsLogin) {
-    return <div>Loading ... </div>;
+    return <LoadingComp />;
   }
 
   if (error) {

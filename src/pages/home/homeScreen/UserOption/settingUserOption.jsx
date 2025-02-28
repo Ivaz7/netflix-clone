@@ -5,6 +5,7 @@ import { useRef, useState } from "react";
 import { useSetAddUserOptionMutation } from "../../../../service/redux/API/firebaseDB";
 import { useClickOutside } from "../../../../customHooks/useClickOutside";
 import ProfileImg from "../../../../components/profileImg";
+import LoadingComp from "../../../../components/loadingComp";
 
 const SettingUserOption = ({ dataGet, isAdded, setIsAdded, refetchData }) => {
   const userOptionArrLength = dataGet.userOption.length;
@@ -23,7 +24,7 @@ const SettingUserOption = ({ dataGet, isAdded, setIsAdded, refetchData }) => {
   const [triggerSetAddUserOption, { isLoading }] = useSetAddUserOptionMutation();
 
   if (isLoading) {
-    return <div>Loading ... </div>
+    return <LoadingComp />
   }
   
   const handleChangeCheckbox = (e) => {

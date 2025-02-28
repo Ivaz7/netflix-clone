@@ -1,3 +1,4 @@
+import LoadingComp from "../../components/loadingComp";
 import { useGetDataQuery, useGetLoginStatusQuery } from "../../service/redux/API/firebaseDB";
 import AuthScreen from "./authScreen/AuthScreen";
 import UserOption from "./homeScreen/UserOption/userOption";
@@ -13,13 +14,9 @@ const Home = () => {
     refetchStatus();
   }, [dataStatus, dataGet, refetchData, refetchStatus])
 
-  if (isLoadingDataGet || isLoadingStatus) {
-    return <div>Loading ... </div>
-  }
-
-  if (dataStatus && !dataGet) {
-    return <div>Loading data...</div>;
-  }  
+  if (isLoadingDataGet || isLoadingStatus || (dataStatus && !dataStatus)) {
+    return <LoadingComp />;
+  } 
 
   if (!dataStatus) {
     return <AuthScreen />;
