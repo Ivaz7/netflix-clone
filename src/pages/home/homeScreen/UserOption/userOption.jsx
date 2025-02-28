@@ -1,4 +1,4 @@
-import { useSetChangedUserSelectedMutation } from "../../../../service/redux/API/firebaseDB";
+import { useSetChangedUserDataMutation } from "../../../../service/redux/API/firebaseDB";
 import PropTypes from "prop-types";
 import { motion } from "framer-motion";
 import AddUserOption from "./addUserOption";
@@ -9,7 +9,7 @@ import ProfileImg from "../../../../components/profileImg";
 import LoadingComp from "../../../../components/loadingComp";
 
 const UserOption = ({ refetchData, refetchStatus, dataGet, isLoadingDataGet }) => {
-  const [triggerChangedUserSelected, { isLoading: isLoadingPushedData }] = useSetChangedUserSelectedMutation();
+  const [triggerChangedUserData, { isLoading: isLoadingPushedData }] = useSetChangedUserDataMutation();
   const [isAdded, setIsAdded] = useState(false);
   const navigate = useNavigate();
 
@@ -48,7 +48,7 @@ const UserOption = ({ refetchData, refetchStatus, dataGet, isLoadingDataGet }) =
   })
 
   const handleUserSelected = async (inx) => {
-    await triggerChangedUserSelected(inx);
+    await triggerChangedUserData({ value: inx });
     await refetchData();
     await refetchStatus();
   }

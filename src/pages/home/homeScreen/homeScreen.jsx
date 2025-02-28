@@ -1,11 +1,11 @@
 import { signOut } from "firebase/auth";
 import { auth } from "../../../backEndFireBase/firebaseConfig";
-import { useSetUserSelectedBackMutation } from "../../../service/redux/API/firebaseDB";
+import { useSetChangedUserDataMutation } from "../../../service/redux/API/firebaseDB";
 import PropTypes from "prop-types";
 import LoadingComp from "../../../components/loadingComp";
 
 const HomeScreen = ({ refetchData, refetchStatus, dataGet, isLoadingDataGet }) => {
-  const [triggerUserSelectedBack, { isLoading: isLoadingPushedData }] = useSetUserSelectedBackMutation();
+  const [triggerChangedUserData, { isLoading: isLoadingPushedData }] = useSetChangedUserDataMutation();
 
   const user = dataGet.userOption[dataGet.userSelected];
 
@@ -16,7 +16,7 @@ const HomeScreen = ({ refetchData, refetchStatus, dataGet, isLoadingDataGet }) =
   }
 
   const handleClick = async () => {
-    await triggerUserSelectedBack();
+    await triggerChangedUserData({ value: "empty" });
     await signOut(auth);
     await refetchData();
     await refetchStatus();

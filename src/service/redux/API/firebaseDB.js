@@ -96,8 +96,8 @@ export const firebaseDBSlice = createApi({
       },
     }),
 
-    setChangedUserSelected: builder.mutation({
-      async queryFn(index) {
+    setChangedUserData: builder.mutation({
+      async queryFn({ value }) {
         try {
           const userUid = await new Promise((resolve, reject) => {
             const unsubscribe = onAuthStateChanged(
@@ -123,44 +123,7 @@ export const firebaseDBSlice = createApi({
           const snapshotVal = snapshot.exists() ? snapshot.val() : null;
           set(reference, {
             ...snapshotVal,
-            userSelected: index,
-          })
-          
-          return { data: "User selected updated successfully" };
-        } catch (error) {
-          return { error: error.message };
-        }
-      }
-    }),
-
-    setUserSelectedBack: builder.mutation({
-      async queryFn() {
-        try {
-          const userUid = await new Promise((resolve, reject) => {
-            const unsubscribe = onAuthStateChanged(
-              auth,
-              (user) => {
-                unsubscribe();
-                if (user) {
-                  resolve(user.uid);
-                } else {
-                  resolve(null);
-                }
-              },
-              (error) => reject(error)
-            );
-          });
-
-          if (!userUid) {
-            return { data: null };
-          }
-          
-          const reference = ref(database, "user/" + userUid);
-          const snapshot = await get(reference);
-          const snapshotVal = snapshot.exists() ? snapshot.val() : null;
-          set(reference, {
-            ...snapshotVal,
-            userSelected: "empty",
+            userSelected: value,
           })
           
           return { data: "User selected updated successfully" };
@@ -224,7 +187,6 @@ export const {
   useSetDefaultDBMutation, 
   useGetDataQuery, 
   useGetLoginStatusQuery, 
-  useSetChangedUserSelectedMutation, 
-  useSetUserSelectedBackMutation,
+  useSetChangedUserDataMutation, 
   useSetAddUserOptionMutation,
 } = firebaseDBSlice;
