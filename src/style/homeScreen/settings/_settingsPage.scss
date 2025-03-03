@@ -36,15 +36,16 @@
       }
       
       &__contentBox {        
-        padding: 1rem;
+        padding: 0.5rem;
         border: 1px solid rgb(230, 230, 230);
         background-color: white !important;
         border-radius: 0.5rem;
       }
 
       &__br {
+        align-self: center;
         height: 1px;
-        width: 100%;
+        width: 95%;
         background-color: rgb(230, 230, 230);
       }
     }
