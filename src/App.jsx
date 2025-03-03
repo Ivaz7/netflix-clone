@@ -4,6 +4,7 @@ import Home from "./pages/home/home"
 import Login from "./pages/login"
 import UserManageProfile from "./pages/home/homeScreen/manageProfile/userManageProfile"
 import SettingsPage from "./pages/home/homeScreen/settings/settingsPage"
+import ProfileEditPage from "./pages/home/homeScreen/settings/profileEditPages"
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/UserManageProfile" element={<UserManageProfile />} />
           <Route path="/settings" element={<SettingsPage />} />
+          <Route path="/settings/ProfileEdit" element={<ProfileEditPage />} />
         </Routes>
       </Router>
     </>

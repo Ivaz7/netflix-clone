@@ -1,0 +1,17 @@
+@use './settingsPage';
+
+.profileEditPage {
+  @extend .settingsContainer;
+
+  &__main {
+    @extend .settingsContainer__main;
+
+    &__backBtn {
+      @extend .settingsContainer__main__backBtn;
+    }
+
+    &__contentContainer {
+      @extend .settingsContainer__main__contentContainer;
+    }
+  }
+}

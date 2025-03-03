@@ -55,7 +55,7 @@ const UserManageProfile = () => {
   })
 
   const handleUserSelected = async (inx) => {
-    navigate(`/settings?profile=${inx}`)
+    navigate(`/settings?indexUserOption=${inx}`)
   }
 
   const handleDone = () => {

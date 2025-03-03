@@ -11,7 +11,7 @@ const SettingsPage = () => {
   const { data: dataStatus, isLoading: isLoadingStatus } = useGetLoginStatusQuery();
   const { data: dataGet, isLoading: isLoadingDataGet } = useGetDataQuery();
   const [searchParam] = useSearchParams();
-  const profile = searchParam.get("profile")
+  const indexUserOption = searchParam.get("indexUserOption")
   const navigate= useNavigate();
 
   if (isLoadingStatus || isLoadingDataGet) {
@@ -24,7 +24,14 @@ const SettingsPage = () => {
   }
 
   const userOptionArr = dataGet.userOption;
-  const userOptionSelected = userOptionArr[profile];
+  const userSelectedData = dataGet.userSelected;
+
+  if (!indexUserOption && userSelectedData === "empty") {
+    navigate("/");
+    return;
+  }
+
+  const userOptionSelected = userOptionArr[userSelectedData !== "empty" && userSelectedData || indexUserOption];
   const avatarImg = userOptionSelected.imgProfile;
   const name = userOptionSelected.name;
   const statusAge = userOptionSelected.statusAge;
@@ -32,7 +39,7 @@ const SettingsPage = () => {
   return (
     <>
       <div className="settingsContainer d-flex flex-column align-items-center">
-        <HeaderSetting dataGet={dataGet} profile={profile} />
+        <HeaderSetting dataGet={dataGet} indexUserOption={indexUserOption} />
 
         <main className="settingsContainer__main d-flex flex-column flex-lg-row align-items-start my-3">
           <Link to={"/UserManageProfile"}>            
@@ -47,19 +54,21 @@ const SettingsPage = () => {
             </h2>
 
             <div className="settingsContainer__main__contentContainer__contentBox d-flex flex-column gap-2">
-              <ContentSettingPage 
-                leftSideImg={
-                  <ProfileImg 
-                    avatarImg={avatarImg}
-                    scale={"30px"}
-                    statusAge={statusAge}
-                    fontSizeKids={"6px"}
-                    sizeShadow={"0.5px"}
-                  />
-                }
-                textTop={name}
-                textBottom="Edit personal Profile"
-              />
+              <Link to={`/settings/ProfileEdit?indexUserOption=${indexUserOption}`} style={{ textDecoration: "none", color: "inherit" }}>              
+                <ContentSettingPage 
+                  leftSideImg={
+                    <ProfileImg 
+                      avatarImg={avatarImg}
+                      scale={"30px"}
+                      statusAge={statusAge}
+                      fontSizeKids={"6px"}
+                      sizeShadow={"0.5px"}
+                    />
+                  }
+                  textTop={name}
+                  textBottom="Edit personal Profile"
+                />
+              </Link>
 
               <div className="settingsContainer__main__contentContainer__br"></div>
 
@@ -93,7 +102,7 @@ const SettingsPage = () => {
 
           <div className="settingsContainer__delProBtn__btn  mx-lg-auto">
             <DeleteUserOptionBtn 
-              index={profile}
+              index={indexUserOption}
             />
           </div>
         </div>
