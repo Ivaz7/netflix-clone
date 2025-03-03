@@ -67,56 +67,62 @@ const SettingUserOption = ({ dataGet, isAdded, setIsAdded, refetchData }) => {
           </button>
         </header>
 
-        <main className="settingUserOption__main d-flex flex-column text-center">
-          <h1>Add a profile</h1>
+        <div className="outerMainContainer">
+          <main className="settingUserOption__main d-flex flex-column text-center">
+            <h1>Add a profile</h1>
 
-          <h6 className="pb-4">Add a profile for another person watching Netflix.</h6>
+            <h6 className="pb-4">Add a profile for another person watching Netflix.</h6>
 
-          <div className="d-flex align-items-center gap-4">
-            <ProfileImg 
-              avatarImg={avatarImg}
-              scale={"5rem"}
-            />
-
-            <div className="flex-grow-1">
-              <div className="form-floating">
-                <input 
-                  autoComplete="off"
-                  name="Username"
-                  type="text"
-                  placeholder="Name" 
-                  value={userName} 
-                  className={`form-control text-white ${validationUserName ? "not-allowed-userName" : ""}`}
-                  onChange={(e) => setUserName(e.target.value)}
+            <div className="d-flex align-items-lg-center align-items-none justify-content-center flex-lg-row flex-column gap-lg-4 gap-3 mb-2 mb-lg-0">
+              <div className="align-self-center">
+                <ProfileImg 
+                  avatarImg={avatarImg}
+                  scale={"4rem"}
                 />
+              </div>
 
-                <p className={`text-start input-warning input-allowed-${validationUserName ? "yes-userName" : "not"}`}><i className="fa-solid fa-triangle-exclamation"></i> {warning}</p>
+              <div className="flex-grow-1">
+                <div className="form-floating">
+                  <input 
+                    autoComplete="off"
+                    name="Username"
+                    type="text"
+                    placeholder="Name" 
+                    value={userName} 
+                    className={`form-control text-white ${validationUserName ? "not-allowed-userName" : ""}`}
+                    onChange={(e) => setUserName(e.target.value)}
+                  />
 
-                <label htmlFor="Username}">Name</label>
+                  <p className={`text-start input-warning input-allowed-${validationUserName ? "yes-userName" : "not"}`}><i className="fa-solid fa-triangle-exclamation"></i> {warning}</p>
+
+                  <label htmlFor="Username}">Name</label>
+                </div>
               </div>
             </div>
-          </div>
 
-          <div className="settingUserOption__main__br"></div>
+            <div className="settingUserOption__main__br d-none d-lg-block"></div>
 
-          <div className="settingUserOption__main__kidsOption d-flex flex-row justify-content-between align-items-center">
-            <div>
-              <h5 className="text-start">Kids Profile</h5>
-              
-              <p className="text-start">Only see kid-friendly TV shows and movies</p>
+            <div className="settingUserOption__main__kidsOption d-flex flex-row justify-content-between align-items-center">
+              <div className="settingUserOption__main__kidsOption__text d-flex flex-column">
+                <h5 className="text-start">Kids Profile</h5>
+                
+                <p className="text-start">Only see kid-friendly TV shows and movies</p>
+              </div>
+
+              <div className="flex-grow-1 d-flex justify-content-end">
+                <label className="switch">
+                  <input value={checkbox} onChange={handleChangeCheckbox} type="checkbox" />
+                  <span className="slider"></span>
+                  <span className="checklist"></span>
+                </label>
+              </div>
             </div>
 
-            <label className="switch">
-              <input value={checkbox} onChange={handleChangeCheckbox} type="checkbox" />
-              <span className="slider"></span>
-              <span className="checklist"></span>
-            </label>
-          </div>
+            <button onClick={handleSave} className="settingUserOption__main__btnSave">Save</button>
 
-          <button onClick={handleSave} className="settingUserOption__main__btnSave">Save</button>
-
-          <button onClick={handleCancel} className="settingUserOption__main__btnCancel">Cancel</button>
-        </main>
+            <button onClick={handleCancel} className="settingUserOption__main__btnCancel">Cancel</button> 
+          </main>
+        </div>
       </div>
     </CustomFloatingComp>
   )

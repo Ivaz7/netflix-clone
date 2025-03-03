@@ -70,7 +70,7 @@ const UserManageProfile = () => {
         >
           <h1 className="text-center">Manage Profile:</h1>
 
-          <div className="userOption d-flex flex-wrap flex-row gap-2 gap-sm-3 gap-md-4 ">
+          <div className="userOption d-flex justify-content-center flex-wrap flex-row gap-2 gap-sm-3 gap-md-4 ">
             {renderUserOptionArr}
             {userOptionArr.length < 5 && <AddUserOption setIsAdded={setIsAdded} />}
           </div>
