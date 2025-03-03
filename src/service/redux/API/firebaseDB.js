@@ -97,7 +97,7 @@ export const firebaseDBSlice = createApi({
     }),
 
     setChangedUserData: builder.mutation({
-      async queryFn({ value }) {
+      async queryFn({ key, value }) {
         try {
           const userUid = await new Promise((resolve, reject) => {
             const unsubscribe = onAuthStateChanged(
@@ -123,7 +123,7 @@ export const firebaseDBSlice = createApi({
           const snapshotVal = snapshot.exists() ? snapshot.val() : null;
           set(reference, {
             ...snapshotVal,
-            userSelected: value,
+            [key]: value,
           })
           
           return { data: "User selected updated successfully" };
