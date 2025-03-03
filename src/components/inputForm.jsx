@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setSignUpEmail } from '../service/redux/slice/signUpEmailSlice';
 import { forwardRef } from 'react';
 
-const InputForm = forwardRef(({ name, type, placeholder, warning, password, setPassword, passwordConfirm, setPasswordConfirm,  validation, setValidation, handleFocusEmail, signInEmail, setSignInEmail, userName, setUserName, setWarning, arrayCheck }, ref) => {
+const InputForm = forwardRef(({ name, type, placeholder, warning, password, setPassword, passwordConfirm, setPasswordConfirm,  validation, setValidation, handleFocusEmail, signInEmail, setSignInEmail, userName, setUserName, setWarning, arrayCheck, whiteVer }, ref) => {
   const email = useSelector((state) => state.signUpEmail.email);
   const dispatch = useDispatch();
 
@@ -50,7 +50,7 @@ const InputForm = forwardRef(({ name, type, placeholder, warning, password, setP
     }
 
     if (name === "userName") {
-      return setUserName(value)
+      return dispatch(setUserName(value))
     }
   }
 
@@ -111,7 +111,7 @@ const InputForm = forwardRef(({ name, type, placeholder, warning, password, setP
 
   return (
     <>
-      <div className="form-floating">
+      <div className={`form-floating ${whiteVer ? "whiteVer" : ""}`}>
         <input 
           autoComplete={`${typeof signInEmail !== 'undefined' || password ? 'on' : 'off'}`}
           name={name}
@@ -171,6 +171,7 @@ InputForm.propTypes = {
   setUserName: PropTypes.func,
   setWarning: PropTypes.func,
   arrayCheck: PropTypes.array,
+  whiteVer: PropTypes.bool,
 };
 
 

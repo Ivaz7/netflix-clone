@@ -38,6 +38,33 @@
     }
   }
 
+  &.whiteVer {
+    p {
+      margin: 0;
+    }
+
+    label {
+      color: black !important;
+    }
+
+    .form-control {
+      background-color: white !important;
+      border: 2px solid rgb(169, 169, 169);  
+
+      &:focus {
+        outline: 2px solid black !important;
+      }
+
+      &:focus ~ label, &:not(:placeholder-shown) ~ label {
+        color: rgba(0, 0, 0, 0.592)!important;
+      }
+    }
+
+    .not-allowed-userName {
+      border: 2px solid rgb(197, 154, 0);
+    }
+  }
+
   .not-allowed {
     border: 2px solid config.$redLightNetflix;
   }
@@ -45,19 +72,19 @@
   .not-allowed-userName {
     border: 2px solid rgb(197, 154, 0);
   }
-}
 
-.input-allowed-not {
-  display: none;
-}
-
-.input-allowed-yes {
-  display: block;
-  color: config.$redLightNetflix !important;
-}
-
-.input-allowed-yes-userName {
-  display: block;
-  font-size: 0.8rem;
-  color: rgb(197, 154, 0)!important;
+  .input-allowed-not {
+    display: none;
+  }
+  
+  .input-allowed-yes {
+    display: block;
+    color: config.$redLightNetflix !important;
+  }
+  
+  .input-allowed-yes-userName {
+    display: block;
+    font-size: 0.8rem;
+    color: rgb(197, 154, 0)!important;
+  }
 }
