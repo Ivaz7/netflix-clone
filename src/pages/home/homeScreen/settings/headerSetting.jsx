@@ -4,8 +4,12 @@ import HeaderDropdown from "./headerDropdown";
 
 const HeaderSetting = ({ dataGet, indexUserOption }) => {
   const userSelected = dataGet.userSelected;
-  const userOptionSelected = dataGet.userOption[indexUserOption];
-  const avatarImg = userOptionSelected.imgProfile;
+  let avatarImg;
+
+  if (userSelected !== "empty") {
+    const userOptionSelected = dataGet.userOption[indexUserOption];
+    avatarImg = userOptionSelected.imgProfile;  
+  }
 
   return (
     <header className="headerSetting d-flex justify-content-center align-items-center">

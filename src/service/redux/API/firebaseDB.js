@@ -97,7 +97,7 @@ export const firebaseDBSlice = createApi({
     }),
 
     setChangedUserData: builder.mutation({
-      async queryFn({ key, value }) {
+      async queryFn({ value }) {
         try {
           const userUid = await new Promise((resolve, reject) => {
             const unsubscribe = onAuthStateChanged(
@@ -123,7 +123,7 @@ export const firebaseDBSlice = createApi({
           const snapshotVal = snapshot.exists() ? snapshot.val() : null;
           set(reference, {
             ...snapshotVal,
-            [key]: value,
+            ...value,
           })
           
           return { data: "User selected updated successfully" };
@@ -209,6 +209,12 @@ export const firebaseDBSlice = createApi({
     
           if (snapshotVal && Array.isArray(snapshotVal.userOption)) {
             let updatedUserOption = [...snapshotVal.userOption];
+
+            if (snapshotVal.userSelected === index) {
+              await set(ref(database, `user/${userUid}/userSelected`), "empty");
+            } else if (snapshotVal.userSelected > index) {
+              await set(ref(database, `user/${userUid}/userSelected`), snapshotVal.userSelected - 1);
+            }            
     
             if (index >= 0 && index < updatedUserOption.length && updatedUserOption.length > 1) {
               updatedUserOption.splice(index, 1);
@@ -222,7 +228,51 @@ export const firebaseDBSlice = createApi({
           return { error: error.message };
         }
       },
-    })
+    }),
+
+    setChangeUserOptionSelected: builder.mutation({
+      async queryFn({ index, value }) {
+        try {
+          const userUid = await new Promise((resolve, reject) => {
+            const unsubscribe = onAuthStateChanged(
+              auth,
+              (user) => {
+                unsubscribe();
+                if (user) {
+                  resolve(user.uid);
+                } else {
+                  resolve(null);
+                }
+              },
+              (error) => reject(error)
+            );
+          });
+    
+          if (!userUid) {
+            return { data: null };
+          }
+    
+          const reference = ref(database, `user/${userUid}`);
+          const snapshot = await get(reference);
+          const snapshotVal = snapshot.exists() ? snapshot.val() : null;
+    
+          if (snapshotVal && Array.isArray(snapshotVal.userOption)) {
+            let updatedUserOption = [...snapshotVal.userOption];           
+    
+            updatedUserOption[index] = {
+              ...updatedUserOption[index],
+              ...value,
+            };
+    
+            await set(ref(database, `user/${userUid}/userOption`), updatedUserOption);
+          }
+    
+          return { data: "User option deleted successfully" };
+        } catch (error) {
+          return { error: error.message };
+        }
+      },
+    }),
     
   }),
 });
@@ -234,4 +284,5 @@ export const {
   useSetChangedUserDataMutation, 
   useSetAddUserOptionMutation,
   useSetDeleteUserOptionMutation,
+  useSetChangeUserOptionSelectedMutation,
 } = firebaseDBSlice;

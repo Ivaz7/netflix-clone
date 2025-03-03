@@ -5,6 +5,7 @@ import Login from "./pages/login"
 import UserManageProfile from "./pages/home/homeScreen/manageProfile/userManageProfile"
 import SettingsPage from "./pages/home/homeScreen/settings/settingsPage"
 import ProfileEditPage from "./pages/home/homeScreen/settings/profileEditPages"
+import ChooseProfileIcon from "./pages/home/homeScreen/settings/chooseProfileIcon"
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route path="/UserManageProfile" element={<UserManageProfile />} />
           <Route path="/settings" element={<SettingsPage />} />
           <Route path="/settings/ProfileEdit" element={<ProfileEditPage />} />
+          <Route path="/settings/ProfileEdit/ChooseProfileIcon" element={<ChooseProfileIcon />} />
         </Routes>
       </Router>
     </>

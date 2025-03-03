@@ -8,7 +8,7 @@ const ProfileImg = ({ avatarImg, scale, statusAge, name, fontSizeKids, isUserMan
 
   return (
     <div style={{ width: scale, height: scale }} className={`profileImg ${touch && 'touch'} ${isUserManager && 'isUserManager'}`}>
-      <img className="profileImg__img" src={`avatar/${avatarImg}`} alt="profile" />
+      <img className="profileImg__img" src={`/avatar/${avatarImg}`} alt="profile" />
       {
         isUserManager &&
         <i style={{fontSize: iconFontSize}} className="fa-solid fa-pencil"></i>

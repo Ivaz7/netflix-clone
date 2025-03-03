@@ -1,11 +1,11 @@
 export const avatarList = [
   'avatar1.png',
-  'avatarKids.png',
   'avatar2.jpg',
   'avatar3.png',
   'avatar4.png',
   'avatarHappyGirl.png',
   'avatarHero.png',
+  'avatarKids.png',
   'avatarHeroGirl.png',
   'avatarMustache.png',
   'avatarNetflixRider.png',
@@ -14,6 +14,6 @@ export const avatarList = [
   'avatarPirate.png',
   'avatarRobot.png',
   'avatarZombie.png',
-  'avatarAlien.png',
-  'avatarChicken.png'
+  'avaterAlien.png',
+  'avaterChicken.png'
 ];

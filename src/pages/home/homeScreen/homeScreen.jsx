@@ -16,7 +16,7 @@ const HomeScreen = ({ refetchData, refetchStatus, dataGet, isLoadingDataGet }) =
   }
 
   const handleClick = async () => {
-    await triggerChangedUserData({ key: "userSelected", value: "empty" });
+    await triggerChangedUserData({ value: { userSelected: "empty" } });
     await signOut(auth);
     await refetchData();
     await refetchStatus();

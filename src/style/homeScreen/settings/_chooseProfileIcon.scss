@@ -1,0 +1,25 @@
+@use './settingsPage';
+
+.chooseProfileIcon {
+  @extend .settingsContainer;
+
+  &__main {
+    @extend .settingsContainer__main;
+
+    &__backBtn {
+      @extend .settingsContainer__main__backBtn;
+    }
+
+    &__contentContainer {
+      @extend .settingsContainer__main__contentContainer;
+
+      &__btnProfileContainer {
+        &__btn {
+          all: unset;
+          width: fit-content;
+          height: fit-content;
+        }
+      }
+    }
+  }
+}

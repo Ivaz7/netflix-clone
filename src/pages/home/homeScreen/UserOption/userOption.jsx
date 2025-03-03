@@ -52,7 +52,7 @@ const UserOption = ({ refetchData, refetchStatus, dataGet, isLoadingDataGet }) =
   })
 
   const handleUserSelected = async (inx) => {
-    await triggerChangedUserData({ key: "userSelected", value: inx });
+    await triggerChangedUserData({ value: { userSelected: inx } });
     await refetchData();
     await refetchStatus();
   }

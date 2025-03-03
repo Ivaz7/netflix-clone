@@ -31,7 +31,7 @@ const SettingsPage = () => {
     return;
   }
 
-  const userOptionSelected = userOptionArr[userSelectedData !== "empty" && userSelectedData || indexUserOption];
+  const userOptionSelected = userOptionArr[userSelectedData !== "empty" ? userSelectedData : indexUserOption];
   const avatarImg = userOptionSelected.imgProfile;
   const name = userOptionSelected.name;
   const statusAge = userOptionSelected.statusAge;
@@ -39,7 +39,7 @@ const SettingsPage = () => {
   return (
     <>
       <div className="settingsContainer d-flex flex-column align-items-center">
-        <HeaderSetting dataGet={dataGet} indexUserOption={indexUserOption} />
+        <HeaderSetting dataGet={dataGet} indexUserOption={userSelectedData !== "empty" ? userSelectedData : indexUserOption} />
 
         <main className="settingsContainer__main d-flex flex-column flex-lg-row align-items-start my-3">
           <Link to={"/UserManageProfile"}>            
@@ -102,7 +102,7 @@ const SettingsPage = () => {
 
           <div className="settingsContainer__delProBtn__btn  mx-lg-auto">
             <DeleteUserOptionBtn 
-              index={indexUserOption}
+              index={userSelectedData !== "empty" ? userSelectedData : indexUserOption}
             />
           </div>
         </div>
