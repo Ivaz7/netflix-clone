@@ -2,7 +2,7 @@
   width: 100%;
   cursor: pointer;
   background-color: transparent;
-  padding: 0.4rem;
+  padding: 0.7rem 0.4rem;
   transition: 250ms;
   border-radius: 0.3rem;
 
@@ -18,8 +18,14 @@
     margin: 0;
   }
 
+  h5 {
+    font-size: 1rem;
+    font-weight: 700;
+  }
+
   p {
     color: rgb(75, 75, 75) !important;
+    font-size: 0.8rem;
   }
 
   &:hover {
