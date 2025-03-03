@@ -6,6 +6,7 @@ import { useSetAddUserOptionMutation } from "../../../../service/redux/API/fireb
 import { useClickOutside } from "../../../../customHooks/useClickOutside";
 import ProfileImg from "../../../../components/profileImg";
 import LoadingComp from "../../../../components/loadingComp";
+import InputForm from "../../../../components/inputForm";
 
 const SettingUserOption = ({ dataGet, isAdded, setIsAdded, refetchData }) => {
   const userOptionArrLength = dataGet.userOption.length;
@@ -14,7 +15,9 @@ const SettingUserOption = ({ dataGet, isAdded, setIsAdded, refetchData }) => {
   
   const [checkbox, setCheckbox] = useState(false)
   const [userName, setUserName] = useState("");
-  const [validationUserName, setValidationUserName] = useState(false)
+  const [validation, setValidation] = useState({
+    userName: false
+  })
   const [warning, setWarning] = useState("");
 
   const mainRef = useRef(null);
@@ -46,7 +49,7 @@ const SettingUserOption = ({ dataGet, isAdded, setIsAdded, refetchData }) => {
       isInvalid = true;
     }
   
-    setValidationUserName(isInvalid);
+    setValidation((prev) => ({ ...prev, userName: isInvalid}));
   
     if (isInvalid) {
       return
@@ -82,21 +85,18 @@ const SettingUserOption = ({ dataGet, isAdded, setIsAdded, refetchData }) => {
               </div>
 
               <div className="flex-grow-1">
-                <div className="form-floating">
-                  <input 
-                    autoComplete="off"
-                    name="Username"
-                    type="text"
-                    placeholder="Name" 
-                    value={userName} 
-                    className={`form-control text-white ${validationUserName ? "not-allowed-userName" : ""}`}
-                    onChange={(e) => setUserName(e.target.value)}
-                  />
-
-                  <p className={`text-start input-warning input-allowed-${validationUserName ? "yes-userName" : "not"}`}><i className="fa-solid fa-triangle-exclamation"></i> {warning}</p>
-
-                  <label htmlFor="Username}">Name</label>
-                </div>
+                <InputForm 
+                  name="userName"
+                  placeholder="Name"
+                  type="text"
+                  userName={userName}
+                  warning={warning}
+                  setWarning={setWarning}
+                  setUserName={setUserName}
+                  validation={validation}
+                  setValidation={setValidation}
+                  arrayCheck={userOptionArrName}
+                />
               </div>
             </div>
 

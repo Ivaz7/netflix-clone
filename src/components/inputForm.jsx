@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setSignUpEmail } from '../service/redux/slice/signUpEmailSlice';
 import { forwardRef } from 'react';
 
-const InputForm = forwardRef(({ name, type, placeholder, warning, password, setPassword, passwordConfirm, setPasswordConfirm,  validation, setValidation, handleFocusEmail, signInEmail, setSignInEmail }, ref) => {
+const InputForm = forwardRef(({ name, type, placeholder, warning, password, setPassword, passwordConfirm, setPasswordConfirm,  validation, setValidation, handleFocusEmail, signInEmail, setSignInEmail, userName, setUserName, setWarning, arrayCheck }, ref) => {
   const email = useSelector((state) => state.signUpEmail.email);
   const dispatch = useDispatch();
 
@@ -11,6 +11,7 @@ const InputForm = forwardRef(({ name, type, placeholder, warning, password, setP
   const UpValidatePassword = (value) => /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,20}$/.test(value);
   const InValidatePassword = (value) => value.length > 0;
   const validatePasswordConfirm = (value) => value === password;
+  const validateUserName = (value) => /^[a-zA-Z0-9]+$/.test(value);
 
   let value = null;
 
@@ -23,6 +24,8 @@ const InputForm = forwardRef(({ name, type, placeholder, warning, password, setP
       value = password;
     } else if (name === "passwordConfirm") {
       value = passwordConfirm;
+    } else if (name === "userName") {
+      value = userName
     }
   }
   
@@ -44,6 +47,10 @@ const InputForm = forwardRef(({ name, type, placeholder, warning, password, setP
 
     if (name === "passwordConfirm") {
       return setPasswordConfirm(value)
+    }
+
+    if (name === "userName") {
+      return setUserName(value)
     }
   }
 
@@ -83,6 +90,23 @@ const InputForm = forwardRef(({ name, type, placeholder, warning, password, setP
         }
       ))
     }
+
+    if (name === "userName") {
+      let isInvalid = false;
+  
+      if (userName.length < 1) {
+        setWarning("Please enter a Name");
+        isInvalid = true;
+      } else if (arrayCheck.includes(userName)) {
+        setWarning("This name is already in use. Select another name and try again.");
+        isInvalid = true;
+      } else if (!validateUserName(userName)) {
+        setWarning("Please only using Letter and Number.");
+        isInvalid = true;
+      }
+    
+      setValidation((prev) => ({ ...prev, userName: isInvalid}));
+    }
   }
 
   return (
@@ -95,14 +119,30 @@ const InputForm = forwardRef(({ name, type, placeholder, warning, password, setP
           type={type} 
           placeholder={placeholder} 
           value={value} 
-          className={`form-control text-white ${validation[name] ? "not-allowed" : ""}`}
+          className={`form-control text-white ${
+            typeof userName !== "undefined" && validation.userName !== undefined
+              ? validation.userName 
+                ? "not-allowed-userName" 
+                : ""
+              : validation[name] 
+                ? "not-allowed" 
+                : ""
+          }`}                    
           onChange={(e) => handleChange(e)}
           onBlur={handleBlur}
           onFocus={handleFocusEmail}
           ref={ref}
         />
 
-        <p className={`text-start input-warning input-allowed-${validation[name] ? "yes" : "not"}`}><i className="fa-regular fa-circle-xmark"></i> {warning}</p>
+        {typeof userName !== "undefined" && validation.userName !== undefined ? (
+          <p className={`text-start input-warning input-allowed-${validation.userName ? "yes-userName" : "not"}`}>
+            <i className="fa-solid fa-triangle-exclamation"></i> {warning}
+          </p>
+        ) : (
+          <p className={`text-start input-warning input-allowed-${validation[name] ? "yes" : "not"}`}>
+            <i className="fa-regular fa-circle-xmark"></i> {warning}
+          </p>
+        )}
 
         <label htmlFor={type}>{placeholder}</label>
       </div>
@@ -127,6 +167,10 @@ InputForm.propTypes = {
   status: PropTypes.string,
   signInEmail: PropTypes.string,
   setSignInEmail: PropTypes.func,
+  userName: PropTypes.string,
+  setUserName: PropTypes.func,
+  setWarning: PropTypes.func,
+  arrayCheck: PropTypes.array,
 };
 
 
