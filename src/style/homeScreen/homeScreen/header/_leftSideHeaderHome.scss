@@ -2,7 +2,6 @@
   position: relative;
 
   * {
-    font-size: clamp(0.7rem, 2vw + 0.6rem, 1rem);
     color: rgb(230, 230, 230);
     transition: 0.3s;
   }
@@ -11,11 +10,12 @@
     display: none !important;
     position: relative;
     cursor: pointer;
+    font-size: clamp(0.4rem, 2vw + 0.3rem, 1rem);
 
     &__itemDropDown {
       position: absolute;
       top: 120%;
-      right: -154%;
+      left: -3.2rem;
       width: 15rem;
 
       &__btnContainer {
@@ -28,9 +28,11 @@
           padding: 0.7rem 0;
           background-color: transparent;
           border: none;
+          font-size: 1rem;
+          color: rgba(243, 243, 243, 0.5) !important;
 
           &:hover {
-            background-color: rgba(41, 41, 41, 0.9);
+            background-color: rgba(41, 41, 41, 0.5);
           }
         }
       }
@@ -50,7 +52,7 @@
   }
 }
 
-@media (max-width: 55rem) {
+@media (max-width: 60rem) {
   .headerHome__inside__leftSide {
     &__themeSelected {
       display: none !important;
