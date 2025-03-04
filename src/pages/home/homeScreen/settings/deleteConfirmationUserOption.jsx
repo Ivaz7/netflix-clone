@@ -30,7 +30,7 @@ const DeleteConfirmationUserOption = ({ isDelete, setIsDelete, index }) => {
   const handleDelete = async () => {
     await triggerDeleteUserOption({ index: index });
     await refetch();
-    navigate(-1);
+    navigate("/UserManageProfile");
   } 
 
   return (

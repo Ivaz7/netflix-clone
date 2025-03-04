@@ -6,6 +6,7 @@ import { avatarList } from "../../../../data/avatarProfileArr";
 import ProfileImg from "../../../../components/profileImg";
 import { useDispatch } from "react-redux";
 import { setAvatarImgData } from "../../../../service/redux/API/profileEditSlice";
+import Footer from "../../../../components/footer";
 
 const ChooseProfileIcon = () => {
   const { data: dataStatus, isLoading: isLoadingStatus } = useGetLoginStatusQuery();
@@ -45,25 +46,29 @@ const ChooseProfileIcon = () => {
   }
 
   return (
-    <div className="chooseProfileIcon d-flex flex-column align-items-center">
-      <HeaderSetting dataGet={dataGet}  indexUserOption={(userSelectedData !== "empty" ? userSelectedData : indexUserOption) || 0} />
+    <>
+      <div className="chooseProfileIcon d-flex flex-column align-items-center">
+        <HeaderSetting dataGet={dataGet}  indexUserOption={(userSelectedData !== "empty" ? userSelectedData : indexUserOption) || 0} />
 
-      <main className="chooseProfileIcon__main d-flex flex-column flex-lg-row align-items-start my-3">
-        <button onClick={() => navigate(-1)} className="chooseProfileIcon__main__backBtn">
-          <i className="fa-solid fa-arrow-left"></i>
-        </button>
+        <main className="chooseProfileIcon__main d-flex flex-column flex-lg-row align-items-start my-3">
+          <button onClick={() => navigate(-1)} className="chooseProfileIcon__main__backBtn">
+            <i className="fa-solid fa-arrow-left"></i>
+          </button>
 
-        <div className="chooseProfileIcon__main__contentContainer d-flex flex-column gap-3 mx-lg-auto">
-          <h2 className="text-start mb-2 mb-md-3 mb-lg-4">
-            Choose Profile Icon
-          </h2>
+          <div className="chooseProfileIcon__main__contentContainer d-flex flex-column gap-3 mx-lg-auto">
+            <h2 className="text-start mb-2 mb-md-3 mb-lg-4">
+              Choose Profile Icon
+            </h2>
 
-          <div className="chooseProfileIcon__main__contentContainer__btnProfileContainer d-flex flex-wrap gap-3">
-            {renderAvatarButton}
+            <div className="chooseProfileIcon__main__contentContainer__btnProfileContainer d-flex flex-wrap gap-3">
+              {renderAvatarButton}
+            </div>
           </div>
-        </div>
-      </main>
-    </div>
+        </main>
+      </div>
+    
+      <Footer type={true} />
+    </>
   )
 }
 

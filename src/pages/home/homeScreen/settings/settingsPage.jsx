@@ -94,9 +94,7 @@ const SettingsPage = () => {
           <div className="settingsContainer__delProBtn__dummyDiv"></div>
 
           <div className="settingsContainer__delProBtn__btn  mx-lg-auto">
-            <DeleteUserOptionBtn 
-              index={userSelectedData !== "empty" ? userSelectedData : indexUserOption}
-            />
+            {userOptionArr.length > 1 && <DeleteUserOptionBtn index={userSelectedData !== "empty" ? userSelectedData : indexUserOption} />}
           </div>
         </div>
       </div>

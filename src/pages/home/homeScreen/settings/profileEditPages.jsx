@@ -7,6 +7,8 @@ import InputForm from "../../../../components/inputForm";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setAvatarImgData, setUserName } from "../../../../service/redux/API/profileEditSlice";
+import DeleteUserOptionBtn from "./deleteUserOptionBtn";
+import Footer from "../../../../components/footer";
 
 const ProfileEditPage = () => {
   const { data: dataStatus, isLoading: isLoadingStatus } = useGetLoginStatusQuery();
@@ -90,56 +92,63 @@ const ProfileEditPage = () => {
   }
 
   return (
-    <div className="profileEditPage d-flex flex-column align-items-center">
-      <HeaderSetting dataGet={dataGet} indexUserOption={(userSelectedData !== "empty" ? userSelectedData : indexUserOption) || 0} />
+    <>    
+      <div className="profileEditPage d-flex flex-column align-items-center">
+        <HeaderSetting dataGet={dataGet} indexUserOption={(userSelectedData !== "empty" ? userSelectedData : indexUserOption) || 0} />
 
-      <main className="profileEditPage__main d-flex flex-column flex-lg-row align-items-start my-3">
-        <button onClick={() =>{ handleReset(); navigate(-1); }} className="profileEditPage__main__backBtn">
-          <i className="fa-solid fa-arrow-left"></i>
-        </button>
-      
-        <div className="profileEditPage__main__contentContainer d-flex flex-column gap-3 mx-lg-auto">
-          <h2 className="text-start mb-3 mb-md-4 mb-lg-5">
-            Edit Profile
-          </h2>
+        <main className="profileEditPage__main d-flex flex-column flex-lg-row align-items-start my-3">
+          <button onClick={() =>{ handleReset(); navigate(-1); }} className="profileEditPage__main__backBtn">
+            <i className="fa-solid fa-arrow-left"></i>
+          </button>
+        
+          <div className="profileEditPage__main__contentContainer d-flex flex-column gap-3 mx-lg-auto">
+            <h2 className="text-start mb-3 mb-md-4 mb-lg-5">
+              Edit Profile
+            </h2>
 
-          <div className="profileEditPage__main__newInputProfile d-flex flex-row align-items-center gap-3 mx-lg-auto">
-            <button onClick={handleProfileImgChange} onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)} className="profileEditPage__main__newInputProfile__profileIcon align-self-center">
-              <ProfileImg 
-                avatarImg={avatarImgData || imgProfile}
-                scale={"7rem"}
-                statusAge={statusAge}
-                isUserManager={true}
-                fontSizeKids={"1.2rem"}
-                iconFontSize={"2rem"}
-                sizeShadow={"1.5px"}
-                touch={hover}
-              />
-            </button>
+            <div className="profileEditPage__main__newInputProfile d-flex flex-row align-items-center gap-3 mx-lg-auto">
+              <button onClick={handleProfileImgChange} onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)} className="profileEditPage__main__newInputProfile__profileIcon align-self-center">
+                <ProfileImg 
+                  avatarImg={avatarImgData || imgProfile}
+                  scale={"7rem"}
+                  statusAge={statusAge}
+                  isUserManager={true}
+                  fontSizeKids={"1.2rem"}
+                  iconFontSize={"2rem"}
+                  sizeShadow={"1.5px"}
+                  touch={hover}
+                />
+              </button>
 
-            <div className="flex-grow-1">
-              <InputForm 
-                name="userName"
-                placeholder="Name"
-                type="text"
-                userName={userName}
-                warning={warning}
-                setWarning={setWarning}
-                setUserName={setUserName}
-                validation={validation}
-                setValidation={setValidation}
-                arrayCheck={userOptionArrName}
-                whiteVer={true}
-              />
+              <div className="flex-grow-1">
+                <InputForm 
+                  name="userName"
+                  placeholder="Name"
+                  type="text"
+                  userName={userName}
+                  warning={warning}
+                  setWarning={setWarning}
+                  setUserName={setUserName}
+                  validation={validation}
+                  setValidation={setValidation}
+                  arrayCheck={userOptionArrName}
+                  whiteVer={true}
+                />
+              </div>
             </div>
+
+            <button onClick={handleSave} id="btnSave" className="profileEditPage__main__btnSave text-center">Save</button>
+
+            <button onClick={() => { handleCancel(); handleReset(); }} id="btnCancel" className="profileEditPage__main__btnCancel text-center">Cancel</button>
+
+            {userOptionArr.length > 1 && <DeleteUserOptionBtn index={userSelectedData !== "empty" ? userSelectedData: indexUserOption} />}
           </div>
+        </main>
 
-          <button onClick={handleSave} id="btnSave" className="profileEditPage__main__btnSave text-center">Save</button>
-
-          <button onClick={() => { handleCancel(); handleReset(); }} id="btnCancel" className="profileEditPage__main__btnCancel text-center">Cancel</button>
-        </div>
-      </main>
-    </div>
+      </div>
+      
+      <Footer type={true} />
+    </>
   )
 }
 
