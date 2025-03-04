@@ -12,28 +12,98 @@ export const tmdbApiSlice = createApi({
     },
   }),
   endpoints: (builder) => ({
+    // Movie Only
     getPopularMovies: builder.query({
       query: () => `/movie/popular`,
     }),
-    getPopularTVShows: builder.query({
-      query: () => `/tv/popular`,
+    getTopRatedMovies: builder.query({
+      query: () => `/movie/top_rated`,
     }),
-    searchMoviesAndTVShows: builder.query({
-      query: (query) => `/search/multi?query=${encodeURIComponent(query)}`,
+    getTrendingMovies: builder.query({
+      query: (timeWindow = "week") => `/trending/movie/${timeWindow}`,
+    }),
+    getFamilyMovies: builder.query({
+      query: () => `/discover/movie?with_genres=10751`,
+    }),
+    getHorrorMovies: builder.query({
+      query: () => `/discover/movie?with_genres=27`,
+    }),
+    getComedyMovies: builder.query({
+      query: () => `/discover/movie?with_genres=35`,
+    }),
+    getActionMovies: builder.query({
+      query: () => `/discover/movie?with_genres=28`,
+    }),
+    getAnimeMovies: builder.query({
+      query: () => `/discover/movie?with_genres=16&region=JP`,
     }),
     getSimilarMovies: builder.query({
       query: (movieId) => `/movie/${movieId}/similar`,
     }),
+
+    // TV Show Only
+    getPopularTVShows: builder.query({
+      query: () => `/tv/popular`,
+    }),
+    getTopRatedTVShows: builder.query({
+      query: () => `/tv/top_rated`,
+    }),
+    getTrendingTVShows: builder.query({
+      query: (timeWindow = "week") => `/trending/tv/${timeWindow}`,
+    }),
+    getFamilyTVShows: builder.query({
+      query: () => `/discover/tv?with_genres=10751`,
+    }),
+    getHorrorTVShows: builder.query({
+      query: () => `/discover/tv?with_genres=27`,
+    }),
+    getComedyTVShows: builder.query({
+      query: () => `/discover/tv?with_genres=35`,
+    }),
+    getActionTVShows: builder.query({
+      query: () => `/discover/tv?with_genres=28`,
+    }),
+    getAnimeTVShows: builder.query({
+      query: () => `/discover/tv?with_genres=16&origin_country=JP`,
+    }),
     getSimilarTVShows: builder.query({
       query: (tvId) => `/tv/${tvId}/similar`,
+    }),
+
+    // Both Movies & TV Shows
+    searchMoviesAndTVShows: builder.query({
+      query: (query) => `/search/multi?query=${encodeURIComponent(query)}`,
+    }),
+    getTrendingAll: builder.query({
+      query: (timeWindow = "week") => `/trending/all/${timeWindow}`,
     }),
   }),
 });
 
 export const {
+  // Movie Only
   useGetPopularMoviesQuery,
-  useGetPopularTVShowsQuery,
-  useSearchMoviesAndTVShowsQuery,
+  useGetTopRatedMoviesQuery,
+  useGetTrendingMoviesQuery,
+  useGetFamilyMoviesQuery,
+  useGetHorrorMoviesQuery,
+  useGetComedyMoviesQuery,
+  useGetActionMoviesQuery,
+  useGetAnimeMoviesQuery,
   useGetSimilarMoviesQuery,
+
+  // TV Show Only
+  useGetPopularTVShowsQuery,
+  useGetTopRatedTVShowsQuery,
+  useGetTrendingTVShowsQuery,
+  useGetFamilyTVShowsQuery,
+  useGetHorrorTVShowsQuery,
+  useGetComedyTVShowsQuery,
+  useGetActionTVShowsQuery,
+  useGetAnimeTVShowsQuery,
   useGetSimilarTVShowsQuery,
+
+  // Both Movies & TV Shows
+  useSearchMoviesAndTVShowsQuery,
+  useGetTrendingAllQuery,
 } = tmdbApiSlice;
