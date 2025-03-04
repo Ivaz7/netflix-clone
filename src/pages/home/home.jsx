@@ -2,7 +2,7 @@ import LoadingComp from "../../components/loadingComp";
 import { useGetDataQuery, useGetLoginStatusQuery } from "../../service/redux/API/firebaseDB";
 import AuthScreen from "./authScreen/AuthScreen";
 import UserOption from "./homeScreen/UserOption/userOption";
-import HomeScreen from "./homeScreen/homeScreen";
+import HomeScreen from "./homeScreen/homeScreen/homeScreen";
 import { useEffect } from "react";
 
 const Home = () => { 

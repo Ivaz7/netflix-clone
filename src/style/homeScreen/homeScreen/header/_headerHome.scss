@@ -1,0 +1,18 @@
+.headerHome {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: clamp(2rem, 4vw + 1rem, 4rem);
+  width: 100%;
+  background: linear-gradient(to bottom, rgb(20, 20, 20), transparent);
+  padding: 0 clamp(0.7rem, 4vw + 0.1rem, 3.8rem);
+
+  &.scrolled {
+    background: none;
+    background-color: rgb(20, 20, 20);
+  }
+
+  &__inside {
+    width: 100%;
+  }
+}

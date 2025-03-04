@@ -25,3 +25,8 @@
 @use './homeScreen/settings/profileEditPage';
 @use './homeScreen/settings/chooseProfileIcon';
 @use './homeScreen/settings/deleteConfirmation';
+@use './homeScreen/homeScreen/homeScreen';
+@use './homeScreen/homeScreen/header/headerHome';
+@use './homeScreen/homeScreen/header/leftSideHeaderHome';
+@use './homeScreen/homeScreen/header/rightSideHeaderHome';
+@use './components/spanTriangle';

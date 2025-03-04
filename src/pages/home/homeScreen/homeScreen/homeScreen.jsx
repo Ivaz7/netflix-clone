@@ -1,8 +1,10 @@
 import { signOut } from "firebase/auth";
-import { auth } from "../../../backEndFireBase/firebaseConfig";
-import { useSetChangedUserDataMutation } from "../../../service/redux/API/firebaseDB";
+import { auth } from "../../../../backEndFireBase/firebaseConfig";
+import { useSetChangedUserDataMutation } from "../../../../service/redux/API/firebaseDB";
 import PropTypes from "prop-types";
-import LoadingComp from "../../../components/loadingComp";
+import LoadingComp from "../../../../components/loadingComp";
+import HeaderHome from "./header/headerHome";
+import Footer from "../../../../components/footer";
 
 const HomeScreen = ({ refetchData, refetchStatus, dataGet, isLoadingDataGet }) => {
   const [triggerChangedUserData, { isLoading: isLoadingPushedData }] = useSetChangedUserDataMutation();
@@ -23,15 +25,18 @@ const HomeScreen = ({ refetchData, refetchStatus, dataGet, isLoadingDataGet }) =
   }
 
   return (
-    <div>
-      <header>
+    <>
+      <HeaderHome />
+
+      <main className="homeScreen">
         <h1>{name}</h1>
         <img className="imgProfile" src={`avatar/${imgProfile}`} alt="profile" />
-      </header>
+        <h1>Home Screen</h1>
+        <button onClick={handleClick}>logOut</button>
+      </main>
 
-      <h1>Home Screen</h1>
-      <button onClick={handleClick}>logOut</button>
-    </div>
+      <Footer />
+    </>
   );
 }
 

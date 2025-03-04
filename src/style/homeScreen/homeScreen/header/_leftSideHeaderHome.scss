@@ -1,0 +1,63 @@
+.headerHome__inside__leftSide {
+  position: relative;
+
+  * {
+    font-size: clamp(0.7rem, 2vw + 0.6rem, 1rem);
+    color: rgb(230, 230, 230);
+    transition: 0.3s;
+  }
+
+  &__dropDown {
+    display: none !important;
+    position: relative;
+    cursor: pointer;
+
+    &__itemDropDown {
+      position: absolute;
+      top: 120%;
+      right: -154%;
+      width: 15rem;
+
+      &__btnContainer {
+        width: 100%;
+        background-color: rgba(15, 15, 15, 0.9);
+        border: 1px solid rgb(75, 75, 75);
+        border-top: 3px solid rgb(230, 230, 230);
+        
+        button {
+          padding: 0.7rem 0;
+          background-color: transparent;
+          border: none;
+
+          &:hover {
+            background-color: rgba(41, 41, 41, 0.9);
+          }
+        }
+      }
+    }
+  }
+
+  &__themeSelected {
+    button {
+      background-color: transparent;
+      border: none;
+      color: rgb(230, 230, 230);
+
+      &:hover {
+        color: rgb(169, 169, 169);
+      }
+    }
+  }
+}
+
+@media (max-width: 55rem) {
+  .headerHome__inside__leftSide {
+    &__themeSelected {
+      display: none !important;
+    }
+
+    &__dropDown {
+      display: flex !important;
+    }
+  }
+}
