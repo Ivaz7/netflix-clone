@@ -1,4 +1,4 @@
-import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { useGetDataQuery, useGetLoginStatusQuery, useSetChangeUserOptionSelectedMutation } from "../../../../service/redux/API/firebaseDB";
 import LoadingComp from "../../../../components/loadingComp";
 import HeaderSetting from "./headerSetting";
@@ -44,7 +44,7 @@ const ProfileEditPage = () => {
     return;
   }
   
-  const userOptionSelected = userOptionArr[userSelectedData !== "empty" ? userSelectedData : indexUserOption];
+  const userOptionSelected = userOptionArr[(userSelectedData !== "empty" ? userSelectedData : indexUserOption) || 0];
   const { imgProfile, statusAge, name } = userOptionSelected;
   const userOptionArrName = dataGet.userOption.map(val => val.name !== name);
 
@@ -91,14 +91,12 @@ const ProfileEditPage = () => {
 
   return (
     <div className="profileEditPage d-flex flex-column align-items-center">
-      <HeaderSetting dataGet={dataGet} indexUserOption={userSelectedData !== "empty" ? userSelectedData : indexUserOption} />
+      <HeaderSetting dataGet={dataGet} indexUserOption={(userSelectedData !== "empty" ? userSelectedData : indexUserOption) || 0} />
 
       <main className="profileEditPage__main d-flex flex-column flex-lg-row align-items-start my-3">
-        <Link to={`/settings?indexUserOption=${indexUserOption}`}>
-          <button onClick={handleReset} className="profileEditPage__main__backBtn">
-            <i className="fa-solid fa-arrow-left"></i>
-          </button>
-        </Link>
+        <button onClick={() =>{ handleReset(); navigate(-1); }} className="profileEditPage__main__backBtn">
+          <i className="fa-solid fa-arrow-left"></i>
+        </button>
       
         <div className="profileEditPage__main__contentContainer d-flex flex-column gap-3 mx-lg-auto">
           <h2 className="text-start mb-3 mb-md-4 mb-lg-5">

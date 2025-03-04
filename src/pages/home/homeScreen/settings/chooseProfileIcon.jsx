@@ -1,4 +1,4 @@
-import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { useGetDataQuery, useGetLoginStatusQuery } from "../../../../service/redux/API/firebaseDB";
 import LoadingComp from "../../../../components/loadingComp";
 import HeaderSetting from "./headerSetting";
@@ -26,11 +26,6 @@ const ChooseProfileIcon = () => {
 
   const userSelectedData = dataGet.userSelected;
 
-  if (!indexUserOption && userSelectedData === "empty") {
-    navigate("/");
-    return;
-  }
-
   const renderAvatarButton = avatarList.map((val, inx) => (
     <button   
       className="chooseProfileIcon__main__contentContainer__btnProfileContainer__btn" 
@@ -51,14 +46,12 @@ const ChooseProfileIcon = () => {
 
   return (
     <div className="chooseProfileIcon d-flex flex-column align-items-center">
-      <HeaderSetting dataGet={dataGet}  indexUserOption={userSelectedData !== "empty" ? userSelectedData : indexUserOption} />
+      <HeaderSetting dataGet={dataGet}  indexUserOption={(userSelectedData !== "empty" ? userSelectedData : indexUserOption) || 0} />
 
       <main className="chooseProfileIcon__main d-flex flex-column flex-lg-row align-items-start my-3">
-        <Link to={`/settings/ProfileEdit?indexUserOption=${indexUserOption}`}>
-          <button className="chooseProfileIcon__main__backBtn">
-            <i className="fa-solid fa-arrow-left"></i>
-          </button>
-        </Link>
+        <button onClick={() => navigate(-1)} className="chooseProfileIcon__main__backBtn">
+          <i className="fa-solid fa-arrow-left"></i>
+        </button>
 
         <div className="chooseProfileIcon__main__contentContainer d-flex flex-column gap-3 mx-lg-auto">
           <h2 className="text-start mb-2 mb-md-3 mb-lg-4">
