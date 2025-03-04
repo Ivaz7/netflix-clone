@@ -210,9 +210,9 @@ export const firebaseDBSlice = createApi({
           if (snapshotVal && Array.isArray(snapshotVal.userOption)) {
             let updatedUserOption = [...snapshotVal.userOption];
 
-            if (snapshotVal.userSelected === index) {
+            if (!isNaN(snapshotVal.userSelected) && snapshotVal.userSelected === index) {
               await set(ref(database, `user/${userUid}/userSelected`), "empty");
-            } else if (snapshotVal.userSelected > index) {
+            } else if (!isNaN(snapshotVal.userSelected) && snapshotVal.userSelected > index) {
               await set(ref(database, `user/${userUid}/userSelected`), snapshotVal.userSelected - 1);
             }            
     

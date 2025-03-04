@@ -9,7 +9,7 @@ import ProfileImg from "../../../../components/profileImg";
 
 const DeleteConfirmationUserOption = ({ isDelete, setIsDelete, index }) => {
   const [triggerDeleteUserOption, { isLoading: isLoadingDelete }] = useSetDeleteUserOptionMutation();
-  const { data, isLoading: isLoadingDataGet } = useGetDataQuery();
+  const { data, isLoading: isLoadingDataGet, refetch } = useGetDataQuery();
   const navigate = useNavigate();
   const deleteRef = useRef(null);
 
@@ -29,6 +29,7 @@ const DeleteConfirmationUserOption = ({ isDelete, setIsDelete, index }) => {
 
   const handleDelete = async () => {
     await triggerDeleteUserOption({ index: index });
+    await refetch();
     navigate(-1);
   } 
 
@@ -45,12 +46,12 @@ const DeleteConfirmationUserOption = ({ isDelete, setIsDelete, index }) => {
           <main className="deleteConfirmation__main d-flex flex-column gap-4 text-center">
             <h1 className="m-0">Delete Profile?</h1>
 
-            <div className="d-flex justify-content-center align-items-center">
+            <div className="align-self-center">
               <ProfileImg 
                 avatarImg={imgProfile}
-                scale={"clamp(5rem, 2vw + 1rem, 9rem)"}
+                scale={"clamp(5rem, 10vw + 1rem, 8rem)"}
                 statusAge={statusAge}
-                fontSizeKids={"1.7rem"}
+                fontSizeKids={"clamp(0.9rem, 2vw + 0.1rem, 1.7rem)"}
                 sizeShadow={"1.5px"}
               />
             </div>
