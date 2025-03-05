@@ -2,13 +2,11 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import HeaderDropdown from "./headerDropdown";
 
-const HeaderSetting = ({ dataGet, indexUserOption }) => {
+const HeaderSetting = ({ dataGet }) => {
   const userSelected = dataGet.userSelected;
-  let avatarImg;
 
-  if (userSelected !== "empty") {
-    const userOptionSelected = dataGet.userOption[indexUserOption];
-    avatarImg = userOptionSelected.imgProfile;  
+  if (userSelected === "empty") {
+    return;
   }
 
   return (
@@ -18,7 +16,7 @@ const HeaderSetting = ({ dataGet, indexUserOption }) => {
           <img className="headerSetting__inside__img" src="/netflix-logo.png" alt="netflix logo" />
         </Link>
 
-        {userSelected !== "empty" && <HeaderDropdown avatarImg={avatarImg} />}
+        {userSelected !== "empty" && <HeaderDropdown dataGet={dataGet} />}
       </div>
     </header>
   )

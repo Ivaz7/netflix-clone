@@ -1,0 +1,46 @@
+.headerSetting__inside__selectContainer {
+  position: relative;
+
+  p {
+    margin: 0;
+  }
+
+  &__head {
+    border-radius: 0.2rem;
+    padding: 0.2rem;
+    cursor: pointer;
+
+    &:hover {
+      background-color: rgb(230, 230, 230);
+    }
+  }
+
+  &__dropDown {
+    position: absolute;
+    top: 130%;
+    right: -20%;
+    width: min(11rem, 100vw);
+    background-color: white !important;
+    box-shadow: 0 0 7px rgb(20, 20, 20);
+    border-radius: 0.4rem;
+    padding: 0.2rem;
+
+    &__br {
+      height: 1px;
+      width: 100%;
+      background-color: rgb(230, 230, 230);
+    }
+
+    button {
+      background-color: transparent;
+      width: 100%;
+      border: none;
+      padding: 0.7rem 1rem;
+      border-radius: 0.4rem;
+
+      &:hover {
+        background-color: rgb(230, 230, 230);
+      }
+    }
+  }
+}
