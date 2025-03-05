@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import ProfileImg from "../../../../../components/profileImg";
 import SpanTriangle from "../../../../../components/spanTriagle";
 import { useEffect, useRef, useState } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useClickOutside } from "../../../../../customHooks/useClickOutside";
 
 const RightSideHeaderHome = ({ data }) => {
@@ -91,35 +91,45 @@ const RightSideHeaderHome = ({ data }) => {
           <SpanTriangle rotated={!isProfile} />
         </div>
 
-        {isProfile && <div className="headerHome__inside__rightSide__infoProfileDiv__dropDown d-flex flex-column gap-2">
-          <div className="headerHome__inside__rightSide__infoProfileDiv__dropDown__spanTriangleDivDropDown align-self-end">
-            <SpanTriangle rotated={false} />
-          </div>
+        <AnimatePresence>
+          {isProfile && 
+            <motion.div
+              initial={{ opacity: 1 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.25 }} 
+              className="headerHome__inside__rightSide__infoProfileDiv__dropDown d-flex flex-column gap-2"
+            >
+              <div className="headerHome__inside__rightSide__infoProfileDiv__dropDown__spanTriangleDivDropDown align-self-end">
+                <SpanTriangle rotated={false} />
+              </div>
 
-          <div className="headerHome__inside__rightSide__infoProfileDiv__dropDown__inside">
-            <div className="headerHome__inside__rightSide__infoProfileDiv__dropDown__inside__user">
-              {renderUserOption}
-            </div>
+              <div className="headerHome__inside__rightSide__infoProfileDiv__dropDown__inside">
+                <div className="headerHome__inside__rightSide__infoProfileDiv__dropDown__inside__user">
+                  {renderUserOption}
+                </div>
 
-            <div className="headerHome__inside__rightSide__infoProfileDiv__dropDown__inside__setting d-flex flex-column gap-1">
-              <button className="d-flex flex-row gap-2 align-items-center">
-                <i className="fa-solid fa-gear"></i>
+                <div className="headerHome__inside__rightSide__infoProfileDiv__dropDown__inside__setting d-flex flex-column gap-1">
+                  <button className="d-flex flex-row gap-2 align-items-center">
+                    <i className="fa-solid fa-gear"></i>
 
-                <p>Setting/History</p>
-              </button>
+                    <p>Setting/History</p>
+                  </button>
 
-              <button className="d-flex flex-row gap-2 align-items-center">
-                <i className="fa-solid fa-arrow-right-from-bracket"></i>
+                  <button className="d-flex flex-row gap-2 align-items-center">
+                    <i className="fa-solid fa-arrow-right-from-bracket"></i>
 
-                <p>Exit Profile</p>
-              </button>
-            </div>
+                    <p>Exit Profile</p>
+                  </button>
+                </div>
 
-            <button className="headerHome__inside__rightSide__infoProfileDiv__dropDown__inside__signOut text-center">
-              <p>Sign Out</p>
-            </button>
-          </div>
-        </div>}
+                <button className="headerHome__inside__rightSide__infoProfileDiv__dropDown__inside__signOut text-center">
+                  <p>Sign Out</p>
+                </button>
+              </div>
+            </motion.div>
+          }
+        </AnimatePresence>
       </div>
     </div>
   )

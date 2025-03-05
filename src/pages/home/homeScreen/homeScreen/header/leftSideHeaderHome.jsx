@@ -19,11 +19,15 @@ const LeftSideHeaderHome = () => {
     }, 250)
   }
 
+  const handleClick = () => {
+    setIsHover(prev => !prev);
+  }
+
   return (
     <div className="headerHome__inside__leftSide d-flex flex-row gap-2 align-items-center">
       <img className="netflix-home" src="/netflix-logo.png" alt="logoNetflix" />
       
-      <div onMouseEnter={HandleMouseEnter} onMouseLeave={HandleMouseLeave} className="headerHome__inside__leftSide__dropDown d-flex align-items-center gap-2">
+      <div onClick={handleClick} onMouseEnter={HandleMouseEnter} onMouseLeave={HandleMouseLeave} className="headerHome__inside__leftSide__dropDown d-flex align-items-center gap-2">
         Browse <SpanTriangle rotated={true} color={"rgb(230,230,230)"}/>
 
         <AnimatePresence>
