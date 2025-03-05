@@ -4,6 +4,7 @@ import SpanTriangle from "../../../../components/spanTriagle";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useRef } from "react";
 import { useClickOutside } from "../../../../customHooks/useClickOutside";
+import { useNavigate } from "react-router-dom";
 
 const HeaderDropdown = ({ dataGet }) => {
   const { userSelected, userOption } = dataGet;
@@ -12,8 +13,11 @@ const HeaderDropdown = ({ dataGet }) => {
   const [isClicked, setIsClicked] = useState(false);
   const isClickedRef = useRef(null);
   useClickOutside(isClickedRef, isClicked, setIsClicked);
+  const navigate = useNavigate();
 
-  console.log(isClickedRef)
+  const handleBack = () => {
+    navigate("/")
+  }
 
   return (
     <div className="headerSetting__inside__selectContainer">
@@ -39,7 +43,7 @@ const HeaderDropdown = ({ dataGet }) => {
             transition={{ duration: 0.25 }}
             className="headerSetting__inside__selectContainer__dropDown d-flex flex-column gap-1"
           >
-            <button className="d-flex flex-row justify-content-between align-items-center">
+            <button onClick={handleBack} className="d-flex flex-row justify-content-between align-items-center">
               <i className="fa-solid fa-arrow-left"></i>
 
               <p>Back to Netflix</p>
