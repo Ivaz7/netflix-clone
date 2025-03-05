@@ -5,9 +5,11 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useState, useRef } from "react";
 import { useClickOutside } from "../../../../customHooks/useClickOutside";
 import { useNavigate } from "react-router-dom";
-import { useSetChangedUserDataMutation, useGetDataQuery } from "../../../../service/redux/API/firebaseDB";
+import { useSetChangedUserDataMutation, useGetDataQuery, useGetLoginStatusQuery } from "../../../../service/redux/API/firebaseDB";
 import LoadingComp from "../../../../components/loadingComp";
 import CustomFloatingComp from "../../../../components/customFloatingComp";
+import { signOut } from "firebase/auth";
+import { auth } from "../../../../backEndFireBase/firebaseConfig";
 
 const HeaderDropdown = ({ dataGet }) => {
   const { userSelected, userOption } = dataGet;
@@ -19,7 +21,8 @@ const HeaderDropdown = ({ dataGet }) => {
   const navigate = useNavigate();
 
   const [triggerChangedUserData, { isLoading: isLoadingPushedData }] = useSetChangedUserDataMutation();
-  const { refetch } = useGetDataQuery();
+  const { refetch: refetchData } = useGetDataQuery();
+  const { refetch: refetchStatus } = useGetLoginStatusQuery();
 
   if (isLoadingPushedData) {
     <CustomFloatingComp>
@@ -33,7 +36,15 @@ const HeaderDropdown = ({ dataGet }) => {
 
   const handleSwitch = async () => {
     await triggerChangedUserData({ value: { userSelected: "empty" } });
-    await refetch();
+    await refetchData();
+    navigate("/")
+  }
+
+  const handleSignOut = async () => {
+    await triggerChangedUserData({ value: { userSelected: "empty" } });
+    await signOut(auth);
+    await refetchData();
+    await refetchStatus();
     navigate("/")
   }
 
@@ -75,7 +86,7 @@ const HeaderDropdown = ({ dataGet }) => {
               <i className="fa-solid fa-chevron-right"></i>
             </button>
 
-            <button className="d-flex justify-content-start">
+            <button onClick={handleSignOut} className="d-flex justify-content-start">
               <p>Sign Out</p>
             </button>
           </motion.div>
