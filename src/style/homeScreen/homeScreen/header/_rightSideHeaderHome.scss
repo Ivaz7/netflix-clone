@@ -1,0 +1,52 @@
+.headerHome__inside__rightSide {
+  * {
+    color: white !important;
+    transition: 0.3s;
+  }
+
+  button {
+    background-color: transparent;
+    border: none;
+  }
+
+  &__searchDiv {
+
+    &__btn {
+      font-size: 1.3rem;
+    }
+
+    &__input {
+      background-color: rgba(0, 0, 0, 0.5);
+      padding: 0.2rem 0.4rem;
+      border: 1.5px solid white !important;
+
+      i {
+        font-size: 1.2rem;
+      }
+
+      input {
+        all: unset;
+        font-size: 1rem;
+        width: 100%;
+      }
+    }
+  }
+
+  &__infoProfileBtn {
+
+    &__spanTriangleDiv {
+      opacity: 1;
+    }
+  }
+}
+
+@media (max-width: 60rem) {
+  .headerHome__inside__rightSide {
+    &__infoProfileBtn {
+      &__spanTriangleDiv {
+        opacity: 0;
+        display: none !important;
+      }
+    }
+  }
+}
