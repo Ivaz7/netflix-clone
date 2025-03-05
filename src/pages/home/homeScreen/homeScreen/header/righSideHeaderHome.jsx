@@ -4,6 +4,11 @@ import SpanTriangle from "../../../../../components/spanTriagle";
 import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useClickOutside } from "../../../../../customHooks/useClickOutside";
+import { useGetDataQuery, useGetLoginStatusQuery, useSetChangedUserDataMutation } from "../../../../../service/redux/API/firebaseDB";
+import LoadingComp from "../../../../../components/loadingComp";
+import { signOut } from "firebase/auth";
+import { auth } from "../../../../../backEndFireBase/firebaseConfig";
+import CustomFloatingComp from "../../../../../components/customFloatingComp";
 
 const RightSideHeaderHome = ({ data }) => {
   const { userOption, userSelected } = data;
@@ -25,6 +30,16 @@ const RightSideHeaderHome = ({ data }) => {
   const profileRef = useRef(null);
   const timeOutRef = useRef(null);
 
+  const [triggerChangedUserData, { isLoading: isLoadingPushedData }] = useSetChangedUserDataMutation();
+  const { refetch: refetchData } = useGetDataQuery();
+  const { refetch: refetchStatus } = useGetLoginStatusQuery();
+
+  if (isLoadingPushedData) {
+    <CustomFloatingComp>
+      <LoadingComp />
+    </CustomFloatingComp>
+  }
+
   const renderUserOption = userOption.map((val, index) => {
     if (index === userSelected) {
       return;
@@ -44,21 +59,28 @@ const RightSideHeaderHome = ({ data }) => {
     )
   })
 
-  const handleEnter = () => {
+  const handleEnterDropDown = () => {
     if (timeOutRef.current) {
       clearTimeout(timeOutRef.current)
     }
     setIsProfile(true);
   }
 
-  const handleLeave = () => {
+  const handleLeaveDropDown = () => {
     timeOutRef.current = setTimeout(() => {
       setIsProfile(false);
     }, 250)
   }
 
-  const handleClick = () => {
+  const handleClickDropDown = () => {
     setIsProfile(prev => !prev)
+  }
+
+  const handleSignOut = async () => {
+    await triggerChangedUserData({ value: { userSelected: "empty" } });
+    await signOut(auth);
+    await refetchData();
+    await refetchStatus();
   }
 
   return (
@@ -81,7 +103,7 @@ const RightSideHeaderHome = ({ data }) => {
         </motion.div>}
       </div>
 
-      <div ref={profileRef} onClick={handleClick} onMouseEnter={handleEnter} onMouseLeave={handleLeave} className="headerHome__inside__rightSide__infoProfileDiv d-flex flex-row gap-2 align-items-center">
+      <div ref={profileRef} onClick={handleClickDropDown} onMouseEnter={handleEnterDropDown} onMouseLeave={handleLeaveDropDown} className="headerHome__inside__rightSide__infoProfileDiv d-flex flex-row gap-2 align-items-center">
         <ProfileImg 
           scale={"2rem"}
           avatarImg={imgProfile}
@@ -123,7 +145,7 @@ const RightSideHeaderHome = ({ data }) => {
                   </button>
                 </div>
 
-                <button className="headerHome__inside__rightSide__infoProfileDiv__dropDown__inside__signOut text-center">
+                <button onClick={handleSignOut} className="headerHome__inside__rightSide__infoProfileDiv__dropDown__inside__signOut text-center">
                   <p>Sign Out</p>
                 </button>
               </div>
