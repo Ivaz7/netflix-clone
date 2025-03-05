@@ -50,7 +50,7 @@ const RightSideHeaderHome = ({ data }) => {
     const { imgProfile, name } = val;
 
     return (
-      <button className="headerHome__inside__rightSide__infoProfileDiv__dropDown__btn d-flex flex-row align-items-center gap-2" key={index}>
+      <button onClick={() => handleUserOption(index)} className="headerHome__inside__rightSide__infoProfileDiv__dropDown__btn d-flex flex-row align-items-center gap-2" key={index}>
         <ProfileImg 
           scale={"2rem"}
           avatarImg={imgProfile}
@@ -60,6 +60,11 @@ const RightSideHeaderHome = ({ data }) => {
       </button>
     )
   })
+
+  const handleUserOption = async (index) => {
+    await triggerChangedUserData({ value: { userSelected: index } });
+    await refetchData();
+  }
 
   const handleEnterDropDown = () => {
     if (timeOutRef.current) {
