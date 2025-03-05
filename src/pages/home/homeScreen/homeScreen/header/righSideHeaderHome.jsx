@@ -9,11 +9,13 @@ import LoadingComp from "../../../../../components/loadingComp";
 import { signOut } from "firebase/auth";
 import { auth } from "../../../../../backEndFireBase/firebaseConfig";
 import CustomFloatingComp from "../../../../../components/customFloatingComp";
+import { useNavigate } from "react-router-dom";
 
 const RightSideHeaderHome = ({ data }) => {
   const { userOption, userSelected } = data;
   const userOptionSelected = userOption[userSelected];
   const { imgProfile } = userOptionSelected;
+  const navigate = useNavigate();
 
   const [isSearch, setIsSearch] = useState(false);
   const searchRef = useRef(null);
@@ -83,6 +85,10 @@ const RightSideHeaderHome = ({ data }) => {
     await refetchStatus();
   }
 
+  const handleClickSettings = () => {
+    navigate("/settings");
+  }
+
   return (
     <div className="headerHome__inside__rightSide d-flex flex-row gap-2 gap-md-3 align-items-center">
       <div className="headerHome__inside__rightSide__searchDiv">
@@ -132,7 +138,7 @@ const RightSideHeaderHome = ({ data }) => {
                 </div>
 
                 <div className="headerHome__inside__rightSide__infoProfileDiv__dropDown__inside__setting d-flex flex-column gap-1">
-                  <button className="d-flex flex-row gap-2 align-items-center">
+                  <button onClick={handleClickSettings} className="d-flex flex-row gap-2 align-items-center">
                     <i className="fa-solid fa-gear"></i>
 
                     <p>Setting/History</p>
