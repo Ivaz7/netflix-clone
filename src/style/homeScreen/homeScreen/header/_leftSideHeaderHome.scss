@@ -7,6 +7,7 @@
   }
 
   &__dropDown {
+    width: 100%;
     display: none !important;
     position: relative;
     cursor: pointer;
@@ -16,7 +17,7 @@
       position: absolute;
       top: 120%;
       left: -3.2rem;
-      width: 15rem;
+      width: min(100vw, 15rem);
 
       &__btnContainer {
         width: 100%;
