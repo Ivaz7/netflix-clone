@@ -5,6 +5,9 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useState, useRef } from "react";
 import { useClickOutside } from "../../../../customHooks/useClickOutside";
 import { useNavigate } from "react-router-dom";
+import { useSetChangedUserDataMutation, useGetDataQuery } from "../../../../service/redux/API/firebaseDB";
+import LoadingComp from "../../../../components/loadingComp";
+import CustomFloatingComp from "../../../../components/customFloatingComp";
 
 const HeaderDropdown = ({ dataGet }) => {
   const { userSelected, userOption } = dataGet;
@@ -15,7 +18,22 @@ const HeaderDropdown = ({ dataGet }) => {
   useClickOutside(isClickedRef, isClicked, setIsClicked);
   const navigate = useNavigate();
 
+  const [triggerChangedUserData, { isLoading: isLoadingPushedData }] = useSetChangedUserDataMutation();
+  const { refetch } = useGetDataQuery();
+
+  if (isLoadingPushedData) {
+    <CustomFloatingComp>
+      <LoadingComp />
+    </CustomFloatingComp>
+  }
+
   const handleBack = () => {
+    navigate("/")
+  }
+
+  const handleSwitch = async () => {
+    await triggerChangedUserData({ value: { userSelected: "empty" } });
+    await refetch();
     navigate("/")
   }
 
@@ -51,7 +69,7 @@ const HeaderDropdown = ({ dataGet }) => {
 
             <div className="headerSetting__inside__selectContainer__dropDown__br"></div>
 
-            <button className="d-flex flex-row justify-content-between align-items-center">
+            <button onClick={handleSwitch} className="d-flex flex-row justify-content-between align-items-center">
               <p>Switch Profile</p>
               
               <i className="fa-solid fa-chevron-right"></i>
