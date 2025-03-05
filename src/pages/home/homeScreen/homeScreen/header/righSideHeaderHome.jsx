@@ -21,6 +21,46 @@ const RightSideHeaderHome = ({ data }) => {
     }
   }, [isSearch])
 
+  const [isProfile, setIsProfile] = useState(false);
+  const profileRef = useRef(null);
+  const timeOutRef = useRef(null);
+
+  const renderUserOption = userOption.map((val, index) => {
+    if (index === userSelected) {
+      return;
+    }
+
+    const { imgProfile, name } = val;
+
+    return (
+      <button className="headerHome__inside__rightSide__infoProfileDiv__dropDown__btn d-flex flex-row align-items-center gap-2" key={index}>
+        <ProfileImg 
+          scale={"2rem"}
+          avatarImg={imgProfile}
+        />
+
+        <p>{name}</p>
+      </button>
+    )
+  })
+
+  const handleEnter = () => {
+    if (timeOutRef.current) {
+      clearTimeout(timeOutRef.current)
+    }
+    setIsProfile(true);
+  }
+
+  const handleLeave = () => {
+    timeOutRef.current = setTimeout(() => {
+      setIsProfile(false);
+    }, 250)
+  }
+
+  const handleClick = () => {
+    setIsProfile(prev => !prev)
+  }
+
   return (
     <div className="headerHome__inside__rightSide d-flex flex-row gap-2 gap-md-3 align-items-center">
       <div className="headerHome__inside__rightSide__searchDiv">
@@ -41,16 +81,46 @@ const RightSideHeaderHome = ({ data }) => {
         </motion.div>}
       </div>
 
-      <button className="headerHome__inside__rightSide__infoProfileBtn d-flex flex-row gap-2 align-items-center">
+      <div ref={profileRef} onClick={handleClick} onMouseEnter={handleEnter} onMouseLeave={handleLeave} className="headerHome__inside__rightSide__infoProfileDiv d-flex flex-row gap-2 align-items-center">
         <ProfileImg 
           scale={"2rem"}
           avatarImg={imgProfile}
         />
 
-        <div className="headerHome__inside__rightSide__infoProfileBtn__spanTriangleDiv d-flex aling-items-center">
-          <SpanTriangle rotated={true} />
+        <div className="headerHome__inside__rightSide__infoProfileDiv__spanTriangleDivHead d-flex aling-items-center">
+          <SpanTriangle rotated={!isProfile} />
         </div>
-      </button>
+
+        {isProfile && <div className="headerHome__inside__rightSide__infoProfileDiv__dropDown d-flex flex-column gap-2">
+          <div className="headerHome__inside__rightSide__infoProfileDiv__dropDown__spanTriangleDivDropDown align-self-end">
+            <SpanTriangle rotated={false} />
+          </div>
+
+          <div className="headerHome__inside__rightSide__infoProfileDiv__dropDown__inside">
+            <div className="headerHome__inside__rightSide__infoProfileDiv__dropDown__inside__user">
+              {renderUserOption}
+            </div>
+
+            <div className="headerHome__inside__rightSide__infoProfileDiv__dropDown__inside__setting d-flex flex-column gap-1">
+              <button className="d-flex flex-row gap-2 align-items-center">
+                <i className="fa-solid fa-gear"></i>
+
+                <p>Setting/History</p>
+              </button>
+
+              <button className="d-flex flex-row gap-2 align-items-center">
+                <i className="fa-solid fa-arrow-right-from-bracket"></i>
+
+                <p>Exit Profile</p>
+              </button>
+            </div>
+
+            <button className="headerHome__inside__rightSide__infoProfileDiv__dropDown__inside__signOut text-center">
+              <p>Sign Out</p>
+            </button>
+          </div>
+        </div>}
+      </div>
     </div>
   )
 }

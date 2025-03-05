@@ -10,7 +10,6 @@
   }
 
   &__searchDiv {
-
     &__btn {
       font-size: 1.3rem;
     }
@@ -32,20 +31,76 @@
     }
   }
 
-  &__infoProfileBtn {
+  &__infoProfileDiv {
+    position: relative;
+    cursor: pointer;
+    user-select: none;
 
-    &__spanTriangleDiv {
-      opacity: 1;
+    &__dropDown {
+      position: absolute;
+      top: 60%;
+      right: -5%;
+
+      &__spanTriangleDivDropDown {
+        padding-right: 2rem;
+      }
+
+      p {
+        transition: 0.3s;
+        text-decoration: none;
+        margin: 0;
+        color: rgb(230, 230, 230) !important;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+
+      i {
+        color: rgb(230, 230, 230) !important;
+      }
+
+      &__inside {
+        background-color: rgba(0, 0, 0, 0.5);
+        width: 13rem;
+        cursor: default;
+        border: 1px solid rgb(75, 75, 75);
+
+        &__user {
+          padding: 0.8rem 0.6rem;
+        }
+
+        &__setting {
+          padding: 0.8rem 0.8rem;
+          padding-top: 0;
+        }
+
+        &__signOut {
+          width: 100%;
+          border-top: 1px solid rgb(75, 75, 75) !important;
+          padding: 0.5rem 0;
+        }
+      }
     }
   }
 }
 
 @media (max-width: 60rem) {
   .headerHome__inside__rightSide {
-    &__infoProfileBtn {
-      &__spanTriangleDiv {
+    &__infoProfileDiv {
+      &__spanTriangleDivHead {
         opacity: 0;
         display: none !important;
+      }
+
+      &__dropDown {
+        &__inside {
+          &__setting {
+            border: 1px solid rgb(75, 75, 75);
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+          }
+        }
       }
     }
   }
