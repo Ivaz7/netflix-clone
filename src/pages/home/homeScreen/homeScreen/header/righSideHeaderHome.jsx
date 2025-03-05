@@ -94,6 +94,11 @@ const RightSideHeaderHome = ({ data }) => {
     navigate("/settings");
   }
 
+  const handleClickExit = async () => {
+    await triggerChangedUserData({ value: { userSelected: "empty" } });
+    await refetchData();
+  }
+
   return (
     <div className="headerHome__inside__rightSide d-flex flex-row gap-2 gap-md-3 align-items-center">
       <div className="headerHome__inside__rightSide__searchDiv">
@@ -149,7 +154,7 @@ const RightSideHeaderHome = ({ data }) => {
                     <p>Setting/History</p>
                   </button>
 
-                  <button className="d-flex flex-row gap-2 align-items-center">
+                  <button onClick={handleClickExit} className="d-flex flex-row gap-2 align-items-center">
                     <i className="fa-solid fa-arrow-right-from-bracket"></i>
 
                     <p>Exit Profile</p>
