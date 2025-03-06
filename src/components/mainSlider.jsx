@@ -5,11 +5,11 @@ const MainSlider = ({ children, name }) => {
   const [slide, SetSlider] = useState(0)
 
   const handleNext = () => {
-    SetSlider(prev => prev - 50.06)
+    SetSlider(prev => prev - 100)
   }
  
   const handlePrev = () => {
-    SetSlider(prev => prev + 50.06)
+    SetSlider(prev => prev + 100)
   }
 
   return (
@@ -22,8 +22,8 @@ const MainSlider = ({ children, name }) => {
         </button>
 
         <div 
-          className="mainSlider__inside__items d-flex align-items-center"
-          style={{ transform: `translateX(calc(${slide}%))`, transition: "0.7s ease-in-out"}}
+          className="mainSlider__inside__items"
+          style={{ transform: `translateX(${slide}%)`}}
         >
           {children} 
         </div>

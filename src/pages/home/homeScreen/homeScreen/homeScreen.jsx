@@ -28,9 +28,7 @@ const HomeScreen = () => {
   ];    
 
   const renderImgURl = imageUrls.map((val, index) => (
-    <button key={index}>
-      <img src={val} alt="img" style={{ width: "100%", objectFit: "cover", borderRadius: "inherit" }} />
-    </button>
+    <img key={index} src={val} alt="img" />
   ))
 
   return (
