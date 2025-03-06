@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import { Children, useEffect, useState } from "react";
 
-const MainSlider = ({ children }) => {
+const MainSlider = ({ children, name }) => {
   // now the slider can handle num 2, 3, 4, 5, and 6 seamlessly
   const [num, setNum] = useState(6);
 
@@ -161,22 +161,31 @@ const MainSlider = ({ children }) => {
   const filteredChildren = Children.toArray(children).slice(slide - num, slide);
 
   return (
-    <div className="mainSlider d-flex flex-row">
-      <button onClick={handlePrev} className="mainSlider__prevBtn">
-        Prev
-      </button>
+    <div className="mainSlider d-flex flex-column gap-1 gap-sm-2 gap-md-3">
+      <h1>{name}</h1>
 
-      <div className="mainSlider__items">{filteredChildren}</div>
+      <div className="mainSlider__inside d-flex flex-row">
+        <button onClick={handlePrev} className="mainSlider__inside__prevBtn">
+          <i className="fa-solid fa-chevron-left"></i>
+        </button>
 
-      <button onClick={handleNext} className="mainSlider__nextBtn">
-        Next
-      </button>
+        <div 
+          className="mainSlider__inside__items d-flex align-items-center"
+        >
+          {filteredChildren} 
+        </div>
+
+        <button onClick={handleNext} className="mainSlider__inside__nextBtn">
+          <i className="fa-solid fa-chevron-right"></i>
+        </button>
+      </div>
     </div>
   );
 };
 
 MainSlider.propTypes = {
   children: PropTypes.node,
+  name: PropTypes.string,
 };
 
 export default MainSlider;
