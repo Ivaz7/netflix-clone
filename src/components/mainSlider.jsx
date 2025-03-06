@@ -3,7 +3,7 @@ import { Children, useEffect, useState } from "react";
 
 const MainSlider = ({ children }) => {
   // now the slider can handle num 2, 3, 4, 5, and 6 seamlessly
-  const num = 6;
+  const [num, setNum] = useState(6);
 
   const totalSlides = Children.count(children);
   const [slide, setSlide] = useState(num);
@@ -13,6 +13,30 @@ const MainSlider = ({ children }) => {
       setSlide(num);
     }
   }, [slide, num]);
+
+  useEffect(() => {
+    const changeNum = () => {
+      const width = window.innerWidth;
+  
+      if (width >= 1300) {
+        setNum(6);
+      } else if (width >= 992) {
+        setNum(5);
+      } else if (width >= 768) {
+        setNum(4);
+      } else if (width >= 576) {
+        setNum(3);
+      } else {
+        setNum(2);
+      }
+    };
+  
+    window.addEventListener("resize", changeNum);
+  
+    return () => {
+      window.removeEventListener("resize", changeNum);
+    };
+  }, []);  
   
   const handleNext = () => {
     setSlide(prev => {
