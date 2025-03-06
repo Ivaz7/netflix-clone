@@ -2,19 +2,17 @@ import PropTypes from "prop-types";
 import { Children, useEffect, useState } from "react";
 
 const MainSlider = ({ children }) => {
-  // now the slider can handle num 2 , 3 , 4 , and 5 seemlessly
-  const num = 5;
+  // now the slider can handle num 2, 3, 4, 5, and 6 seamlessly
+  const num = 6;
 
   const totalSlides = Children.count(children);
   const [slide, setSlide] = useState(num);
 
-  console.log(slide - num, slide)
-
   useEffect(() => {
     if (slide - num < 0) {
-      setSlide(num)
+      setSlide(num);
     }
-  }, [slide, num])
+  }, [slide, num]);
   
   const handleNext = () => {
     setSlide(prev => {
@@ -50,6 +48,20 @@ const MainSlider = ({ children }) => {
         } else if (prev + num === totalSlides + 3) {
           return prev + 2;
         } else if (prev + num === totalSlides + 4) {
+          return prev + 1;
+        }
+      }
+
+      if (num === 6) {
+        if (prev + num === totalSlides + 1) {
+          return prev + 5;
+        } else if (prev + num === totalSlides + 2) {
+          return prev + 4;
+        } else if (prev + num === totalSlides + 3) {
+          return prev + 3;
+        } else if (prev + num === totalSlides + 4) {
+          return prev + 2;
+        } else if (prev + num === totalSlides + 5) {
           return prev + 1;
         }
       }
@@ -104,11 +116,24 @@ const MainSlider = ({ children }) => {
         }
       }
 
+      if (num === 6) {
+        if (prev - num === 0) {
+          return prev - 5;
+        } else if (prev - num === -1) {
+          return prev - 4;
+        } else if (prev - num === -2) {
+          return prev - 3;
+        } else if (prev - num === -3) {
+          return prev - 2;
+        } else if (prev - num === -4) {
+          return prev - 1;
+        }
+      }
+      
       return prev - num;
     });
   };
   
-
   const filteredChildren = Children.toArray(children).slice(slide - num, slide);
 
   return (
