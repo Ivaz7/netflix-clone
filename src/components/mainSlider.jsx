@@ -9,11 +9,11 @@ const MainSlider = ({ children, name }) => {
     const updatePieces = () => {  
       if (window.innerWidth >= 1300) {
         setPieces(6);
-      } else if (window.innerWidth >= 992) {
+      } else if (window.innerWidth >= 996) {
         setPieces(5);
-      } else if (window.innerWidth >= 576) {
+      } else if (window.innerWidth >= 768) {
         setPieces(4);
-      } else if (window.innerWidth >= 334) {
+      } else if (window.innerWidth >= 496) {
         setPieces(3);
       } else {
         setPieces(2);
