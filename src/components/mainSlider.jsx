@@ -2,27 +2,21 @@ import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
 
 const MainSlider = ({ children, name }) => {
-  const slideSix = 16.666;
-  const slideFive = 20;
-  const slideFour = 25;
-  const slideThree = 33.333;
-  const slideTwo = 50;
-
   const [slide, SetSlider] = useState(0)
-  const [pieces, setPieces] = useState(slideSix);
+  const [pieces, setPieces] = useState(6);
 
   useEffect(() => {
     const updatePieces = () => {  
       if (window.innerWidth >= 1300) {
-        setPieces(slideSix);
+        setPieces(6);
       } else if (window.innerWidth >= 992) {
-        setPieces(slideFive);
+        setPieces(5);
       } else if (window.innerWidth >= 576) {
-        setPieces(slideFour);
+        setPieces(4);
       } else if (window.innerWidth >= 334) {
-        setPieces(slideThree);
+        setPieces(3);
       } else {
-        setPieces(slideTwo);
+        setPieces(2);
       }
     };
   
@@ -54,7 +48,7 @@ const MainSlider = ({ children, name }) => {
 
         <div 
           className="mainSlider__inside__items"
-          style={{ transform: `translateX(${slide}%)`, "--widthSlide": `${pieces}%`, }}
+          style={{ transform: `translateX(${slide}%)`, "--widthSlide": `${pieces}`, }}
         >
           {children} 
         </div>

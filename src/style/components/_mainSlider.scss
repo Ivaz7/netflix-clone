@@ -37,7 +37,7 @@
         border-top-right-radius: 0.4rem 0.3rem;
         border-bottom-left-radius: 0.4rem 0.3rem;
         border-bottom-right-radius: 0.4rem 0.3rem;
-        max-width: var(--widthSlide);
+        max-width: calc(100% / var(--widthSlide));
         padding: 0 0.25rem;
         object-fit: cover;
       }
