@@ -26,7 +26,6 @@
 
     &__items {
       display: flex;
-      transition: 1s ease-in-out;
       width: calc(100% - 2 * 4vw - 2 * 0.26rem);
 
       & > img {
@@ -62,6 +61,10 @@
         i {
           font-size: 3vw;
         }
+      }
+
+      &:disabled {
+        cursor: pointer;
       }
     }
 
