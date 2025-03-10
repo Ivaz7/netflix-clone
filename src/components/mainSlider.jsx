@@ -14,8 +14,6 @@ const MainSlider = ({ children, name }) => {
   const [page, setPage] = useState(0);
   const maxPage = Math.ceil(totalSlides / pieces);
 
-  console.log(page)
-
   const renderPage = new Array(maxPage).fill(null).map((val, index) => (
     <div key={index} className={`mainSlider__inside__barPage__barItem ${index === page ? 'active' : ''}`}>{val}</div>
   ))

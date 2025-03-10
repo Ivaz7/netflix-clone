@@ -44,14 +44,14 @@
       display: flex;
       width: calc(100% - 2 * 4vw - 2 * 0.26rem);
 
-      & > img {
+      & > div {
         flex-grow: 0;
         flex-shrink: 0;
         flex-basis: 100%;
-        border-top-left-radius: 0.4rem 0.3rem;
-        border-top-right-radius: 0.4rem 0.3rem;
-        border-bottom-left-radius: 0.4rem 0.3rem;
-        border-bottom-right-radius: 0.4rem 0.3rem;
+        border-top-left-radius: 0.5rem 0.3rem;
+        border-top-right-radius: 0.5rem 0.3rem;
+        border-bottom-left-radius: 0.5rem 0.3rem;
+        border-bottom-right-radius: 0.5rem 0.3rem;
         max-width: calc(100% / var(--widthSlide));
         padding: 0 0.25rem;
         object-fit: cover;
