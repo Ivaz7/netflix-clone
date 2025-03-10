@@ -11,6 +11,15 @@ const MainSlider = ({ children, name }) => {
   const [isAnimating, setIsAnimating] = useState(false);
   const sliderRef = useRef(null);
 
+  const [page, setPage] = useState(0);
+  const maxPage = Math.ceil(totalSlides / pieces);
+
+  console.log(page)
+
+  const renderPage = new Array(maxPage).fill(null).map((val, index) => (
+    <div key={index} className={`mainSlider__inside__barPage__barItem ${index === page ? 'active' : ''}`}>{val}</div>
+  ))
+
   const clones = useMemo(() => {
     const cloneCount = pieces + 2;
 
@@ -74,28 +83,40 @@ const MainSlider = ({ children, name }) => {
     if (isAnimating) return; 
     setIsAnimating(true);
     setTransform((prev) => prev - 100);
+    setPage(prev => (prev + 1) % maxPage);
 
     setTimeout(() => {
       setSlide((prev) => (prev + pieces) % totalSlides);
-      setIsAnimating(false);
     }, 1000);
+    
+    setTimeout(() => {
+      setIsAnimating(false);
+    }, 1200);
   };
 
   const handlePrev = () => {
     if (isAnimating) return; 
     setIsAnimating(true);
     setTransform((prev) => prev + 100);
+    setPage((prev) => (prev - 1 + maxPage) % maxPage);
 
     setTimeout(() => {
       setSlide((prev) => (prev - pieces + totalSlides) % totalSlides);
-      setIsAnimating(false);
     }, 1000);
+
+    setTimeout(() => {
+      setIsAnimating(false);
+    }, 1200);
   };
 
   return (
     <div className="mainSlider d-flex flex-column gap-1 gap-sm-2 gap-md-3">
       <h1>{name}</h1>
       <div className="mainSlider__inside d-flex flex-row">
+        <div className="mainSlider__inside__barPage d-flex flex-row gap-1">
+          {renderPage}
+        </div>
+
         <button
           onClick={handlePrev}
           disabled={isAnimating}
@@ -103,6 +124,7 @@ const MainSlider = ({ children, name }) => {
         >
           <i className="fa-solid fa-chevron-left"></i>
         </button>
+
         <div
           ref={sliderRef}
           className="mainSlider__inside__items"
@@ -115,6 +137,7 @@ const MainSlider = ({ children, name }) => {
           {clones.middleChildren}
           {clones.rightChildren}
         </div>
+
         <button
           onClick={handleNext}
           disabled={isAnimating}

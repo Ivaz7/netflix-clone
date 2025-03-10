@@ -1,7 +1,6 @@
 .mainSlider {
   width: 100%;
   padding-top: 1rem;
-  background-color: rebeccapurple;
 
   h1 {
     margin: 0;
@@ -21,6 +20,23 @@
     &:hover {
       i {
         opacity: 1;
+      }
+    }
+
+    &__barPage {
+      position: absolute;
+      right: 4vw;
+      top: -10%;
+      z-index: 20;
+
+      &__barItem {
+        width: 0.7rem;
+        height: 2px;
+        background-color: rgb(75, 75, 75);
+
+        &.active {
+          background-color: rgb(169, 169, 169);
+        }
       }
     }
 
@@ -51,7 +67,7 @@
       z-index: 10;
 
       i {
-        font-size: 2vw;
+        font-size: 1.5vw;
         color: rgba(250, 250, 250);
       }
 
@@ -59,7 +75,7 @@
         background-color: rgba(20, 20, 20, 0.7);
 
         i {
-          font-size: 3vw;
+          font-size: 2vw;
         }
       }
 
