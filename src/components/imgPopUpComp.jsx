@@ -128,8 +128,8 @@ const ImgPopUpComp = ({ data }) => {
             alt="background"
           />
 
-          <div className="ImgPopUpComp__popUp__optionBtn d-flex flex-row align-items-center justify-content-between">
-            <div className="d-flex flex-row gap-1">
+          <div className="ImgPopUpComp__popUp__optionBtn d-flex flex-row flex-wrap align-items-center justify-content-between">
+            <div className="d-flex flex-row flex-wrap gap-1">
               <button className="buttonPlay buttonOutside">
                 <i className="fa-solid fa-play"></i>
               </button>

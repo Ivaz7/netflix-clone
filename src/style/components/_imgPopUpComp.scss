@@ -1,3 +1,10 @@
+// This SCSS code scales elements recursively by 5% at each breakpoint.
+$scale1: 1;
+$scale2: $scale1 * 0.95;
+$scale3: $scale2 * 0.95;
+$scale4: $scale3 * 0.95;
+$scale5: $scale4 * 0.95;
+
 .ImgPopUpComp {
   position: relative;
   cursor: pointer;
@@ -21,6 +28,9 @@
     }
 
     button {
+      display: flex;
+      justify-content: center;
+      align-items: center;
       border: none;
       background-color: transparent;
       color: white !important;
@@ -30,6 +40,7 @@
 
       i {
         opacity: 1;
+        font-size: 1rem;
       }
 
       &:hover {
@@ -38,6 +49,9 @@
     }
 
     .buttonOutside {
+      display: flex;
+      justify-content: center;
+      align-items: center;
       border: 0.1rem solid rgb(169, 169, 169) !important;
       width: 2rem;
       height: 2rem;
@@ -70,6 +84,10 @@
 
     &__information {
       padding: 1rem;
+
+      p {
+        font-size: 1rem;
+      }
     }
   }
 }
@@ -85,5 +103,177 @@
     border-radius: 2rem;
     padding: 0.5rem 0.7rem;
     box-shadow: 0 0 1rem black;
+  }
+}
+
+@media (max-width: 1299px) and (min-width: 996px) {
+  .ImgPopUpComp {
+    &__popUp {
+      border-radius: 1rem * $scale2;
+      box-shadow: 0 0 (2rem * $scale2) black !important;
+
+      button {
+        width: 1.7rem * $scale2;
+        height: 1.7rem * $scale2;
+        i {
+          font-size: 1rem * $scale2;
+        }
+      }
+
+      .buttonOutside {
+        border: 0.1rem * $scale2 solid rgb(169, 169, 169) !important;
+        width: 2rem * $scale2;
+        height: 2rem * $scale2;
+      }
+
+      &__optionBtn {
+        padding: 1rem * $scale2;
+      }
+
+      &__information {
+        padding: 1rem * $scale2;
+
+        p {
+          font-size: 1rem * $scale2;
+        }
+      }
+    }
+  }
+
+  .buttonRating {
+    &__ratingOption {
+      border-radius: 2rem * $scale2;
+      padding: 0.5rem * $scale2 0.7rem * $scale2;
+      box-shadow: 0 0 (1rem * $scale2) black;
+    }
+  }
+}
+
+@media (max-width: 995px) and (min-width: 768px) {
+  .ImgPopUpComp {
+    &__popUp {
+      border-radius: 1rem * $scale3;
+      box-shadow: 0 0 (2rem * $scale3) black !important;
+
+      button {
+        width: 1.7rem * $scale3;
+        height: 1.7rem * $scale3;
+        i {
+          font-size: 1rem * $scale3;
+        }
+      }
+
+      .buttonOutside {
+        border: 0.1rem * $scale3 solid rgb(169, 169, 169) !important;
+        width: 2rem * $scale3;
+        height: 2rem * $scale3;
+      }
+
+      &__optionBtn {
+        padding: 1rem * $scale3;
+      }
+
+      &__information {
+        padding: 1rem * $scale3;
+
+        p {
+          font-size: 1rem * $scale3;
+        }
+      }
+    }
+  }
+
+  .buttonRating {
+    &__ratingOption {
+      border-radius: 2rem * $scale3;
+      padding: 0.5rem * $scale3 0.7rem * $scale3;
+      box-shadow: 0 0 (1rem * $scale3) black;
+    }
+  }
+}
+
+@media (max-width: 767px) and (min-width: 496px) {
+  .ImgPopUpComp {
+    &__popUp {
+      border-radius: 1rem * $scale4;
+      box-shadow: 0 0 (2rem * $scale4) black !important;
+
+      button {
+        width: 1.7rem * $scale4;
+        height: 1.7rem * $scale4;
+        i {
+          font-size: 1rem * $scale4;
+        }
+      }
+
+      .buttonOutside {
+        border: 0.1rem * $scale4 solid rgb(169, 169, 169) !important;
+        width: 2rem * $scale4;
+        height: 2rem * $scale4;
+      }
+
+      &__optionBtn {
+        padding: 1rem * $scale4;
+      }
+
+      &__information {
+        padding: 1rem * $scale4;
+
+        p {
+          font-size: 1rem * $scale4;
+        }
+      }
+    }
+  }
+
+  .buttonRating {
+    &__ratingOption {
+      border-radius: 2rem * $scale4;
+      padding: 0.5rem * $scale4 0.7rem * $scale4;
+      box-shadow: 0 0 (1rem * $scale4) black;
+    }
+  }
+}
+
+@media (max-width: 495px) {
+  .ImgPopUpComp {
+    &__popUp {
+      border-radius: 1rem * $scale5;
+      box-shadow: 0 0 (2rem * $scale5) black !important;
+
+      button {
+        width: 1.7rem * $scale5;
+        height: 1.7rem * $scale5;
+        i {
+          font-size: 1rem * $scale5;
+        }
+      }
+
+      .buttonOutside {
+        border: 0.1rem * $scale5 solid rgb(169, 169, 169) !important;
+        width: 2rem * $scale5;
+        height: 2rem * $scale5;
+      }
+
+      &__optionBtn {
+        padding: 1rem * $scale5;
+      }
+
+      &__information {
+        padding: 1rem * $scale5;
+
+        p {
+          font-size: 1rem * $scale5;
+        }
+      }
+    }
+  }
+
+  .buttonRating {
+    &__ratingOption {
+      border-radius: 2rem * $scale5;
+      padding: 0.5rem * $scale5 0.7rem * $scale5;
+      box-shadow: 0 0 (1rem * $scale5) black;
+    }
   }
 }
