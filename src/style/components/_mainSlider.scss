@@ -42,7 +42,7 @@
 
     &__items {
       display: flex;
-      width: calc(100% - 2 * 4vw - 2 * 0.26rem);
+      width: calc(100% - (2 * 4vw));
 
       & > div {
         flex-grow: 0;
@@ -52,7 +52,7 @@
         border-top-right-radius: 0.5rem 0.3rem;
         border-bottom-left-radius: 0.5rem 0.3rem;
         border-bottom-right-radius: 0.5rem 0.3rem;
-        max-width: calc(100% / var(--widthSlide));
+        max-width: calc(100% / var(--widthSlide)) !important;
         padding: 0 0.25rem;
         object-fit: cover;
       }

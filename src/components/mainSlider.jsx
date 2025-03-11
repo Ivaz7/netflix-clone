@@ -42,6 +42,7 @@ const MainSlider = ({ children, name }) => {
 
   useEffect(() => {
     const updatePieces = () => {
+      setTransform(-(100 + 100 / pieces));
       if (window.innerWidth >= 1300) {
         setPieces(6);
       } else if (window.innerWidth >= 996) {
@@ -61,7 +62,7 @@ const MainSlider = ({ children, name }) => {
     return () => {
       window.removeEventListener("resize", updatePieces);
     };
-  }, []);
+  }, [pieces]);
 
   const handleNext = () => {
     if (isAnimating) return; 

@@ -25,7 +25,7 @@ const HomeScreen = () => {
   })
 
   return (
-    <>
+    <div className="outerHomeScreen">
       <HeaderHome />
 
       <main className="homeScreen">
@@ -35,7 +35,7 @@ const HomeScreen = () => {
       </main>
 
       <Footer />
-    </>
+    </div>
   );
 }
 

@@ -116,7 +116,7 @@ const ImgPopUpComp = ({ data }) => {
           className="ImgPopUpComp__popUp"
           ref={mainPopUpRef}
           initial={{ scale: 1 }}
-          animate={{ scale: 1.1 }}
+          animate={{ scale: 1.01 }}
           exit={{ scale: 1  }}
           transition={{ duration: 0.25 }}
           onMouseEnter={handleEnterPopUp}
