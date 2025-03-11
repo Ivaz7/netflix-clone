@@ -63,28 +63,17 @@ const MainSlider = ({ children, name }) => {
     };
   }, []);
 
-  useEffect(() => {
-    if (sliderRef.current) {
-      sliderRef.current.style.transition = "0s";
-    }
-    setTransform(-(100 + 100 / pieces));
-
-    setTimeout(() => {
-      if (sliderRef.current) {
-        sliderRef.current.style.transition =
-          "1s cubic-bezier(0.5, 0, 0.1, 1)";
-      }
-    }, 50);
-  }, [slide, pieces]);
-
   const handleNext = () => {
     if (isAnimating) return; 
+    sliderRef.current.style.transition = "1s cubic-bezier(0.5, 0, 0.1, 1)";
     setIsAnimating(true);
     setTransform((prev) => prev - 100);
     setPage(prev => (prev + 1) % maxPage);
 
     setTimeout(() => {
+      sliderRef.current.style.transition = "0s";
       setSlide((prev) => (prev + pieces) % totalSlides);
+      setTransform(-(100 + 100 / pieces));
     }, 1000);
     
     setTimeout(() => {
@@ -94,12 +83,15 @@ const MainSlider = ({ children, name }) => {
 
   const handlePrev = () => {
     if (isAnimating) return; 
+    sliderRef.current.style.transition = "1s cubic-bezier(0.5, 0, 0.1, 1)";
     setIsAnimating(true);
     setTransform((prev) => prev + 100);
     setPage((prev) => (prev - 1 + maxPage) % maxPage);
 
     setTimeout(() => {
+      sliderRef.current.style.transition = "0s";
       setSlide((prev) => (prev - pieces + totalSlides) % totalSlides);
+      setTransform(-(100 + 100 / pieces));
     }, 1000);
 
     setTimeout(() => {
