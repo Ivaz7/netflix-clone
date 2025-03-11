@@ -1,3 +1,5 @@
+@use '../../../config' as config;
+
 .headerHome__inside__rightSide {
   * {
     color: white !important;
@@ -35,6 +37,18 @@
     position: relative;
     cursor: pointer;
     user-select: none;
+
+    &__exitProfile {
+      p {
+        margin: 0;
+      }
+
+      &__btn {
+        background-color: config.$redLightNetflix !important;
+        padding: 0.2rem 0.5rem;
+        border-radius: 0.2rem; 
+      }
+    }
 
     &__dropDown {
       position: absolute;

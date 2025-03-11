@@ -14,7 +14,7 @@ import { useNavigate } from "react-router-dom";
 const RightSideHeaderHome = ({ data }) => {
   const { userOption, userSelected } = data;
   const userOptionSelected = userOption[userSelected];
-  const { imgProfile } = userOptionSelected;
+  const { imgProfile, statusAge } = userOptionSelected;
   const navigate = useNavigate();
 
   const [isSearch, setIsSearch] = useState(false);
@@ -47,13 +47,16 @@ const RightSideHeaderHome = ({ data }) => {
       return;
     }
 
-    const { imgProfile, name } = val;
+    const { imgProfile, name, statusAge } = val;
 
     return (
       <button onClick={() => handleUserOption(index)} className="headerHome__inside__rightSide__infoProfileDiv__dropDown__btn d-flex flex-row align-items-center gap-2" key={index}>
         <ProfileImg 
           scale={"2rem"}
           avatarImg={imgProfile}
+          statusAge={statusAge}
+          fontSizeKids={"0.5rem"}
+          sizeShadow={"1px"}
         />
 
         <p>{name}</p>
@@ -100,6 +103,12 @@ const RightSideHeaderHome = ({ data }) => {
     await refetchData();
   }
 
+  const handleClickExitKids = async () => {
+    await triggerChangedUserData({ value: { userSelected: "empty" } });
+    await refetchData();
+    navigate("/?kids=true");
+  }
+
   return (
     <div className="headerHome__inside__rightSide d-flex flex-row gap-2 gap-md-3 align-items-center">
       <div className="headerHome__inside__rightSide__searchDiv">
@@ -124,14 +133,25 @@ const RightSideHeaderHome = ({ data }) => {
         <ProfileImg 
           scale={"2rem"}
           avatarImg={imgProfile}
+          statusAge={statusAge}
+          fontSizeKids={"0.5rem"}
+          sizeShadow={"1px"}
         />
 
-        <div className="headerHome__inside__rightSide__infoProfileDiv__spanTriangleDivHead d-flex aling-items-center">
+        {statusAge && <div className="headerHome__inside__rightSide__infoProfileDiv__exitProfile">
+          <button onClick={handleClickExitKids} className="headerHome__inside__rightSide__infoProfileDiv__exitProfile__btn d-flex flex-row gap-2 align-items-center">
+            <i className="fa-solid fa-arrow-right-from-bracket"></i>
+
+            <p>Exit Profile</p>
+          </button>
+        </div>}
+
+        {!statusAge && <div className="headerHome__inside__rightSide__infoProfileDiv__spanTriangleDivHead d-flex aling-items-center">
           <SpanTriangle rotated={!isProfile} />
-        </div>
+        </div>}
 
         <AnimatePresence>
-          {isProfile && 
+          {isProfile && !statusAge &&
             <motion.div
               initial={{ opacity: 1 }}
               animate={{ opacity: 1 }}
@@ -144,7 +164,7 @@ const RightSideHeaderHome = ({ data }) => {
               </div>
 
               <div className="headerHome__inside__rightSide__infoProfileDiv__dropDown__inside">
-                <div className="headerHome__inside__rightSide__infoProfileDiv__dropDown__inside__user">
+                <div className="headerHome__inside__rightSide__infoProfileDiv__dropDown__inside__user d-flex flex-column align-items-start gap-2">
                   {renderUserOption}
                 </div>
 

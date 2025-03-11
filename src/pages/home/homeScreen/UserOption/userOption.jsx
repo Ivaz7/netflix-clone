@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import AddUserOption from "./addUserOption";
 import { useState } from "react";
 import SettingUserOption from "./settingUserOption";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import ProfileImg from "../../../../components/profileImg";
 import LoadingComp from "../../../../components/loadingComp";
 
@@ -12,7 +12,9 @@ const UserOption = ({ refetchData, refetchStatus, dataGet, isLoadingDataGet }) =
   const [triggerChangedUserData, { isLoading: isLoadingPushedData }] = useSetChangedUserDataMutation();
   const [isAdded, setIsAdded] = useState(false);
   const navigate = useNavigate();
-
+  const [searchParam] = useSearchParams();
+  const kids = searchParam.get("kids")
+  
   const [touchIndex, setTouchIndex] = useState(null)
   
   if (isLoadingDataGet || isLoadingPushedData) {
@@ -78,11 +80,11 @@ const UserOption = ({ refetchData, refetchStatus, dataGet, isLoadingDataGet }) =
             {userOptionArr.length < 5 && <AddUserOption setIsAdded={setIsAdded} />}
           </div>
 
-          <button onClick={handleManageProfile} className="manageProfileBtn">
+          {!kids && <button onClick={handleManageProfile} className="manageProfileBtn">
             <h5>
               Manage Profiles 
             </h5>
-          </button>
+          </button>}
         </motion.div>
       </div>}
     </>
