@@ -40,6 +40,9 @@ export const tmdbApiSlice = createApi({
     getSimilarMovies: builder.query({
       query: (movieId) => `/movie/${movieId}/similar`,
     }),
+    getMovieTrailer: builder.query({
+      query: (movieId) => `/movie/${movieId}/videos`,
+    }),
 
     // TV Show Only
     getPopularTVShows: builder.query({
@@ -69,6 +72,9 @@ export const tmdbApiSlice = createApi({
     getSimilarTVShows: builder.query({
       query: (tvId) => `/tv/${tvId}/similar`,
     }),
+    getTVShowTrailer: builder.query({
+      query: (tvId) => `/tv/${tvId}/videos`,
+    }),
 
     // Both Movies & TV Shows
     searchMoviesAndTVShows: builder.query({
@@ -91,6 +97,7 @@ export const {
   useGetActionMoviesQuery,
   useGetAnimeMoviesQuery,
   useGetSimilarMoviesQuery,
+  useGetMovieTrailerQuery,
 
   // TV Show Only
   useGetPopularTVShowsQuery,
@@ -102,6 +109,7 @@ export const {
   useGetActionTVShowsQuery,
   useGetAnimeTVShowsQuery,
   useGetSimilarTVShowsQuery,
+  useGetTVShowTrailerQuery,
 
   // Both Movies & TV Shows
   useSearchMoviesAndTVShowsQuery,
