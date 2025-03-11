@@ -39,6 +39,24 @@
       }
     }
 
+    .buttonOutside {
+      border: 0.1rem solid rgb(169, 169, 169) !important;
+      width: 2rem;
+      height: 2rem;
+      border-radius: 50%;
+    }
+
+    .buttonPlay {
+      background-color: white !important;
+      border-color: white !important;
+      color: rgb(20, 20, 20) !important;
+
+      &:hover {
+        border-color: rgb(169, 169, 169) !important;
+        background-color: rgb(169, 169, 169) !important;
+      }
+    }
+
     &__img {
       border-radius: inherit;
       border-bottom-right-radius: 0;
@@ -63,11 +81,11 @@
 
   &__ratingOption {
     position: absolute;
-    top: 0;
-    left: -140%;
+    top: -30%;
+    left: -150%;
     background-color: rgb(20, 20, 20);
-    border: 2px solid white !important;
     border-radius: 2rem;
-    padding: 0.1rem 0.3rem;
+    padding: 0.5rem 0.7rem;
+    box-shadow: 0 0 1rem black;
   }
 }
