@@ -64,6 +64,7 @@ const RightSideHeaderHome = ({ data }) => {
   const handleUserOption = async (index) => {
     await triggerChangedUserData({ value: { userSelected: index } });
     await refetchData();
+    navigate("/")
   }
 
   const handleEnterDropDown = () => {
