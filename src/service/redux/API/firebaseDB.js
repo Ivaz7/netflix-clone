@@ -23,10 +23,8 @@ export const firebaseDBSlice = createApi({
                 {
                   name: userName,
                   statusAge: false,
-                  history: {
-                    rating: "empty",
-                    watched: "empty",
-                  },
+                  historyRating: "empty",
+                  historyWatched: "empty",
                   myList: "empty",
                   imgProfile: "avatar1.png",
                   pinSecurity: "empty",
@@ -34,10 +32,8 @@ export const firebaseDBSlice = createApi({
                 {
                   name: "Kids",
                   statusAge: true,
-                  history: {
-                    rating: "empty",
-                    watched: "empty",
-                  },
+                  historyRating: "empty",
+                  historyWatched: "empty",
                   myList: "empty",
                   imgProfile: "avatarKids.png",
                   pinSecurity: "empty",
@@ -174,10 +170,8 @@ export const firebaseDBSlice = createApi({
                 imgProfile: imgProfile,
                 statusAge: statusAge,
                 myList: 'empty',
-                history: {
-                  rating: "empty",
-                  watched: "empty",
-                },
+                historyRating: "empty",
+                historyWatched: "empty",
                 pinSecurity: "empty",
               });
             }

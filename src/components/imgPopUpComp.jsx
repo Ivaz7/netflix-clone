@@ -22,11 +22,11 @@ const ImgPopUpComp = ({ data }) => {
   const { data: dataGet, isLoading } = useGetDataQuery();
 
   const userOptionSelected = dataGet?.userOption[dataGet.userSelected];
-  const { rating } = userOptionSelected.history;
+  const { historyRating } = userOptionSelected;
 
   const rated =
-    rating !== "empty" && Array.isArray(rating)
-      ? rating.find((val) => val.id === idMovie) || null
+    historyRating !== "empty" && Array.isArray(historyRating)
+      ? historyRating.find((val) => val.id === idMovie) || null
       : null;
 
   clickOutSide(optionRatingRef, isRating, setIsRating);
@@ -90,6 +90,7 @@ const ImgPopUpComp = ({ data }) => {
       clearTimeout(timeOutMainPopUp.current);
     }
     setIsHover(true);
+    // do dataMutation
   };
   
   const handleLeavePopUP = () => {
