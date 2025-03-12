@@ -277,6 +277,72 @@ export const firebaseDBSlice = createApi({
       },
     }),
     
+    setHitoryRating: builder.mutation({
+      async queryFn({ idMovie, score, name }) {
+        try {
+          const userUid = await new Promise((resolve, reject) => {
+            const unsubscribe = onAuthStateChanged(
+              auth,
+              (user) => {
+                unsubscribe();
+                if (user) {
+                  resolve(user.uid);
+                } else {
+                  resolve(null);
+                }
+              },
+              (error) => reject(error)
+            );
+          });
+    
+          if (!userUid) {
+            return { data: null };
+          }
+
+          const reference = ref(database, `user/${userUid}`);
+          const snapshot = await get(reference);
+          const snapshotVal = snapshot.exists() ? snapshot.val() : null;
+
+          if (snapshotVal  && Array.isArray(snapshotVal.userOption)) {
+            let updatedUserOption = [...snapshotVal.userOption]
+            let historyRating = updatedUserOption[snapshotVal.userSelected].historyRating;
+
+            if (historyRating !== "empty" && Array.isArray(historyRating)) {
+              let detected = false;
+
+              for (let i = 0; i < historyRating.length; i++) {
+                if (historyRating[i].idMovie === idMovie) {
+                  if (historyRating[i].score === score) {
+                    return { data: "No changes needed" };
+                  }                  
+
+                  historyRating[i] = { name: name, idMovie: idMovie, score: score };
+                  detected = true;
+                  break;
+                }
+              }
+
+              if (!detected) {
+                if (historyRating.length === 10) {
+                  historyRating.shift();
+                }
+
+                historyRating.push({ name: name, idMovie: idMovie, score: score });
+              }
+            } else {
+              historyRating = [{ name: name, idMovie: idMovie, score: score }];
+            }
+
+            updatedUserOption[snapshotVal.userSelected].historyRating = historyRating;
+            await set(ref(database, `user/${userUid}/userOption`), updatedUserOption);
+          }
+
+          return { data: "History rating updated successfully" };
+        } catch (error) {
+          return { error: error.message };
+        }
+      }
+    })
   }),
 });
 
@@ -288,4 +354,5 @@ export const {
   useSetAddUserOptionMutation,
   useSetDeleteUserOptionMutation,
   useSetChangeUserOptionSelectedMutation,
+  useSetHitoryRatingMutation,
 } = firebaseDBSlice;

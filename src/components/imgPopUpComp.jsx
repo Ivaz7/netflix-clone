@@ -3,11 +3,11 @@ import { useRef, useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { genreMap } from "../data/movieGenreData";
 import { useClickOutside } from "../customHooks/useClickOutside";
-import { useGetDataQuery } from "../service/redux/API/firebaseDB";
+import { useGetDataQuery, useSetHitoryRatingMutation } from "../service/redux/API/firebaseDB";
 import LoadingComp from "./loadingComp";
 
 const ImgPopUpComp = ({ data }) => {
-  const { poster_path, genre_ids, id: idMovie } = data;
+  const { poster_path, genre_ids, id: idMovie, title } = data;
   
   const [ratingIndex, setRatingIndex] = useState(null);
   const [isRating, setIsRating] = useState(false);
@@ -19,14 +19,15 @@ const ImgPopUpComp = ({ data }) => {
   const timeOutMainPopUp = useRef(null);
   const clickOutSide = useClickOutside;
 
-  const { data: dataGet, isLoading } = useGetDataQuery();
+  const { data: dataGet, isLoading, refetch } = useGetDataQuery();
+  const [triggerSetHistoryRating] = useSetHitoryRatingMutation();
 
   const userOptionSelected = dataGet?.userOption[dataGet.userSelected];
   const { historyRating } = userOptionSelected;
 
   const rated =
     historyRating !== "empty" && Array.isArray(historyRating)
-      ? historyRating.find((val) => val.id === idMovie) || null
+      ? historyRating.find((val) => val.idMovie === idMovie) || null
       : null;
 
   clickOutSide(optionRatingRef, isRating, setIsRating);
@@ -90,13 +91,17 @@ const ImgPopUpComp = ({ data }) => {
       clearTimeout(timeOutMainPopUp.current);
     }
     setIsHover(true);
-    // do dataMutation
   };
   
-  const handleLeavePopUP = () => {
+  const handleLeavePopUP = async () => {
     timeOutMainPopUp.current = setTimeout(() => {
       setIsHover(false);
     }, 250);
+
+    if (ratingIndex !== null) {
+      await triggerSetHistoryRating({ idMovie: idMovie, score: ratingIndex, name: title });
+      await refetch();
+    }
   };
   
 
