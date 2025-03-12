@@ -1,13 +1,20 @@
 import { useEffect, useMemo, useState } from "react";
 import CustomFloatingComp from "../../../../components/customFloatingComp";
 import LoadingComp from "../../../../components/loadingComp";
-import { useGetTrendingAllQuery, useLazyGetLogosQuery } from "../../../../service/redux/API/tmdbApiSlicee";
+import { useLazyGetTrendingAllQuery, useLazyGetLogosQuery } from "../../../../service/redux/API/tmdbApiSlicee";
+import { useGetDataQuery } from "../../../../service/redux/API/firebaseDB";
 
 const WelcomeBanner = () => {
-  const { data: dataTrending, isLoading: loadingTrending } = useGetTrendingAllQuery(undefined, {
-    refetchOnMountOrArgChange: false,
-  });
-    const [triggerGetLogos, { data: dataLogos, isLoading: loadingLogos }] = useLazyGetLogosQuery();
+  const [triggerTrending, { data: dataTrending, isLoading: loadingTrending }] = useLazyGetTrendingAllQuery();
+  const [triggerGetLogos, { data: dataLogos, isLoading: loadingLogos }] = useLazyGetLogosQuery();
+  const { data: dataGet, isLoading: loadingDataGet } = useGetDataQuery();
+
+  useEffect(() => {
+    if (dataGet) {
+      const { statusAge } = dataGet.userOption[dataGet.userSelected];
+      triggerTrending({ age: statusAge })
+    }
+  }, [dataGet, triggerTrending])
 
   const [logo, setLogo] = useState(null);
   
@@ -32,7 +39,7 @@ const WelcomeBanner = () => {
     }
   }, [dataLogos]);
     
-  if (loadingTrending || loadingLogos) {
+  if (loadingDataGet || loadingTrending || loadingLogos) {
     return (
       <CustomFloatingComp>
         <LoadingComp />

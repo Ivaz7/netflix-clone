@@ -105,6 +105,6 @@ export const {
 
   // Etc
   useLazySearchMoviesAndTVShowsQuery,
-  useGetTrendingAllQuery,
+  useLazyGetTrendingAllQuery,
   useLazyGetLogosQuery,
 } = tmdbApiSlice;
