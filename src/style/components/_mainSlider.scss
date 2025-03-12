@@ -1,10 +1,14 @@
 .mainSlider {
   width: 100%;
   padding-top: 1rem;
-
+  
   h1 {
+    z-index: 20;
     margin: 0;
     margin-left: 4vw;
+    color: rgb(230, 230, 230) !important;
+    font-weight: bold;
+    text-shadow: 0 0 0.3rem black !important;
   }
 
   &__inside{

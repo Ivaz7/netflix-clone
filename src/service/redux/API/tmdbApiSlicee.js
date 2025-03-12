@@ -69,7 +69,7 @@ export const tmdbApiSlice = createApi({
       query: ({ id, age } = {}) => appendAgeFilter(`/tv/${id}/videos`, age),
     }),
 
-    // Both
+    // Etc
     searchMoviesAndTVShows: builder.query({
       query: ({ age, query }) =>
         appendAgeFilter(`/search/multi?query=${encodeURIComponent(query)}`, age),
@@ -78,6 +78,9 @@ export const tmdbApiSlice = createApi({
       query: ({ age, timeWindow = "week" } = {}) =>
         appendAgeFilter(`/trending/all/${timeWindow}`, age),
     }),
+    getLogos: builder.query({
+      query: ({ category, id }) => `/${category}/${id}/images`,
+    }),    
   }),
 });
 
@@ -100,7 +103,8 @@ export const {
   useLazyGetSimilarTVShowsQuery,
   useLazyGetTVShowTrailerQuery,
 
-  // Both
+  // Etc
   useLazySearchMoviesAndTVShowsQuery,
-  useLazyGetTrendingAllQuery,
+  useGetTrendingAllQuery,
+  useLazyGetLogosQuery,
 } = tmdbApiSlice;

@@ -1,0 +1,54 @@
+.welcomeBanner {
+  width: 100vw;
+  
+  &__backdrop {
+    width: 98.8vw;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 0;
+  }
+
+  &__info {
+    padding: 0 4vw;
+    z-index: 10;
+    min-height: 80vh;
+
+    &__logo{
+      background-color: rgba(0, 0, 0, 0.5);
+      width: 20rem;
+      box-shadow: 0 0 2rem black;
+    }
+
+    .buttonPlay, .buttonInfo {
+      i {
+        font-size: 1.3rem;
+      }
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 0.3rem;
+      box-shadow: 0 0 0.7rem black;
+    }
+
+    .buttonPlay {
+      background-color: white !important;
+
+      &:hover {
+        background-color: rgb(169, 169, 169) !important;
+      }
+    }
+
+    .buttonInfo {
+      background-color: rgba(169, 169, 169, 0.5);
+      color: white !important;
+
+      svg {
+        color: white !important;
+      }
+
+      &:hover {
+        background-color: rgba(230, 230, 230, 0.5);
+      }
+    }
+  }
+}

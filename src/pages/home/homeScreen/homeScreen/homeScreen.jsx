@@ -7,6 +7,7 @@ import LoadingComp from "../../../../components/loadingComp";
 import ImgPopUpComp from "../../../../components/imgPopUpComp";
 import { useGetDataQuery } from "../../../../service/redux/API/firebaseDB";
 import { useEffect } from "react";
+import WelcomeBanner from "./welcomeBanner";
 
 const HomeScreen = () => {
   const [triggerFetch, { data: dataMovie, isLoading: isLoadingMovie }] = useLazyGetActionMoviesQuery();
@@ -40,12 +41,16 @@ const HomeScreen = () => {
       <HeaderHome />
 
       <main className="homeScreen">
-        <MainSlider name={"Dummy Slide"}>
-          {imgArray}
-        </MainSlider>
-      </main>
+        <WelcomeBanner />
 
-      <Footer />
+        <section className="homeScreen__slider">
+          <MainSlider name={"Dummy Slide"}>
+            {imgArray}
+          </MainSlider>
+        </section>
+
+        <Footer />
+      </main>
     </div>
   );
 }
