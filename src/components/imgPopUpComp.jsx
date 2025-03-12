@@ -17,6 +17,7 @@ const ImgPopUpComp = ({ data }) => {
   const timeOutRatingRef = useRef(null);
   const mainPopUpRef = useRef(null);
   const timeOutMainPopUp = useRef(null);
+  const timeOutDelayPopUpRef = useRef(null);
   const clickOutSide = useClickOutside;
 
   const { data: dataGet, isLoading, refetch } = useGetDataQuery();
@@ -90,16 +91,34 @@ const ImgPopUpComp = ({ data }) => {
     if (timeOutMainPopUp.current) {
       clearTimeout(timeOutMainPopUp.current);
     }
-    setIsHover(true);
+    
+    if (timeOutDelayPopUpRef.current) {
+      clearTimeout(timeOutDelayPopUpRef.current);
+    }
+  
+    timeOutDelayPopUpRef.current = setTimeout(() => {
+      setIsHover(true);
+    }, 300);
   };
   
   const handleLeavePopUP = async () => {
+    let isDelay = false;
+
+    if (timeOutDelayPopUpRef.current) {
+      clearTimeout(timeOutDelayPopUpRef.current);
+      isDelay = true;
+    }
+  
     timeOutMainPopUp.current = setTimeout(() => {
       setIsHover(false);
     }, 250);
 
+    if (isDelay) {
+      return;
+    }
+  
     if (ratingIndex !== null) {
-      await triggerSetHistoryRating({ idMovie: idMovie, score: ratingIndex, name: title });
+      await triggerSetHistoryRating({ idMovie, score: ratingIndex, name: title });
       await refetch();
     }
   };
@@ -113,6 +132,7 @@ const ImgPopUpComp = ({ data }) => {
     <div className="ImgPopUpComp">
       <img
         onMouseEnter={handleEnterPopUp}
+        onMouseLeave={handleLeavePopUP}
         className="ImgPopUpComp__mainImg"
         src={`https://image.tmdb.org/t/p/original${poster_path}`}
         alt="background"
