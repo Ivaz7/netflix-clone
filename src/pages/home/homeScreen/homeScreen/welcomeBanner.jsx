@@ -26,6 +26,7 @@ const WelcomeBanner = () => {
 
   const backdrop = randomTrending?.backdrop_path;
   const media = randomTrending?.media_type;
+  const overview = randomTrending?.overview;
   
   useEffect(() => {
     if (randomTrending?.id) {
@@ -52,7 +53,11 @@ const WelcomeBanner = () => {
       <img className="welcomeBanner__backdrop" src={`https://image.tmdb.org/t/p/original${backdrop}`} alt="backdrop" />
 
       <div className="welcomeBanner__info d-flex flex-column gap-3 justify-content-center">
-        {logo && <img className="welcomeBanner__info__logo" src={`https://image.tmdb.org/t/p/original${logo}`} alt="logo" />}
+        <img className="welcomeBanner__info__logo" src={`https://image.tmdb.org/t/p/original${logo}`} alt="logo" />
+
+        <p>
+          {overview}
+        </p>
 
         <div className="d-flex flex-row gap-2">
           <button className="buttonPlay d-flex flex-row align-items-center gap-2">

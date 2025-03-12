@@ -13,7 +13,14 @@
   &__info {
     padding: 0 4vw;
     z-index: 10;
-    min-height: 80vh;
+    min-height: 41vw;
+
+    p {
+      margin: 0;
+      font-size: 0.8rem;
+      width: 20rem;
+      text-align: justify;
+    }
 
     &__logo{
       width: 20rem;
@@ -23,6 +30,7 @@
       i {
         font-size: 1.3rem;
       }
+      font-size: 1rem;
       padding: 0.5rem 1rem;
       border: none;
       border-radius: 0.3rem;
