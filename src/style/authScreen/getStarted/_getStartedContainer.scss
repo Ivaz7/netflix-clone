@@ -58,3 +58,32 @@
   border-top-left-radius: 50% 100%;
   border-top-right-radius: 50% 100%;
 }
+
+@media (max-width: 960px) {
+  .getStartedContainer::before {
+    width: 180%;
+    left: -40%;
+  }
+
+  .getStartedContainer::after {
+    width: 180%;
+    left: -40%;
+
+    background: radial-gradient(35% 390% at 50% -320%, rgba(64, 97, 231, 0.4) 80%, rgba(0, 0, 0, 0.1) 100%), black;
+  }
+}
+
+
+@media (max-width: 600px) {
+  .getStartedContainer::before {
+    width: 200%;
+    left: -50%;
+  }
+
+  .getStartedContainer::after {
+    width: 200%;
+    left: -50%;
+
+    background: radial-gradient(35% 390% at 50% -330%, rgba(64, 97, 231, 0.4) 80%, rgba(0, 0, 0, 0.1) 100%), black;
+  }
+}
