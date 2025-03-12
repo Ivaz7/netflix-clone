@@ -79,7 +79,7 @@ const MainSlider = ({ children, name }) => {
     
     setTimeout(() => {
       setIsAnimating(false);
-    }, 1200);
+    }, 1000);
   };
 
   const handlePrev = () => {
@@ -97,7 +97,7 @@ const MainSlider = ({ children, name }) => {
 
     setTimeout(() => {
       setIsAnimating(false);
-    }, 1200);
+    }, 1000);
   };
 
   return (
