@@ -54,12 +54,14 @@ const UserOption = ({ refetchData, refetchStatus, dataGet, isLoadingDataGet }) =
   })
 
   const handleUserSelected = async (inx) => {
+    navigate(window.location.pathname, { replace: true });
     await triggerChangedUserData({ value: { userSelected: inx } });
     await refetchData();
     await refetchStatus();
   }
 
   const handleManageProfile = () => {
+    navigate(window.location.pathname, { replace: true });
     navigate("/UserManageProfile")
   }
 
