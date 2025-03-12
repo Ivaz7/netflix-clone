@@ -23,6 +23,7 @@ export const tmdbApiSlice = createApi({
     },
   }),
   endpoints: (builder) => ({
+    // Movies
     getPopularMovies: builder.query({
       query: ({ age } = {}) => appendAgeFilter(`/movie/popular`, age),
     }),
@@ -31,9 +32,6 @@ export const tmdbApiSlice = createApi({
     }),
     getTrendingMovies: builder.query({
       query: ({ age, timeWindow = "week" } = {}) => appendAgeFilter(`/trending/movie/${timeWindow}`, age),
-    }),
-    getFamilyMovies: builder.query({
-      query: ({ age } = {}) => appendAgeFilter(`/discover/movie?with_genres=10751`, age),
     }),
     getComedyMovies: builder.query({
       query: ({ age } = {}) => appendAgeFilter(`/discover/movie?with_genres=35`, age),
@@ -47,6 +45,8 @@ export const tmdbApiSlice = createApi({
     getMovieTrailer: builder.query({
       query: ({ id, age } = {}) => appendAgeFilter(`/movie/${id}/videos`, age),
     }),
+
+    // TV shows
     getPopularTVShows: builder.query({
       query: ({ age } = {}) => appendAgeFilter(`/tv/popular`, age),
     }),
@@ -55,9 +55,6 @@ export const tmdbApiSlice = createApi({
     }),
     getTrendingTVShows: builder.query({
       query: ({ age, timeWindow = "week" } = {}) => appendAgeFilter(`/trending/tv/${timeWindow}`, age),
-    }),
-    getFamilyTVShows: builder.query({
-      query: ({ age } = {}) => appendAgeFilter(`/discover/tv?with_genres=10751`, age),
     }),
     getComedyTVShows: builder.query({
       query: ({ age } = {}) => appendAgeFilter(`/discover/tv?with_genres=35`, age),
@@ -71,6 +68,8 @@ export const tmdbApiSlice = createApi({
     getTVShowTrailer: builder.query({
       query: ({ id, age } = {}) => appendAgeFilter(`/tv/${id}/videos`, age),
     }),
+
+    // Both
     searchMoviesAndTVShows: builder.query({
       query: ({ age, query }) =>
         appendAgeFilter(`/search/multi?query=${encodeURIComponent(query)}`, age),
@@ -83,22 +82,25 @@ export const tmdbApiSlice = createApi({
 });
 
 export const {
+  // Movies
   useLazyGetPopularMoviesQuery,
   useLazyGetTopRatedMoviesQuery,
   useLazyGetTrendingMoviesQuery,
-  useLazyGetFamilyMoviesQuery,
   useLazyGetComedyMoviesQuery,
   useLazyGetActionMoviesQuery,
   useLazyGetSimilarMoviesQuery,
   useLazyGetMovieTrailerQuery,
+
+  // TV Shows
   useLazyGetPopularTVShowsQuery,
   useLazyGetTopRatedTVShowsQuery,
   useLazyGetTrendingTVShowsQuery,
-  useLazyGetFamilyTVShowsQuery,
   useLazyGetComedyTVShowsQuery,
   useLazyGetActionTVShowsQuery,
   useLazyGetSimilarTVShowsQuery,
   useLazyGetTVShowTrailerQuery,
+
+  // Both
   useLazySearchMoviesAndTVShowsQuery,
   useLazyGetTrendingAllQuery,
 } = tmdbApiSlice;
