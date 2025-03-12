@@ -12,6 +12,7 @@ const ImgPopUpComp = ({ data }) => {
   const [ratingIndex, setRatingIndex] = useState(null);
   const [isRating, setIsRating] = useState(false);
   const [isHover, setIsHover] = useState(false);
+  const [isMylist, setMylist] = useState(false);
   const optionRatingRef = useRef(null);
   const timeOutRatingRef = useRef(null);
   const mainPopUpRef = useRef(null);
@@ -134,9 +135,11 @@ const ImgPopUpComp = ({ data }) => {
                 <i className="fa-solid fa-play"></i>
               </button>
 
-              <button className="buttonList buttonOutside">
-                {/* <i className="fa-solid fa-check"></i> */}
-                <i className="fa-solid fa-plus"></i>
+              <button onClick={() => setMylist(prev => !prev)} className="buttonList buttonOutside">
+                {isMylist 
+                  ? <i className="fa-solid fa-check"></i> 
+                  : <i className="fa-solid fa-plus"></i>
+                }
               </button>
 
               <div className="buttonRating buttonOutside">
