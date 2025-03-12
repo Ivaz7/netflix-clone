@@ -7,6 +7,7 @@
     left: 0;
     top: 0;
     z-index: 0;
+    filter: brightness(80%);
   }
 
   &__info {
@@ -15,9 +16,7 @@
     min-height: 80vh;
 
     &__logo{
-      background-color: rgba(0, 0, 0, 0.5);
       width: 20rem;
-      box-shadow: 0 0 2rem black;
     }
 
     .buttonPlay, .buttonInfo {
@@ -27,7 +26,6 @@
       padding: 0.5rem 1rem;
       border: none;
       border-radius: 0.3rem;
-      box-shadow: 0 0 0.7rem black;
     }
 
     .buttonPlay {
