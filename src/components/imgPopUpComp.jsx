@@ -121,10 +121,10 @@ const ImgPopUpComp = ({ data }) => {
       setIsHover(false);
     }, 250);
   
-    if (ratingIndex !== null) {
+    if (ratingIndex !== null && (!rated || rated.score !== ratingIndex)) {
       await triggerSetHistoryRating({ idMovie, score: ratingIndex, name: title || name });
       await refetch();
-    }
+    }    
 
     if (isMylist) {
       if (
