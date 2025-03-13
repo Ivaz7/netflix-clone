@@ -2,7 +2,7 @@
   width: 100vw;
   
   &__backdrop {
-    width: 98.8vw;
+    width: calc(100vw - 14.9px);
     position: absolute;
     left: 0;
     top: 0;
@@ -11,27 +11,33 @@
   }
 
   &__info {
+    margin-top: clamp(2rem, 4vw + 1rem, 4rem);
     padding: 0 4vw;
+    padding-right: calc(4vw + 14.9px);
     z-index: 10;
     min-height: 41vw;
+    width: min(30rem, 100%);
 
     p {
       margin: 0;
-      font-size: 0.8rem;
-      width: 20rem;
+      font-size: clamp(0.6rem ,1vw + 0.1rem, 0.8rem);
+      width: inherit;
       text-align: justify;
     }
 
     &__logo{
-      width: 20rem;
+      width: inherit;
     }
 
     .buttonPlay, .buttonInfo {
       i {
-        font-size: 1.3rem;
+        font-size: 1rem;
+      }
+      svg {
+        width: 1rem;
       }
       font-size: 1rem;
-      padding: 0.5rem 1rem;
+      padding: clamp(0.2rem, 0.1vw + 0.2rem, 0.5rem) clamp(0.5rem, 1vw + 0.2rem, 1rem);
       border: none;
       border-radius: 0.3rem;
     }
