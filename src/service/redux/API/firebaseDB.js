@@ -342,6 +342,61 @@ export const firebaseDBSlice = createApi({
           return { error: error.message };
         }
       }
+    }),
+
+    setMyList: builder.mutation({
+      async queryFn({ id, poster_path, genre_ids, title }) {
+        try {
+          const userUid = await new Promise((resolve, reject) => {
+            const unsubscribe = onAuthStateChanged(
+              auth,
+              (user) => {
+                unsubscribe();
+                if (user) {
+                  resolve(user.uid);
+                } else {
+                  resolve(null);
+                }
+              },
+              (error) => reject(error)
+            );
+          });
+    
+          if (!userUid) {
+            return { data: null };
+          }
+
+          const reference = ref(database, `user/${userUid}`);
+          const snapshot = await get(reference);
+          const snapshotVal = snapshot.exists() ? snapshot.val() : null;
+
+          if (snapshotVal  && Array.isArray(snapshotVal.userOption)) {
+            let updatedUserOption = [...snapshotVal.userOption]
+            let myList = updatedUserOption[snapshotVal.userSelected].myList;
+
+            if (myList !== "empty" && Array.isArray(myList)) {
+              if (myList.some(val => val.id === id)) {
+                return { data: "This data is already in database"}
+              }
+
+              if (myList.length === 10) {
+                myList.shift();
+              }
+
+              myList.push({ id: id, poster_path: poster_path, genre_ids: genre_ids, title: title });
+            } else {
+              myList = [{ id: id, poster_path: poster_path, genre_ids: genre_ids, title: title }];
+            }
+
+            updatedUserOption[snapshotVal.userSelected].myList = myList;
+            await set(ref(database, `user/${userUid}/userOption`), updatedUserOption);
+          }
+
+          return { data: "MyList is updated successfully" };
+        } catch (error) {
+          return { error: error.message };
+        }
+      }
     })
   }),
 });
@@ -355,4 +410,5 @@ export const {
   useSetDeleteUserOptionMutation,
   useSetChangeUserOptionSelectedMutation,
   useSetHitoryRatingMutation,
+  useSetMyListMutation,
 } = firebaseDBSlice;

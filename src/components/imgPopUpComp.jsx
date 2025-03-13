@@ -3,11 +3,11 @@ import { useRef, useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { genreMap } from "../data/movieGenreData";
 import { useClickOutside } from "../customHooks/useClickOutside";
-import { useGetDataQuery, useSetHitoryRatingMutation } from "../service/redux/API/firebaseDB";
+import { useGetDataQuery, useSetHitoryRatingMutation, useSetMyListMutation } from "../service/redux/API/firebaseDB";
 import LoadingComp from "./loadingComp";
 
 const ImgPopUpComp = ({ data }) => {
-  const { poster_path, genre_ids, id: idMovie, title } = data;
+  const { poster_path, genre_ids, id: idMovie, title, name } = data;
   
   const [ratingIndex, setRatingIndex] = useState(null);
   const [isRating, setIsRating] = useState(false);
@@ -22,9 +22,10 @@ const ImgPopUpComp = ({ data }) => {
 
   const { data: dataGet, isLoading, refetch } = useGetDataQuery();
   const [triggerSetHistoryRating] = useSetHitoryRatingMutation();
+  const [triggerSetMyList] = useSetMyListMutation();
 
   const userOptionSelected = dataGet?.userOption[dataGet.userSelected];
-  const { historyRating } = userOptionSelected;
+  const { historyRating, myList } = userOptionSelected;
 
   const rated =
     historyRating !== "empty" && Array.isArray(historyRating)
@@ -32,6 +33,16 @@ const ImgPopUpComp = ({ data }) => {
       : null;
 
   clickOutSide(optionRatingRef, isRating, setIsRating);
+
+  useEffect(() => {
+    if (myList !== "empty" && Array.isArray(myList)) {
+      const exists = myList.some(item => item.id === idMovie);
+      setMylist(exists);
+    } else {
+      setMylist(false);
+    }
+  }, [myList, idMovie]);
+  
 
   useEffect(() => {
     if (rated && typeof rated.score === "number") {
@@ -102,28 +113,33 @@ const ImgPopUpComp = ({ data }) => {
   };
   
   const handleLeavePopUP = async () => {
-    let isDelay = false;
-
     if (timeOutDelayPopUpRef.current) {
       clearTimeout(timeOutDelayPopUpRef.current);
-      isDelay = true;
     }
   
     timeOutMainPopUp.current = setTimeout(() => {
       setIsHover(false);
     }, 250);
-
-    if (isDelay) {
-      return;
-    }
   
     if (ratingIndex !== null) {
-      await triggerSetHistoryRating({ idMovie, score: ratingIndex, name: title });
+      await triggerSetHistoryRating({ idMovie, score: ratingIndex, name: title || name });
       await refetch();
+    }
+
+    if (isMylist) {
+      if (
+        !myList ||
+        myList === "empty" ||
+        (Array.isArray(myList) && !myList.some((item) => item.id === idMovie))
+      ) {
+        console.log("test my list")
+        const resposne = await triggerSetMyList({ id: idMovie, poster_path: poster_path, genre_ids: genre_ids, title: title || name });
+        console.log(resposne)
+        await refetch();
+      }
     }
   };
   
-
   if (isLoading) {
     return <LoadingComp />;
   }
