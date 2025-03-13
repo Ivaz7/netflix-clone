@@ -37,6 +37,10 @@
           &:hover {
             background-color: rgba(41, 41, 41, 0.5);
           }
+
+          &.activeHomeHeader {
+            color: white !important;
+          }
         }
       }
     }
@@ -46,10 +50,14 @@
     button {
       background-color: transparent;
       border: none;
-      color: rgb(230, 230, 230);
+      color: rgba(169, 169, 169) !important;
 
       &:hover {
-        color: rgb(169, 169, 169);
+        color: rgb(75, 75, 75) !important;
+      }
+      
+      &.activeHomeHeader {
+        color: white !important;
       }
     }
   }
