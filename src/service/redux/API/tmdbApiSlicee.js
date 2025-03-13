@@ -79,8 +79,8 @@ export const tmdbApiSlice = createApi({
         appendAgeFilter(`/trending/all/${timeWindow}`, age),
     }),
     getLogos: builder.query({
-      query: ({ category, id }) => `/${category}/${id}/images`,
-    }),    
+      query: ({ category, id }) => `/${category}/${id}/images?include_image_language=en,null`,
+    }),        
   }),
 });
 
