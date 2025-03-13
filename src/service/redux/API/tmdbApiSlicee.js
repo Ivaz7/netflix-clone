@@ -2,6 +2,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 const TMDB_API_TOKEN = import.meta.env.VITE_TOKEN_TMDB_API;
 
+// Filter untuk film (sudah ada)
 const appendAgeFilter = (url, age) => {
   let filter = "";
   if (age === true) {
@@ -12,6 +13,15 @@ const appendAgeFilter = (url, age) => {
   return filter ? (url.includes("?") ? `${url}&${filter}` : `${url}?${filter}`) : url;
 };
 
+const appendTVBoolAgeFilter = (url, age) => {
+  let filter = "";
+  if (age === true) {
+    filter = "with_content_ratings=TV-PG";
+  } else if (age === false) {
+    filter = "with_content_ratings=TV-MA";
+  }
+  return filter ? (url.includes("?") ? `${url}&${filter}` : `${url}?${filter}`) : url;
+};
 
 export const tmdbApiSlice = createApi({
   reducerPath: "tmdbApiSlice",
@@ -23,7 +33,7 @@ export const tmdbApiSlice = createApi({
     },
   }),
   endpoints: (builder) => ({
-    // Movies
+    // Movies endpoints (tidak berubah)
     getPopularMovies: builder.query({
       query: ({ age } = {}) => appendAgeFilter(`/movie/popular`, age),
     }),
@@ -46,46 +56,50 @@ export const tmdbApiSlice = createApi({
       query: ({ id, age } = {}) => appendAgeFilter(`/movie/${id}/videos`, age),
     }),
 
-    // TV shows
+    // TV Shows endpoints
     getPopularTVShows: builder.query({
-      query: ({ age } = {}) => appendAgeFilter(`/tv/popular`, age),
+      query: () => `/tv/popular`,
     }),
     getTopRatedTVShows: builder.query({
-      query: ({ age } = {}) => appendAgeFilter(`/tv/top_rated`, age),
+      query: () => `/tv/top_rated`,
     }),
     getTrendingTVShows: builder.query({
-      query: ({ age, timeWindow = "week" } = {}) => appendAgeFilter(`/trending/tv/${timeWindow}`, age),
-    }),
-    getComedyTVShows: builder.query({
-      query: ({ age } = {}) => appendAgeFilter(`/discover/tv?with_genres=35`, age),
+      query: ({ timeWindow = "week" } = {}) => `/trending/tv/${timeWindow}`,
     }),
     getActionTVShows: builder.query({
-      query: ({ age } = {}) => appendAgeFilter(`/discover/tv?with_genres=28`, age),
+      query: ({ age } = {}) =>
+        age !== undefined
+          ? appendTVBoolAgeFilter(`/discover/tv?with_genres=10759`, age)
+          : `/discover/tv?with_genres=10759`,
+    }),
+    getComedyTVShows: builder.query({
+      query: ({ age } = {}) =>
+        age !== undefined
+          ? appendTVBoolAgeFilter(`/discover/tv?with_genres=35`, age)
+          : `/discover/tv?with_genres=35`,
     }),
     getSimilarTVShows: builder.query({
-      query: ({ id, age } = {}) => appendAgeFilter(`/tv/${id}/similar`, age),
+      query: ({ id } = {}) => `/tv/${id}/similar`,
     }),
     getTVShowTrailer: builder.query({
-      query: ({ id, age } = {}) => appendAgeFilter(`/tv/${id}/videos`, age),
+      query: ({ id } = {}) => `/tv/${id}/videos`,
     }),
 
     // Etc
     searchMoviesAndTVShows: builder.query({
-      query: ({ age, query }) =>
-        appendAgeFilter(`/search/multi?query=${encodeURIComponent(query)}`, age),
+      query: ({ query }) => `/search/multi?query=${encodeURIComponent(query)}`,
     }),
     getTrendingAll: builder.query({
-      query: ({ age, timeWindow = "week" } = {}) =>
-        appendAgeFilter(`/trending/all/${timeWindow}`, age),
+      query: ({ timeWindow = "week" } = {}) => `/trending/all/${timeWindow}`,
     }),
     getLogos: builder.query({
       query: ({ category, id }) => `/${category}/${id}/images?include_image_language=en,null`,
-    }),        
+    }),
   }),
 });
 
 export const {
-  // Movies
+  // Movies hooks
   useLazyGetPopularMoviesQuery,
   useLazyGetTopRatedMoviesQuery,
   useLazyGetTrendingMoviesQuery,
@@ -94,16 +108,16 @@ export const {
   useLazyGetSimilarMoviesQuery,
   useLazyGetMovieTrailerQuery,
 
-  // TV Shows
+  // TV Shows hooks
   useLazyGetPopularTVShowsQuery,
   useLazyGetTopRatedTVShowsQuery,
   useLazyGetTrendingTVShowsQuery,
-  useLazyGetComedyTVShowsQuery,
-  useLazyGetActionTVShowsQuery,
+  useLazyGetActionTVShowsQuery,  
+  useLazyGetComedyTVShowsQuery,   
   useLazyGetSimilarTVShowsQuery,
   useLazyGetTVShowTrailerQuery,
 
-  // Etc
+  // Etc hooks
   useLazySearchMoviesAndTVShowsQuery,
   useLazyGetTrendingAllQuery,
   useLazyGetLogosQuery,
