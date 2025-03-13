@@ -6,12 +6,14 @@ import UserManageProfile from "./pages/home/homeScreen/manageProfile/userManageP
 import SettingsPage from "./pages/home/homeScreen/settings/settingsPage"
 import ProfileEditPage from "./pages/home/homeScreen/settings/profileEditPages"
 import ChooseProfileIcon from "./pages/home/homeScreen/settings/chooseProfileIcon"
+import NotFound from "./pages/404"
 
 function App() {
   return (
     <>
       <Router>
         <Routes>
+          <Route path="*" element={<NotFound />} />
           <Route path="/" element={<Home />} />
           <Route path="/signUp" element={<SignUp />} />
           <Route path="/login" element={<Login />} />
