@@ -50,7 +50,9 @@ const WelcomeBanner = () => {
 
   return (
     <div className="welcomeBanner d-flex align-items-center">
-      <img className="welcomeBanner__backdrop" src={`https://image.tmdb.org/t/p/original${backdrop}`} alt="backdrop" />
+      <div className="welcomeBanner__backdropContainer">
+        <img className="welcomeBanner__backdropContainer__backdrop" src={`https://image.tmdb.org/t/p/original${backdrop}`} alt="backdrop" />
+      </div>
 
       <div className="welcomeBanner__info d-flex flex-column gap-1 gap-md-2 gap-lg-3 justify-content-center">
         <img className="welcomeBanner__info__logo" src={`https://image.tmdb.org/t/p/original${logo}`} alt="logo" />

@@ -1,14 +1,30 @@
 .welcomeBanner {
   width: 100vw;
-  
-  &__backdrop {
+
+  &__backdropContainer {
     width: calc(100vw - 14.9px);
+    height: fit-content;
     position: absolute;
     left: 0;
     top: 0;
     z-index: 0;
-    filter: brightness(80%);
+
+    &__backdrop {
+      width: inherit;
+      filter: brightness(80%);
+    }
+    
+    &::after {
+      content: '';
+      position: absolute;
+      height: 4rem;
+      width: inherit;
+      top: calc(100% - 2rem);
+      left: 0;
+      background: linear-gradient(to top, rgb(20, 20, 20) 55%, transparent);
+    }
   }
+  
 
   &__info {
     margin-top: clamp(2rem, 4vw + 1rem, 4rem);
