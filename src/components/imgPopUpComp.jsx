@@ -3,7 +3,7 @@ import { useRef, useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { genreMap } from "../data/movieGenreData";
 import { useClickOutside } from "../customHooks/useClickOutside";
-import { useGetDataQuery, useSetHitoryRatingMutation, useSetMyListMutation } from "../service/redux/API/firebaseDB";
+import { useGetDataQuery, useSetDeleteHistoryMutation, useSetHitoryRatingMutation, useSetMyListMutation } from "../service/redux/API/firebaseDB";
 import LoadingComp from "./loadingComp";
 
 const ImgPopUpComp = ({ data }) => {
@@ -23,6 +23,7 @@ const ImgPopUpComp = ({ data }) => {
   const { data: dataGet, isLoading, refetch } = useGetDataQuery();
   const [triggerSetHistoryRating] = useSetHitoryRatingMutation();
   const [triggerSetMyList] = useSetMyListMutation();
+  const [triggerSetDeleteHistoryRating] = useSetDeleteHistoryMutation();
 
   const userOptionSelected = dataGet?.userOption[dataGet.userSelected];
   const { historyRating, myList } = userOptionSelected;
@@ -124,7 +125,10 @@ const ImgPopUpComp = ({ data }) => {
     if (ratingIndex !== null && (!rated || rated.score !== ratingIndex)) {
       await triggerSetHistoryRating({ idMovie, score: ratingIndex, name: title || name });
       await refetch();
-    }    
+    } else if (ratingIndex === null && rated) {
+      await triggerSetDeleteHistoryRating({ idMovie: idMovie });
+      await refetch();
+    }   
 
     if (isMylist) {
       if (
