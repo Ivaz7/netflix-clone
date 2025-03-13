@@ -3,7 +3,7 @@ import { useRef, useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { genreMap } from "../data/movieGenreData";
 import { useClickOutside } from "../customHooks/useClickOutside";
-import { useGetDataQuery, useSetDeleteHistoryMutation, useSetHitoryRatingMutation, useSetMyListMutation } from "../service/redux/API/firebaseDB";
+import { useGetDataQuery, useSetDeleteHistoryMutation, useSetDeleteMyListMutation, useSetHitoryRatingMutation, useSetMyListMutation } from "../service/redux/API/firebaseDB";
 import LoadingComp from "./loadingComp";
 
 const ImgPopUpComp = ({ data }) => {
@@ -24,6 +24,7 @@ const ImgPopUpComp = ({ data }) => {
   const [triggerSetHistoryRating] = useSetHitoryRatingMutation();
   const [triggerSetMyList] = useSetMyListMutation();
   const [triggerSetDeleteHistoryRating] = useSetDeleteHistoryMutation();
+  const [triggerSetDeleteMyList] = useSetDeleteMyListMutation();
 
   const userOptionSelected = dataGet?.userOption[dataGet.userSelected];
   const { historyRating, myList } = userOptionSelected;
@@ -139,6 +140,16 @@ const ImgPopUpComp = ({ data }) => {
         console.log("test my list")
         const resposne = await triggerSetMyList({ id: idMovie, poster_path: poster_path, genre_ids: genre_ids, title: title || name });
         console.log(resposne)
+        await refetch();
+      }
+    } else {
+      if (
+        myList !== "empty" &&
+        Array.isArray(myList) &&
+        myList.some((item) => item.id === idMovie)
+      ) {
+        console.log("test delete")
+        await triggerSetDeleteMyList({ id: idMovie });
         await refetch();
       }
     }

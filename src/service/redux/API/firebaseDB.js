@@ -448,6 +448,56 @@ export const firebaseDBSlice = createApi({
         }
       }
     }),
+
+    setDeleteMyList: builder.mutation({
+      async queryFn({ id }) {
+        try {
+          const userUid = await new Promise((resolve, reject) => {
+            const unsubscribe = onAuthStateChanged(
+              auth,
+              (user) => {
+                unsubscribe();
+                if (user) {
+                  resolve(user.uid);
+                } else {
+                  resolve(null);
+                }
+              },
+              (error) => reject(error)
+            );
+          });
+    
+          if (!userUid) {
+            return { data: null };
+          }
+
+          const reference = ref(database, `user/${userUid}`);
+          const snapshot = await get(reference);
+          const snapshotVal = snapshot.exists() ? snapshot.val() : null;
+
+          if (snapshotVal  && Array.isArray(snapshotVal.userOption)) {
+            let updatedUserOption = [...snapshotVal.userOption]
+            let myList = updatedUserOption[snapshotVal.userSelected].myList;
+
+            if (myList !== "empty" && Array.isArray(myList)) {
+              for (let i = 0; i < myList.length; i++) {
+                if (myList[i].id === id) {
+                  myList.splice(i, 1);
+                  break;
+                }
+              }
+            }
+
+            updatedUserOption[snapshotVal.userSelected].myList = myList;
+            await set(ref(database, `user/${userUid}/userOption`), updatedUserOption);
+          }
+
+          return { data: "MyList is updated successfully" };
+        } catch (error) {
+          return { error: error.message };
+        }
+      }
+    }),
   }),
 });
 
@@ -462,4 +512,5 @@ export const {
   useSetHitoryRatingMutation,
   useSetMyListMutation,
   useSetDeleteHistoryMutation,
+  useSetDeleteMyListMutation,
 } = firebaseDBSlice;
