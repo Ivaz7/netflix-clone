@@ -17,7 +17,7 @@ const HeaderHome = () => {
       <div className="headerHome__inside d-flex justify-content-between align-items-center">
         <LeftSideHeaderHome />
 
-        <RightSideHeaderHome data={data} />
+        {data && <RightSideHeaderHome data={data} />}
       </div>
     </header>
   )

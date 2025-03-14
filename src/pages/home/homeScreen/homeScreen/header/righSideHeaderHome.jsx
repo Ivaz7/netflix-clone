@@ -14,7 +14,7 @@ import { useQueryParams } from "../../../../../customHooks/useQueryParams";
 
 const RightSideHeaderHome = ({ data }) => {
   const { userOption, userSelected } = data;
-  const userOptionSelected = userOption[userSelected];
+  const userOptionSelected = userOption[userSelected || 0];
   const { imgProfile, statusAge } = userOptionSelected;
   const navigate = useNavigate();
   const { searchParams, addParam, deleteParam } = useQueryParams();
@@ -105,12 +105,13 @@ const RightSideHeaderHome = ({ data }) => {
   const handleClickExit = async () => {
     await triggerChangedUserData({ value: { userSelected: "empty" } });
     await refetchData();
+    await navigate("/");
   }
 
   const handleClickExitKids = async () => {
     await triggerChangedUserData({ value: { userSelected: "empty" } });
     await refetchData();
-    navigate("/?kids=true");
+    await navigate("/?kids=true");
   }
 
   const handleChangeSearch = (e) => {
