@@ -1,0 +1,20 @@
+.secondHeader {
+  position: fixed;
+  top: clamp(2rem, 4vw + 1rem, 4rem);
+  left: 0;
+  z-index: 50;
+  padding: 0 4vw;
+  height: clamp(2.5rem, 4vw + 1.5rem, 4.5rem);
+  width: 100%;
+  background-color: transparent;
+
+  h1 {
+    margin: 0;
+    font-size: clamp(0.5rem, 2vw + 1rem, 1.5rem);
+    font-weight: bold;
+  }
+
+  &.scrolled {
+    background-color: rgb(20, 20, 20);
+  }
+}

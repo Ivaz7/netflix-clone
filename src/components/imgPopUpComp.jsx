@@ -137,9 +137,7 @@ const ImgPopUpComp = ({ data }) => {
         myList === "empty" ||
         (Array.isArray(myList) && !myList.some((item) => item.id === idMovie))
       ) {
-        console.log("test my list")
-        const resposne = await triggerSetMyList({ id: idMovie, poster_path: poster_path, genre_ids: genre_ids, title: title || name });
-        console.log(resposne)
+        await triggerSetMyList({ id: idMovie, poster_path: poster_path, genre_ids: genre_ids, title: title || name });
         await refetch();
       }
     } else {

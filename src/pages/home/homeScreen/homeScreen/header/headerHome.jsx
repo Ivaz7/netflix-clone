@@ -1,26 +1,12 @@
-import { useEffect, useState } from "react";
 import LoadingComp from "../../../../../components/loadingComp";
 import { useGetDataQuery } from "../../../../../service/redux/API/firebaseDB";
 import LeftSideHeaderHome from "./leftSideHeaderHome";
 import RightSideHeaderHome from "./righSideHeaderHome";
+import { useScrollDownTop } from "../../../../../customHooks/useScrollDownTop";
 
 const HeaderHome = () => {
   const { data, isLoading } = useGetDataQuery();
-  const [isScroll, setIsScroll] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 0) {
-        setIsScroll(true)
-      } else {
-        setIsScroll(false)
-      }
-    }
-
-    window.addEventListener("scroll", handleScroll);
-
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  const { isScroll } = useScrollDownTop();
 
   if (isLoading) {
     return <LoadingComp />

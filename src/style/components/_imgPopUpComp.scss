@@ -12,6 +12,7 @@ $scale5: $scale4 * 0.95;
   &__mainImg {
     width: 100%;
     height: 100%;
+    border-radius: inherit;
   }
 
   &__popUp {
