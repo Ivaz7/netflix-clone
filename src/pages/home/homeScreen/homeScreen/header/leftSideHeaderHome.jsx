@@ -1,13 +1,14 @@
 import { useRef, useState } from "react";
 import SpanTriangle from "../../../../../components/spanTriagle";
 import { motion, AnimatePresence } from "framer-motion";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useQueryParams } from "../../../../../customHooks/useQueryParams";
 
 const LeftSideHeaderHome = () => {
   const [isHover, setIsHover] = useState(false);
   const timeOutRef = useRef(null);
   const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
+  const { searchParams, addParam } = useQueryParams();
   const category = searchParams.get("category");
   const isEmpty = searchParams.toString() === "";
 
@@ -33,8 +34,7 @@ const LeftSideHeaderHome = () => {
   }
 
   const handleChangeUrl = (name) => {
-    clearParamsURL();
-    navigate(`/?category=${name}`);
+    addParam("category", name);
   }
 
   const renderButton = [
