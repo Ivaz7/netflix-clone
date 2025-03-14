@@ -18,9 +18,14 @@ const GenreSlider = ({ name, fetchMovie, fetchTV }) => {
   const statusAge = userOptionSelected?.statusAge;
 
   useEffect(() => {
-    triggerMovie({ age: statusAge });
-    triggerTv({ age: statusAge });
-  }, [triggerMovie, triggerTv, statusAge]);
+    if (!dataMovie) {
+      triggerMovie({ age: statusAge });
+    }
+    if (!dataTv) {
+      triggerTv({ age: statusAge });
+    }
+  }, [triggerMovie, triggerTv, statusAge, dataMovie, dataTv]);
+  
 
   const resultsTv = useMemo(() => (dataTv?.results || []), [dataTv]);
   const resultsMovie = useMemo(() => (dataMovie?.results || []), [dataMovie]);

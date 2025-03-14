@@ -7,7 +7,7 @@ import { useSearchParams } from "react-router-dom";
 
 const WelcomeBanner = () => {
   const [triggerTrending, { data: dataTrending, isLoading: loadingTrending }] = useLazyGetTrendingAllQuery();
-  const [triggerGetLogos, { data: dataLogos, isLoading: loadingLogos }] = useLazyGetLogosQuery();
+  const [triggerGetLogos, { data: dataLogos }] = useLazyGetLogosQuery();
   const { data: dataGet, isLoading: loadingDataGet } = useGetDataQuery();
   const [searchParams] = useSearchParams();
   const [dataFinal, setDataFinal] = useState(null);
@@ -56,7 +56,7 @@ const WelcomeBanner = () => {
     }
   }, [dataLogos]);
 
-  if (loadingDataGet || loadingTrending || loadingLogos) {
+  if (loadingDataGet || loadingTrending) {
     return (
       <CustomFloatingComp>
         <LoadingComp />
@@ -75,11 +75,11 @@ const WelcomeBanner = () => {
       </div>
 
       <div className="welcomeBanner__info d-flex flex-column gap-1 gap-md-2 gap-lg-3 justify-content-center">
-        <img
+        {logo && <img
           className="welcomeBanner__info__logo"
           src={`https://image.tmdb.org/t/p/original${logo}`}
           alt="logo"
-        />
+        />}
 
         <p>{overview}</p>
 
