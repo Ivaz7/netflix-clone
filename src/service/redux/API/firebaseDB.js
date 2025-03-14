@@ -323,7 +323,7 @@ export const firebaseDBSlice = createApi({
               }
 
               if (!detected) {
-                if (historyRating.length === 10) {
+                if (historyRating.length === 40) {
                   historyRating.shift();
                 }
 
@@ -379,7 +379,7 @@ export const firebaseDBSlice = createApi({
                 return { data: "This data is already in database"}
               }
 
-              if (myList.length === 10) {
+              if (myList.length === 40) {
                 myList.shift();
               }
 
