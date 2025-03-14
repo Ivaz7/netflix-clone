@@ -10,11 +10,64 @@
 
   h1 {
     margin: 0;
-    font-size: clamp(0.5rem, 2vw + 1rem, 1.5rem);
+    font-size: clamp(0.5rem, 1vw + 1rem, 1.5rem);
     font-weight: bold;
+
+    &.shows {
+      font-size: clamp(1rem, 1vw + 1.2rem, 2rem);
+    }
   }
 
   &.scrolled {
     background-color: rgb(20, 20, 20);
   }
+
+  &__btn {
+    button {
+      background-color: transparent;
+      border: 1px solid rgb(169, 169, 169);
+      height: 2rem;
+      width: 3rem;
+  
+      &:first-child {
+        border-right: none;
+      }
+
+      &:nth-child(2) {
+        border-left: none;
+      }
+  
+      svg {
+        color: rgb(169, 169, 169);
+        width: 1rem;
+      }
+
+      &.isGridLeft {
+        border-right: 1px solid white !important;
+        border-color: white !important;
+
+        svg {
+          color: white !important;
+        }
+      }
+
+      &.isGridRight {
+        border-left: 1px solid white !important;
+        border-color: white !important;
+
+        svg {
+          color: white !important;
+        }
+      }
+
+      &:hover {
+        border-color: white !important;
+
+        svg {
+          color: white !important;
+        }
+      }
+    }
+  }
+  
 }
