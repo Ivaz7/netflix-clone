@@ -38,10 +38,10 @@ const LeftSideHeaderHome = () => {
   }
 
   const renderButton = [
-    <button className={isEmpty && 'activeHomeHeader'} key="0" onClick={clearParamsURL}>Home</button>,
-    <button className={category === "movie" && 'activeHomeHeader'} key="1" onClick={() => handleChangeUrl("movie")}>Movies</button>,
-    <button className={category === "tv" && 'activeHomeHeader'} key="2" onClick={() => handleChangeUrl("tv")} >Tv Shows</button>,
-    <button className={category === "myList" && 'activeHomeHeader'} key="3" onClick={() => handleChangeUrl("myList")} >My List</button>,
+    <button className={isEmpty ? 'activeHomeHeader' : ""} key="0" onClick={clearParamsURL}>Home</button>,
+    <button className={category === "movie" ? 'activeHomeHeader' : ""} key="1" onClick={() => handleChangeUrl("movie")}>Movies</button>,
+    <button className={category === "tv" ? 'activeHomeHeader' : ""} key="2" onClick={() => handleChangeUrl("tv")} >Tv Shows</button>,
+    <button className={category === "myList" ? 'activeHomeHeader' : ""} key="3" onClick={() => handleChangeUrl("myList")} >My List</button>,
   ]
 
   return (
