@@ -10,12 +10,14 @@ import { signOut } from "firebase/auth";
 import { auth } from "../../../../../backEndFireBase/firebaseConfig";
 import CustomFloatingComp from "../../../../../components/customFloatingComp";
 import { useNavigate } from "react-router-dom";
+import { useQueryParams } from "../../../../../customHooks/useQueryParams";
 
 const RightSideHeaderHome = ({ data }) => {
   const { userOption, userSelected } = data;
   const userOptionSelected = userOption[userSelected];
   const { imgProfile, statusAge } = userOptionSelected;
   const navigate = useNavigate();
+  const { addParam, deleteParam } = useQueryParams();
 
   const [isSearch, setIsSearch] = useState(false);
   const searchRef = useRef(null);
@@ -109,6 +111,17 @@ const RightSideHeaderHome = ({ data }) => {
     navigate("/?kids=true");
   }
 
+  const handleChangeSearch = (e) => {
+    const value = e.target.value;
+
+    if (value === "") {
+      deleteParam("search");
+      return;
+    }
+
+    addParam("search", value);
+  }
+
   return (
     <div className="headerHome__inside__rightSide d-flex flex-row gap-2 gap-md-3 align-items-center">
       <div className="headerHome__inside__rightSide__searchDiv">
@@ -125,7 +138,7 @@ const RightSideHeaderHome = ({ data }) => {
         >
           <i className="fa-solid fa-magnifying-glass"></i>
 
-          <input ref={focusRef} type="text" placeholder="Titles or Genre" />
+          <input onChange={handleChangeSearch} ref={focusRef} type="text" placeholder="Titles or Genre" />
         </motion.div>}
       </div>
 

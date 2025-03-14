@@ -13,11 +13,16 @@ import {
   useGetTopRatedTVShowsQuery, 
   useGetTrendingTVShowsQuery, 
   useGetActionTVShowsQuery, 
-  useGetComedyTVShowsQuery 
+  useGetComedyTVShowsQuery,
+  useLazySearchMoviesAndTVShowsQuery,
 } from "../../../../service/redux/API/tmdbApiSlicee";
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
+import { useQueryParams } from "../../../../customHooks/useQueryParams";
 
 const GenreGrid = ({ name }) => {
+  const { searchParams } = useQueryParams();
+  const search = searchParams.get("search");
+
   const { data: dataGet } = useGetDataQuery();
 
   // Movies
@@ -47,6 +52,15 @@ const GenreGrid = ({ name }) => {
   const trendingTv = useMemo(() => (dataTrendingTV?.results || []), [dataTrendingTV]);
   const actionTv = useMemo(() => (dataActionTV?.results || []), [dataActionTV]);
   const comedyTv = useMemo(() => (dataComedyTV?.results || []), [dataComedyTV]);
+
+  // search Data
+  const [triggerSearch, { data: dataSearch }] = useLazySearchMoviesAndTVShowsQuery();
+
+  useEffect(() => {
+    triggerSearch({ query: search })
+  }, [triggerSearch, search])
+
+  const searchData = useMemo(() => (dataSearch?.results || []), [dataSearch]); 
   
   // Final data
   const movieData = useMemo(() => {
@@ -68,16 +82,22 @@ const GenreGrid = ({ name }) => {
     finalValue = tvData;
   } else if (name === "Movies") {
     finalValue = movieData;
+  } else if (name === "search") {
+    finalValue = searchData;
   }
     
-  const renderFinal = finalValue.map((val, index) => (
-    <ImgPopUpComp data={val} key={index} />
-  ));
+  let renderFinal;
+
+  if (finalValue) {
+    renderFinal = finalValue.map((val, index) => (
+      <ImgPopUpComp data={val} key={index} />
+    ));
+  }
   
   return (
-    <div className="genreGrid d-flex flex-column">
+    <div className="genreGrid d-flex flex-column justify-content-center align-items-center">
       <SecondHeader name={name} />
-      <GridSystemDisplay array={renderFinal} />
+      {finalValue ? <GridSystemDisplay array={renderFinal} /> : <h1>No Results</h1>}
     </div>
   );
 };
