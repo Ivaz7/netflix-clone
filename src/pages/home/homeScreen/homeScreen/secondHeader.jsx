@@ -1,17 +1,25 @@
 import PropTypes from "prop-types";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useScrollDownTop } from "../../../../customHooks/useScrollDownTop";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const SecondHeader = ({ name }) => {
   const [searchParams] = useSearchParams();
   const category = searchParams.get("category");
+  const grid = searchParams.get("grid");
   const { isScroll } = useScrollDownTop();
   const [isGrid, setIsGrid] = useState(false);
   const navigate = useNavigate();
 
+  useEffect(() => {
+    if (grid) {
+      setIsGrid(true);
+    } else {
+      setIsGrid(false);
+    }
+  }, [grid]);
+
   const handleRowSlide = () => {
-    setIsGrid(false);
     if (category === "tv") {
       navigate(`/?category=tv`);
     } else {
@@ -20,7 +28,6 @@ const SecondHeader = ({ name }) => {
   }
 
   const handleGrid = () => {
-    setIsGrid(true);
     if (category === "tv") {
       navigate(`/?category=tv&grid=on`);
     } else {

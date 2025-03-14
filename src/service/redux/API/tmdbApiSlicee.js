@@ -2,7 +2,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 const TMDB_API_TOKEN = import.meta.env.VITE_TOKEN_TMDB_API;
 
-// Filter untuk film (sudah ada)
+// Filter 
 const appendAgeFilter = (url, age) => {
   let filter = "";
   if (age === true) {
@@ -33,7 +33,7 @@ export const tmdbApiSlice = createApi({
     },
   }),
   endpoints: (builder) => ({
-    // Movies endpoints (tidak berubah)
+    // Movies endpoints
     getPopularMovies: builder.query({
       query: ({ age } = {}) => appendAgeFilter(`/movie/popular`, age),
     }),
@@ -116,6 +116,24 @@ export const {
   useLazyGetComedyTVShowsQuery,   
   useLazyGetSimilarTVShowsQuery,
   useLazyGetTVShowTrailerQuery,
+
+  // Movies hooks (non-lazy)
+  useGetPopularMoviesQuery,
+  useGetTopRatedMoviesQuery,
+  useGetTrendingMoviesQuery,
+  useGetComedyMoviesQuery,
+  useGetActionMoviesQuery,
+  useGetSimilarMoviesQuery,
+  useGetMovieTrailerQuery,
+
+  // TV Shows hooks (non-lazy)
+  useGetPopularTVShowsQuery,
+  useGetTopRatedTVShowsQuery,
+  useGetTrendingTVShowsQuery,
+  useGetActionTVShowsQuery,
+  useGetComedyTVShowsQuery,
+  useGetSimilarTVShowsQuery,
+  useGetTVShowTrailerQuery,
 
   // Etc hooks
   useLazySearchMoviesAndTVShowsQuery,
