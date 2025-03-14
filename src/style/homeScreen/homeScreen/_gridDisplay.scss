@@ -10,3 +10,27 @@
     object-fit: cover;
   }
 }
+
+@media (max-width: 1300px) {
+  .gridSystemDisplay {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+
+@media (max-width: 996px) {
+  .gridSystemDisplay {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .gridSystemDisplay {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 496px) {
+  .gridSystemDisplay {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
