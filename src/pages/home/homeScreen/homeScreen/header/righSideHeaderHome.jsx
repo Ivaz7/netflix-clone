@@ -17,7 +17,9 @@ const RightSideHeaderHome = ({ data }) => {
   const userOptionSelected = userOption[userSelected];
   const { imgProfile, statusAge } = userOptionSelected;
   const navigate = useNavigate();
-  const { addParam, deleteParam } = useQueryParams();
+  const { searchParams, addParam, deleteParam } = useQueryParams();
+  const searchVal = searchParams.get("search");
+  const [search, setSearch] = useState(searchVal || "");
 
   const [isSearch, setIsSearch] = useState(false);
   const searchRef = useRef(null);
@@ -113,6 +115,7 @@ const RightSideHeaderHome = ({ data }) => {
 
   const handleChangeSearch = (e) => {
     const value = e.target.value;
+    setSearch(value);
 
     if (value === "") {
       deleteParam("search");
@@ -138,7 +141,7 @@ const RightSideHeaderHome = ({ data }) => {
         >
           <i className="fa-solid fa-magnifying-glass"></i>
 
-          <input onChange={handleChangeSearch} ref={focusRef} type="text" placeholder="Titles or Genre" />
+          <input value={search} onChange={handleChangeSearch} ref={focusRef} type="text" placeholder="Titles or Genre" />
         </motion.div>}
       </div>
 

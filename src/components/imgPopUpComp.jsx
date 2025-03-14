@@ -54,7 +54,8 @@ const ImgPopUpComp = ({ data }) => {
     }
   }, [rated]);
 
-  const renderGenre = genre_ids.map((val, index) => {
+  const validGenreIds = Array.isArray(genre_ids) ? genre_ids : [];
+  const renderGenre = validGenreIds.map((val, index) => {
     return <p key={index}>{genreMap[val]}</p>;
   });
 
