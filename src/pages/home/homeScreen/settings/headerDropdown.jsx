@@ -25,7 +25,7 @@ const HeaderDropdown = ({ dataGet }) => {
   const { refetch: refetchStatus } = useGetLoginStatusQuery();
 
   if (isLoadingPushedData) {
-    <CustomFloatingComp>
+    <CustomFloatingComp fixed={true}>
       <LoadingComp />
     </CustomFloatingComp>
   }

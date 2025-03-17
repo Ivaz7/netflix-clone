@@ -61,7 +61,7 @@ const WelcomeBanner = () => {
 
   if (loadingDataGet || loadingTrending) {
     return (
-      <CustomFloatingComp>
+      <CustomFloatingComp fixed={true}>
         <LoadingComp />
       </CustomFloatingComp>
     );
