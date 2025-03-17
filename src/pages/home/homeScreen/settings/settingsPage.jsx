@@ -6,6 +6,7 @@ import Footer from "../../../../components/footer";
 import ProfileImg from "../../../../components/profileImg";
 import LoadingComp from "../../../../components/loadingComp";
 import DeleteUserOptionBtn from "./deleteUserOptionBtn";
+import { useState } from "react";
 
 const SettingsPage = () => {
   const { data: dataStatus, isLoading: isLoadingStatus } = useGetLoginStatusQuery();
@@ -13,6 +14,7 @@ const SettingsPage = () => {
   const [searchParam] = useSearchParams();
   const indexUserOption = searchParam.get("indexUserOption")
   const navigate= useNavigate();
+  const [isDelete, setIsDelete] = useState(false);
 
   if (isLoadingStatus || isLoadingDataGet) {
     return <LoadingComp />
@@ -32,7 +34,7 @@ const SettingsPage = () => {
   const statusAge = userOptionSelected.statusAge;
 
   return (
-    <>
+    <div style={{ overflowY: isDelete ? "hidden" : "auto"}} className="outerSettingsContainer">
       <div className="settingsContainer d-flex flex-column align-items-center">
         <HeaderSetting dataGet={dataGet} indexUserOption={(userSelectedData !== "empty" ? userSelectedData : indexUserOption) || 0} />
 
@@ -94,13 +96,13 @@ const SettingsPage = () => {
           <div className="settingsContainer__delProBtn__dummyDiv"></div>
 
           <div className="settingsContainer__delProBtn__btn  mx-lg-auto">
-            {userOptionArr.length > 1 && <DeleteUserOptionBtn index={userSelectedData !== "empty" ? userSelectedData : indexUserOption} />}
+            {userOptionArr.length > 1 && <DeleteUserOptionBtn isDelete={isDelete} setIsDelete={setIsDelete} index={userSelectedData !== "empty" ? userSelectedData : indexUserOption} />}
           </div>
         </div>
       </div>
 
       <Footer type={true} />
-    </>
+    </div>
   )
 }
 

@@ -18,6 +18,7 @@ const ProfileEditPage = () => {
   const indexUserOption = searchParms.get("indexUserOption");
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [isDelete, setIsDelete] = useState(false);
 
   const avatarImgData = useSelector((state) => state.profileEdit.avatarImgData);
   const userName = useSelector((state) => state.profileEdit.userName);
@@ -92,7 +93,7 @@ const ProfileEditPage = () => {
   }
 
   return (
-    <>    
+    <div style={{ overflowY: isDelete ? "hidden" : "auto"}} className="outerProfileEditPage">    
       <div className="profileEditPage d-flex flex-column align-items-center">
         <HeaderSetting dataGet={dataGet} indexUserOption={(userSelectedData !== "empty" ? userSelectedData : indexUserOption) || 0} />
 
@@ -141,14 +142,14 @@ const ProfileEditPage = () => {
 
             <button onClick={() => { handleCancel(); handleReset(); }} id="btnCancel" className="profileEditPage__main__btnCancel text-center">Cancel</button>
 
-            {userOptionArr.length > 1 && <DeleteUserOptionBtn index={userSelectedData !== "empty" ? userSelectedData: indexUserOption} />}
+            {userOptionArr.length > 1 && <DeleteUserOptionBtn isDelete={isDelete} setIsDelete={setIsDelete} index={userSelectedData !== "empty" ? userSelectedData: indexUserOption} />}
           </div>
         </main>
 
       </div>
       
       <Footer type={true} />
-    </>
+    </div>
   )
 }
 

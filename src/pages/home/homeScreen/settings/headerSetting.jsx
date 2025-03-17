@@ -5,10 +5,6 @@ import HeaderDropdown from "./headerDropdown";
 const HeaderSetting = ({ dataGet }) => {
   const userSelected = dataGet.userSelected;
 
-  if (userSelected === "empty") {
-    return;
-  }
-
   return (
     <header className="headerSetting d-flex justify-content-center align-items-center">
       <div className="headerSetting__inside d-flex justify-content-between">

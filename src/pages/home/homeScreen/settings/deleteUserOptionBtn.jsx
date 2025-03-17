@@ -1,10 +1,7 @@
 import PropTypes from "prop-types";
-import { useState } from "react";
 import DeleteConfirmationUserOption from "./deleteConfirmationUserOption";
 
-const DeleteUserOptionBtn = ({ index }) => {
-  const [isDelete, setIsDelete] = useState(false);
-
+const DeleteUserOptionBtn = ({ index, isDelete, setIsDelete }) => {
   return (
     <>
       <button onClick={() => setIsDelete(prev => !prev)} className="deleteProfileBtn d-flex flex-row gap-2 justify-content-center align-items-center">
@@ -21,6 +18,8 @@ const DeleteUserOptionBtn = ({ index }) => {
 
 DeleteUserOptionBtn.propTypes = {
   index: PropTypes.number,
+  isDelete: PropTypes.bool,
+  setIsDelete: PropTypes.func,
 }
 
 export default DeleteUserOptionBtn;

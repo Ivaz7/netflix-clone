@@ -1,5 +1,9 @@
 @use './settingsPage';
 
+.outerProfileEditPage {
+  @extend .outerSettingsContainer;
+}
+
 .profileEditPage {
   @extend .settingsContainer;
 
