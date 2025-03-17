@@ -139,7 +139,10 @@ const HeaderMoreInfo = ({ dataDetail }) => {
 
   return (
     <header className="headerMoreInfo">
-      <img className="headerMoreInfo__backdrop" src={`https://image.tmdb.org/t/p/original${backdrop_path}`} alt="backdrop" />
+      {backdrop_path 
+        ? <img className="headerMoreInfo__backdrop" src={`https://image.tmdb.org/t/p/original${backdrop_path}`} alt="backdrop" />
+        : <div className="headerMoreInfo__withoutBackdrop">{name || title}</div>
+      }
 
       <div className="headerMoreInfo__details d-flex flex-column justify-content-between">
         <button onClick={() => deleteMoreInfo()} className="headerMoreInfo__details__cancelBtn d-flex justify-content-center align-items-center align-self-end">
