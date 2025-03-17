@@ -167,13 +167,21 @@ const ImgPopUpComp = ({ data }) => {
 
   return (
     <div className="ImgPopUpComp">
-      <img
-        onMouseEnter={handleEnterPopUp}
-        onMouseLeave={handleLeavePopUP}
-        className="ImgPopUpComp__mainImg"
-        src={`https://image.tmdb.org/t/p/original${poster_path}`}
-        alt="background"
-      />
+      {poster_path 
+        ? <img
+            onMouseEnter={handleEnterPopUp}
+            onMouseLeave={handleLeavePopUP}
+            className="ImgPopUpComp__mainImg"
+            src={`https://image.tmdb.org/t/p/original${poster_path}`}
+            alt="background"
+          />
+        : <div 
+            onMouseEnter={handleEnterPopUp}
+            onMouseLeave={handleLeavePopUP}
+            className="ImgPopUpComp__noresult">
+              {name || title}
+          </div>
+      }
 
       <AnimatePresence>
         {isHover && <motion.div 
@@ -186,11 +194,14 @@ const ImgPopUpComp = ({ data }) => {
           onMouseEnter={handleEnterPopUp}
           onMouseLeave={handleLeavePopUP}
         >
-          <img
-            className="ImgPopUpComp__popUp__img"
-            src={`https://image.tmdb.org/t/p/original${poster_path}`}
-            alt="background"
-          />
+          {poster_path 
+            ? <img
+                className="ImgPopUpComp__mainImg"
+                src={`https://image.tmdb.org/t/p/original${poster_path}`}
+                alt="background"
+              />
+            : <div className="ImgPopUpComp__noresult">{name || title}</div>
+          }
 
           <div className="ImgPopUpComp__popUp__optionBtn d-flex flex-row flex-wrap align-items-center justify-content-between">
             <div className="d-flex flex-row flex-wrap gap-1">
