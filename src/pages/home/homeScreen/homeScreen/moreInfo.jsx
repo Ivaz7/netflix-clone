@@ -2,19 +2,24 @@ import { useRef, useState } from "react";
 import CustomFloatingComp from "../../../../components/customFloatingComp";
 import { useClickOutside } from "../../../../customHooks/useClickOutside";
 import { useMoreInfo } from "../../../../customHooks/useMoreInfo";
+import { useSelector } from "react-redux";
 
 const MoreInfo = () => {
   const moreInfoRef = useRef(null);
-  const [isMoreInfo, setMoreInfo] = useState(true);
+  const [isMoreInfo, setIsMoreInfo] = useState(true);
   const clickOutside = useClickOutside;
   const { moreInfo, deleteMoreInfo } = useMoreInfo();
 
-  clickOutside(moreInfoRef, isMoreInfo, setMoreInfo, deleteMoreInfo);
+  clickOutside(moreInfoRef, isMoreInfo, setIsMoreInfo, deleteMoreInfo);
+
+  const dataShows = useSelector((state) => state.showsData.dataShows);
+
+  console.log(dataShows[moreInfo]);
 
   return (
     <CustomFloatingComp>
       <div ref={moreInfoRef} className="moreInfo">
-        <h1 style={{ height: "1000px", backgroundColor: "red" }}>
+        <h1>
           {moreInfo}
         </h1>
       </div>

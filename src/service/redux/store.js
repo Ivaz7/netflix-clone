@@ -5,6 +5,7 @@ import signUpEmailReducer from "./slice/signUpEmailSlice.js";
 import { fireBaseAuthSlice } from "./API/fireBaseAuthSlice.js";
 import { firebaseDBSlice } from "./API/firebaseDB.js"; 
 import profileEditReducer from "./API/profileEditSlice.js";
+import showsDataReducer from "./slice/showsData.js";
 
 export const store = configureStore({
   reducer: {
@@ -14,6 +15,7 @@ export const store = configureStore({
     [fireBaseAuthSlice.reducerPath]: fireBaseAuthSlice.reducer,
     [firebaseDBSlice.reducerPath]: firebaseDBSlice.reducer, 
     profileEdit: profileEditReducer,
+    showsData: showsDataReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

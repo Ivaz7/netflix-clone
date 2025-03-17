@@ -5,6 +5,8 @@ import { useSearchParams } from "react-router-dom";
 import ImgPopUpComp from "../../../../components/imgPopUpComp";
 import MainSlider from "../../../../components/mainSlider";
 import PropTypes from "prop-types";
+import { useDispatch } from "react-redux";
+import { setDataShows } from "../../../../service/redux/slice/showsData";
 
 const GenreSlider = ({ name, fetchMovie, fetchTV }) => {
   const { data: dataGet, isLoading: loadingDataGet } = useGetDataQuery();
@@ -13,6 +15,7 @@ const GenreSlider = ({ name, fetchMovie, fetchTV }) => {
   const [resultsArr, setResultsArr] = useState([]);
   const [searchParams] = useSearchParams();
   const category = searchParams.get("category");
+  const dispatch = useDispatch();
 
   const userOptionSelected = dataGet?.userOption[dataGet?.userSelected];
   const statusAge = userOptionSelected?.statusAge;
@@ -29,6 +32,16 @@ const GenreSlider = ({ name, fetchMovie, fetchTV }) => {
 
   const resultsTv = useMemo(() => (dataTv?.results || []), [dataTv]);
   const resultsMovie = useMemo(() => (dataMovie?.results || []), [dataMovie]);
+
+  useEffect(() => {
+    if (resultsTv) {
+      dispatch(setDataShows(resultsTv));
+    }
+
+    if (resultsMovie) {
+      dispatch(setDataShows(resultsMovie));
+    }
+  }, [resultsTv, resultsMovie, dispatch])
 
   const resultAll = useMemo(() => {
     return [...resultsMovie, ...resultsTv].sort(() => Math.random() - 0.5);
