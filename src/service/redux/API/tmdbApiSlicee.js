@@ -103,9 +103,6 @@ export const tmdbApiSlice = createApi({
           fetchWithBQ(`/movie/${id}/images?include_image_language=en,null`)
         ]);
     
-        if (tvResponse.error) return { error: tvResponse.error };
-        if (movieResponse.error) return { error: movieResponse.error };
-    
         const tvLogos = tvResponse.data?.logos;
         const movieLogos = movieResponse.data?.logos;
     
@@ -117,7 +114,20 @@ export const tmdbApiSlice = createApi({
           return { data: null };
         }
       }
-    })
+    }),
+    getDetail: builder.query({
+      async queryFn({ id }, _queryApi, _extraOptions, fetchWithBQ) {
+        const [tvResponse, movieResponse] = await Promise.all([
+          fetchWithBQ(`/tv/${id}?append_to_response=credits`),
+          fetchWithBQ(`/movie/${id}?append_to_response=credits`)
+        ]);
+    
+        const data = tvResponse.data ? tvResponse.data : movieResponse.data;
+    
+        return { data: { ...data } };
+      }
+    }),
+    
   }),
 });
 
@@ -162,4 +172,5 @@ export const {
   useLazySearchMoviesAndTVShowsQuery,
   useLazyGetTrendingAllQuery,
   useLazyGetLogosQuery,
+  useLazyGetDetailQuery,
 } = tmdbApiSlice;
