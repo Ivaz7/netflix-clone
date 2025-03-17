@@ -93,8 +93,31 @@ export const tmdbApiSlice = createApi({
       query: ({ timeWindow = "week" } = {}) => `/trending/all/${timeWindow}`,
     }),
     getLogos: builder.query({
-      query: ({ category, id }) => `/${category}/${id}/images?include_image_language=en,null`,
-    }),
+      async queryFn({ category, id }, _queryApi, _extraOptions, fetchWithBQ) {
+        if (category) {
+          return await fetchWithBQ(`/${category}/${id}/images?include_image_language=en,null`);
+        }
+    
+        const [tvResponse, movieResponse] = await Promise.all([
+          fetchWithBQ(`/tv/${id}/images?include_image_language=en,null`),
+          fetchWithBQ(`/movie/${id}/images?include_image_language=en,null`)
+        ]);
+    
+        if (tvResponse.error) return { error: tvResponse.error };
+        if (movieResponse.error) return { error: movieResponse.error };
+    
+        const tvLogos = tvResponse.data?.logos;
+        const movieLogos = movieResponse.data?.logos;
+    
+        if (tvLogos?.[0]) {
+          return { data: tvResponse.data };
+        } else if (movieLogos?.[0]) {
+          return { data: movieResponse.data };
+        } else {
+          return { data: null };
+        }
+      }
+    })
   }),
 });
 

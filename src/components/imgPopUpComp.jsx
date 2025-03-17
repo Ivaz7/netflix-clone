@@ -5,6 +5,7 @@ import { genreMap } from "../data/movieGenreData";
 import { useClickOutside } from "../customHooks/useClickOutside";
 import { useGetDataQuery, useSetDeleteHistoryMutation, useSetDeleteMyListMutation, useSetHitoryRatingMutation, useSetMyListMutation } from "../service/redux/API/firebaseDB";
 import LoadingComp from "./loadingComp";
+import { useMoreInfo } from "../customHooks/useMoreInfo";
 
 const ImgPopUpComp = ({ data }) => {
   const { poster_path, genre_ids, id: idMovie, title, name } = data;
@@ -153,6 +154,12 @@ const ImgPopUpComp = ({ data }) => {
       }
     }
   };
+
+  const { addMoreInfo } = useMoreInfo();
+
+  const handleMoreInfo = () => {
+    addMoreInfo(idMovie);
+  }
   
   if (isLoading) {
     return <LoadingComp />;
@@ -220,7 +227,7 @@ const ImgPopUpComp = ({ data }) => {
               </div>
             </div>
 
-            <button className="buttonMoreInfo buttonOutside">
+            <button onClick={handleMoreInfo} className="buttonMoreInfo buttonOutside">
               <i className="fa-solid fa-chevron-down"></i>
             </button>
           </div>

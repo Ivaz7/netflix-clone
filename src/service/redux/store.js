@@ -13,12 +13,13 @@ export const store = configureStore({
     QandAData: QandAReducer,
     signUpEmail: signUpEmailReducer,
     [fireBaseAuthSlice.reducerPath]: fireBaseAuthSlice.reducer,
-    [firebaseDBSlice.reducerPath]: firebaseDBSlice.reducer, 
+    [firebaseDBSlice.reducerPath]: firebaseDBSlice.reducer,
     profileEdit: profileEditReducer,
     showsData: showsDataReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
+      immutableCheck: false,
       serializableCheck: {
         ignoredActions: [
           "fireBaseAuth/signUpUser/fulfilled",
@@ -28,5 +29,5 @@ export const store = configureStore({
     })
       .concat(tmdbApiSlice.middleware)
       .concat(fireBaseAuthSlice.middleware)
-      .concat(firebaseDBSlice.middleware), 
+      .concat(firebaseDBSlice.middleware),
 });

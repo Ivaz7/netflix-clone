@@ -147,7 +147,10 @@ const HeaderMoreInfo = ({ dataDetail }) => {
         </button>
 
         <div className="headerMoreInfo__details__userInteraction d-flex flex-column gap-3">
-          <img className="headerMoreInfo__details__userInteraction__logo" src={`https://image.tmdb.org/t/p/original${logo}`} alt="backdrop" />
+          {logo 
+            ? <img className="headerMoreInfo__details__userInteraction__logo" src={`https://image.tmdb.org/t/p/original${logo}`} alt="backdrop" />
+            : <h1 className="headerMoreInfo__details__userInteraction__logo__h1">{title || name}</h1>
+          }
 
           <div className="headerMoreInfo__details__userInteraction__userBtn d-flex flex-row justify-content-start align-items-center gap-2">
             <button className="headerMoreInfo__details__userInteraction__userBtn__play d-flex flex-row align-items-center gap-md-2 gap-1">

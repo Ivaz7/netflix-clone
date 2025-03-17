@@ -19,7 +19,7 @@ const MoreInfo = () => {
   return (
     <CustomFloatingComp>
       <div ref={moreInfoRef} className="moreInfo">
-        <HeaderMoreInfo dataDetail={dataDetail} />
+        {dataDetail && <HeaderMoreInfo dataDetail={dataDetail} />}
       </div>
     </CustomFloatingComp>
   )
