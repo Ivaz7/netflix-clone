@@ -1,12 +1,16 @@
 import { useEffect } from "react";
 
-export const useClickOutside = (ref, bool, setBool) => {
+export const useClickOutside = (ref, bool, setBool, func) => {
   useEffect(() => {
     if (!bool) return;
 
     const handleClickOutside = (e) => {
       if (ref.current && !ref.current.contains(e.target)) {
         setBool(false)
+
+        if (func) {
+          func();
+        }
       }
     }
 
@@ -17,5 +21,5 @@ export const useClickOutside = (ref, bool, setBool) => {
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     }
-  }, [setBool, bool, ref])
+  }, [setBool, bool, ref, func])
 }

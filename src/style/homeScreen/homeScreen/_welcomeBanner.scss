@@ -1,8 +1,8 @@
 .welcomeBanner {
-  width: 100vw;
+  width: 100%;
 
   &__backdropContainer {
-    width: calc(100vw - 14.9px);
+    width: 100%;
     height: fit-content;
     position: absolute;
     left: 0;
