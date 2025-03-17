@@ -7,7 +7,7 @@ import { useSearchParams } from "react-router-dom";
 import GenreGrid from "./genreGrid";
 import SecondHeader from "./secondHeader";
 import { useMoreInfo } from "../../../../customHooks/useMoreInfo";
-import MoreInfo from "./moreInfo";
+import MoreInfo from "./moreInfo/moreInfo";
 import { useEffect, useState } from "react";
 
 const HomeScreen = () => {
