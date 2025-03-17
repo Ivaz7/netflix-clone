@@ -200,7 +200,7 @@ const ImgPopUpComp = ({ data }) => {
                 src={`https://image.tmdb.org/t/p/original${poster_path}`}
                 alt="background"
               />
-            : <div className="ImgPopUpComp__noresult">{name || title}</div>
+            : <div className="ImgPopUpComp__noresult__hover">{name || title}</div>
           }
 
           <div className="ImgPopUpComp__popUp__optionBtn d-flex flex-row flex-wrap align-items-center justify-content-between">

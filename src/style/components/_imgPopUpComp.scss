@@ -17,11 +17,20 @@ $scale5: $scale4 * 0.95;
 
   &__noresult {
     width: 100%;
-    height: 25vw;
+    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
+
+    &__hover {
+      height: 20vw;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
   }
 
   &__popUp {
