@@ -3,26 +3,14 @@ import { genreMap } from "../../../../../data/movieGenreData";
 
 const DetailMoreInfo = ({ dataCredit, dataDetail }) => {
   const cast = dataCredit?.credits?.cast;
-  const crew = dataCredit?.credits?.crew;
   const tagline = dataCredit?.tagline;
   const genre = dataDetail?.genre_ids;
   const date = dataCredit?.first_air_date || dataCredit?.release_date;
   const overview = dataDetail?.overview;
-  const name = dataDetail?.title || dataDetail?.name;
 
   const castNames = cast.slice(0, 7).map((member, inx) => 
     member.name + (inx === cast.slice(0, 7).length - 1 ? "" : ", ")
   );  
-  const directorName = crew?.find((member) => {
-    const job = member.job.toLowerCase();
-    return job === "director" || job === "directing";
-  })?.name;
-  const writerNames = crew
-    ?.filter((member) => {
-      const job = member.job.toLowerCase();
-      return job.includes("writer") || job.includes("screenplay") || job.includes("story");
-    })
-    .map((member) => member.name);
   const year = date ? date.split("-")[0] : "N/A";
   const renderGenre = genre.map((val, inx) => genreMap[val] +(inx === genre.length - 1 ? "" : ", "));
   

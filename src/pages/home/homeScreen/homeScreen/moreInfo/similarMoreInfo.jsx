@@ -3,8 +3,6 @@ import { useState } from "react";
 import { useGetDataQuery, useSetDeleteMyListMutation, useSetMyListMutation } from "../../../../../service/redux/API/firebaseDB";
 
 const SimilarShowMoreInfo = ({ similarShows }) => {
-  console.log(similarShows);
-
   const [visibleCount, setVisibleCount] = useState(3);
   const increment = 3;
   const isMax = visibleCount >= similarShows.length;

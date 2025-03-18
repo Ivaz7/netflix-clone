@@ -8,6 +8,7 @@ import { useLazyGetDetailQuery, useLazyGetSimilarQuery, useLazyGetTrailerQuery }
 import DetailMoreInfo from "./detailMoreInfo";
 import TrailerMoreInfo from "./trailerMoreInfo";
 import SimilarShowMoreInfo from "./similarMoreInfo";
+import AboutMoreInfo from "./aboutMoreInfo";
 
 const MoreInfo = () => {
   const moreInfoRef = useRef(null);
@@ -39,6 +40,7 @@ const MoreInfo = () => {
         {dataDetail && dataCredit && <DetailMoreInfo dataCredit={dataCredit} dataDetail={dataDetail} />}
         {dataTrailer && <TrailerMoreInfo dataTrailer={dataTrailer} />}
         {dataSimilar && <SimilarShowMoreInfo similarShows={dataSimilar} />}
+        {dataDetail && dataCredit && <AboutMoreInfo dataCredit={dataCredit} dataDetail={dataDetail} />}
       </div>
     </CustomFloatingComp>
   )
