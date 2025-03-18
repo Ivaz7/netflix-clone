@@ -2,7 +2,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 const TMDB_API_TOKEN = import.meta.env.VITE_TOKEN_TMDB_API;
 
-// Filter 
+// Filter untuk endpoint movie
 const appendAgeFilter = (url, age) => {
   let filter = "";
   if (age === true) {
@@ -13,6 +13,7 @@ const appendAgeFilter = (url, age) => {
   return filter ? (url.includes("?") ? `${url}&${filter}` : `${url}?${filter}`) : url;
 };
 
+// Filter untuk endpoint TV
 const appendTVBoolAgeFilter = (url, age) => {
   let filter = "";
   if (age === true) {
@@ -22,6 +23,15 @@ const appendTVBoolAgeFilter = (url, age) => {
   }
   return filter ? (url.includes("?") ? `${url}&${filter}` : `${url}?${filter}`) : url;
 };
+
+// Helper function for mediatypea added
+const addMediaType = (data, mediaType) => ({
+  ...data,
+  results: data.results.map(item => ({
+    ...item,
+    media_type: mediaType
+  }))
+});
 
 export const tmdbApiSlice = createApi({
   reducerPath: "tmdbApiSlice",
@@ -36,115 +46,84 @@ export const tmdbApiSlice = createApi({
     // Movies endpoints
     getPopularMovies: builder.query({
       query: ({ age } = {}) => appendAgeFilter(`/movie/popular`, age),
+      transformResponse: (response) => addMediaType(response, "movie")
     }),
     getTopRatedMovies: builder.query({
       query: ({ age } = {}) => appendAgeFilter(`/movie/top_rated`, age),
+      transformResponse: (response) => addMediaType(response, "movie")
     }),
     getTrendingMovies: builder.query({
-      query: ({ age, timeWindow = "week" } = {}) => appendAgeFilter(`/trending/movie/${timeWindow}`, age),
+      query: ({ age, timeWindow = "week" } = {}) =>
+        appendAgeFilter(`/trending/movie/${timeWindow}`, age),
+      transformResponse: (response) => addMediaType(response, "movie")
     }),
     getComedyMovies: builder.query({
       query: ({ age } = {}) => appendAgeFilter(`/discover/movie?with_genres=35`, age),
+      transformResponse: (response) => addMediaType(response, "movie")
     }),
     getActionMovies: builder.query({
       query: ({ age } = {}) => appendAgeFilter(`/discover/movie?with_genres=28`, age),
+      transformResponse: (response) => addMediaType(response, "movie")
     }),
 
     // TV Shows endpoints
     getPopularTVShows: builder.query({
       query: () => `/tv/popular`,
+      transformResponse: (response) => addMediaType(response, "tv")
     }),
     getTopRatedTVShows: builder.query({
       query: () => `/tv/top_rated`,
+      transformResponse: (response) => addMediaType(response, "tv")
     }),
     getTrendingTVShows: builder.query({
       query: ({ timeWindow = "week" } = {}) => `/trending/tv/${timeWindow}`,
+      transformResponse: (response) => addMediaType(response, "tv")
     }),
     getActionTVShows: builder.query({
       query: ({ age } = {}) =>
         age !== undefined
           ? appendTVBoolAgeFilter(`/discover/tv?with_genres=10759`, age)
           : `/discover/tv?with_genres=10759`,
+      transformResponse: (response) => addMediaType(response, "tv")
     }),
     getComedyTVShows: builder.query({
       query: ({ age } = {}) =>
         age !== undefined
           ? appendTVBoolAgeFilter(`/discover/tv?with_genres=35`, age)
           : `/discover/tv?with_genres=35`,
+      transformResponse: (response) => addMediaType(response, "tv")
     }),
 
-    // Etc
+    // searching
     searchMoviesAndTVShows: builder.query({
       query: ({ query }) => `/search/multi?query=${encodeURIComponent(query)}`,
     }),
+
+    // Trending All
     getTrendingAll: builder.query({
       query: ({ timeWindow = "week" } = {}) => `/trending/all/${timeWindow}`,
     }),
+
+    // Get Logos
     getLogos: builder.query({
-      async queryFn({ category, id }, _queryApi, _extraOptions, fetchWithBQ) {
-        if (category) {
-          return await fetchWithBQ(`/${category}/${id}/images?include_image_language=en,null`);
-        }
-    
-        const [tvResponse, movieResponse] = await Promise.all([
-          fetchWithBQ(`/tv/${id}/images?include_image_language=en,null`),
-          fetchWithBQ(`/movie/${id}/images?include_image_language=en,null`)
-        ]);
-    
-        const tvLogos = tvResponse.data?.logos;
-        const movieLogos = movieResponse.data?.logos;
-    
-        if (tvLogos?.[0]) {
-          return { data: tvResponse.data };
-        } else if (movieLogos?.[0]) {
-          return { data: movieResponse.data };
-        } else {
-          return { data: null };
-        }
-      }
+      query: ({ category, id }) => `/${category}/${id}/images?include_image_language=en,null`
     }),
+
+    // Get Detail (TV & Movie)
     getDetail: builder.query({
-      async queryFn({ id }, _queryApi, _extraOptions, fetchWithBQ) {
-        const [tvResponse, movieResponse] = await Promise.all([
-          fetchWithBQ(`/tv/${id}?append_to_response=credits`),
-          fetchWithBQ(`/movie/${id}?append_to_response=credits`)
-        ]);
-    
-        const data = tvResponse.data ? tvResponse.data : movieResponse.data;
-    
-        return { data: { ...data } };
-      }
+      query: ({ category, id }) => `/${category}/${id}?append_to_response=credits`
     }),
+
+    // Get Trailer (TV & Movie)
     getTrailer: builder.query({
-      async queryFn({ id }, _queryApi, _extraOptions, fetchWithBQ) {
-        const [movieResponse, tvResponse] = await Promise.all([
-          fetchWithBQ(`/movie/${id}/videos`),
-          fetchWithBQ(`/tv/${id}/videos`)
-        ]);
-    
-        const movieTrailers = movieResponse.data?.results || [];
-        const tvTrailers = tvResponse.data?.results || [];
-    
-        const trailers = [...movieTrailers, ...tvTrailers];
-        
-        return { data: trailers.length ? trailers : null };
-      }
+      query: ({ category, id }) => `/${category}/${id}/videos`
     }),
+
+    // Get Similar (TV & Movie)
     getSimilar: builder.query({
-      async queryFn({ id }, _queryApi, _extraOptions, fetchWithBQ) {
-        const [movieResponse, tvResponse] = await Promise.all([
-          fetchWithBQ(`/movie/${id}/similar`),
-          fetchWithBQ(`/tv/${id}/similar`)
-        ]);
-    
-        const movieResults = movieResponse.data?.results || [];
-        const tvResults = tvResponse.data?.results || [];
-    
-        const similarResults = [...movieResults, ...tvResults];
-        
-        return { data: similarResults.length ? similarResults : null };
-      }
+      query: ({ category, id }) => `/${category}/${id}/similar`
     }),
+
   }),
 });
 

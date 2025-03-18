@@ -14,7 +14,7 @@ const MoreInfo = () => {
   const moreInfoRef = useRef(null);
   const [isMoreInfo, setIsMoreInfo] = useState(true);
   const clickOutside = useClickOutside;
-  const { moreInfo, deleteMoreInfo } = useMoreInfo();
+  const { categoryMoreInfo ,moreInfo, deleteMoreInfo } = useMoreInfo();
 
   clickOutside(moreInfoRef, isMoreInfo, setIsMoreInfo, deleteMoreInfo);
 
@@ -24,11 +24,11 @@ const MoreInfo = () => {
 
   useEffect(() => {
     if (moreInfo) {
-      triggerDetail({ id: moreInfo })
-      triggerTrailer({ id: moreInfo })
-      triggerSimilar({ id: moreInfo })
+      triggerDetail({ id: moreInfo, category: categoryMoreInfo })
+      triggerTrailer({ id: moreInfo, category: categoryMoreInfo })
+      triggerSimilar({ id: moreInfo, category: categoryMoreInfo })
     }
-  }, [moreInfo, triggerDetail, triggerTrailer, triggerSimilar])
+  }, [moreInfo, triggerDetail, triggerTrailer, triggerSimilar, categoryMoreInfo])
 
   const dataShows = useSelector((state) => state.showsData.dataShows);
   const dataDetail = dataShows[moreInfo];
@@ -38,8 +38,8 @@ const MoreInfo = () => {
       <div ref={moreInfoRef} className="moreInfo">
         {dataDetail && <HeaderMoreInfo dataDetail={dataDetail} />}
         {dataDetail && dataCredit && <DetailMoreInfo dataCredit={dataCredit} dataDetail={dataDetail} />}
-        {dataTrailer && <TrailerMoreInfo dataTrailer={dataTrailer} />}
-        {dataSimilar && <SimilarShowMoreInfo similarShows={dataSimilar} />}
+        {dataTrailer?.results && <TrailerMoreInfo dataTrailer={dataTrailer.results} />}
+        {dataSimilar?.results && <SimilarShowMoreInfo similarShows={dataSimilar.results} />}
         {dataDetail && dataCredit && <AboutMoreInfo dataCredit={dataCredit} dataDetail={dataDetail} />}
       </div>
     </CustomFloatingComp>

@@ -8,7 +8,7 @@ import LoadingComp from "./loadingComp";
 import { useMoreInfo } from "../customHooks/useMoreInfo";
 
 const ImgPopUpComp = ({ data }) => {
-  const { poster_path, genre_ids, id: idMovie, title, name } = data;
+  const { poster_path, genre_ids, id: idMovie, title, name, media_type } = data;
   
   const [ratingIndex, setRatingIndex] = useState(null);
   const [isRating, setIsRating] = useState(false);
@@ -158,7 +158,7 @@ const ImgPopUpComp = ({ data }) => {
   const { addMoreInfo } = useMoreInfo();
 
   const handleMoreInfo = () => {
-    addMoreInfo(idMovie);
+    addMoreInfo(idMovie, media_type);
   }
   
   if (isLoading) {
