@@ -34,7 +34,7 @@ const DetailMoreInfo = ({ dataCredit, dataDetail }) => {
   console.log("name", name);
   
   return (
-    <div className="detailMoreInfo d-flex flex-column flex-sm-row gap-2">
+    <div className="detailMoreInfo d-flex flex-column flex-sm-row gap-2 gap-sm-3">
       <div className="detailMoreInfo__leftSide d-flex flex-column gap-2">
         <p>
           <span>{year}</span>
