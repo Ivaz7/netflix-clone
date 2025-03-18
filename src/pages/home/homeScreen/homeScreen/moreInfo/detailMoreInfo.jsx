@@ -10,7 +10,9 @@ const DetailMoreInfo = ({ dataCredit, dataDetail }) => {
   const overview = dataDetail?.overview;
   const name = dataDetail?.title || dataDetail?.name;
 
-  const castNames = cast?.map((member, inx) => member.name + (inx === cast.length - 1 ? "" : ", "));
+  const castNames = cast.slice(0, 7).map((member, inx) => 
+    member.name + (inx === cast.slice(0, 7).length - 1 ? "" : ", ")
+  );  
   const directorName = crew?.find((member) => {
     const job = member.job.toLowerCase();
     return job === "director" || job === "directing";
@@ -23,15 +25,6 @@ const DetailMoreInfo = ({ dataCredit, dataDetail }) => {
     .map((member) => member.name);
   const year = date ? date.split("-")[0] : "N/A";
   const renderGenre = genre.map((val, inx) => genreMap[val] +(inx === genre.length - 1 ? "" : ", "));
-
-  console.log("castNames", castNames);
-  console.log("directorName", directorName);
-  console.log("writerNames", writerNames);
-  console.log("tagLine", tagline);
-  console.log("genre", genre);
-  console.log("year", year);
-  console.log("overview", overview);
-  console.log("name", name);
   
   return (
     <div className="detailMoreInfo d-flex flex-column flex-sm-row gap-2 gap-sm-3">

@@ -1,0 +1,30 @@
+.trailerMoreInfo {
+  padding: 2rem;
+
+  h1 {
+    margin: 0;
+    font-size: clamp(1.5rem, 3vw + 2rem, 2.47rem);
+  }
+
+  &__trailerContainer {
+    &__trailer {
+      cursor: pointer;
+      padding: 1rem 2rem;
+      border-bottom: 1px solid rgb(230, 230, 230);
+      border-radius: 0.3rem;
+
+      & > div {
+        width: 50%
+      }
+
+      &__thumbnail {
+        object-fit: contain;
+        width: 15rem;
+      }
+
+      &:hover {
+        background-color: rgb(75, 75, 75);
+      }
+    }
+  }
+}

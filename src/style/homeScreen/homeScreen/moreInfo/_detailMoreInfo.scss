@@ -15,4 +15,20 @@
   &__leftSide {
     width: 70%;
   }
+
+  &__rightSide {
+    width: 30%;
+  }
+}
+
+@media (max-width: 576px) {
+  .detailMoreInfo {
+    &__leftSide {
+      width: 100%;
+    }
+
+    &__rightSide {
+      width: 100%;
+    }
+  }
 }

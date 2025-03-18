@@ -52,9 +52,6 @@ export const tmdbApiSlice = createApi({
     getSimilarMovies: builder.query({
       query: ({ id, age } = {}) => appendAgeFilter(`/movie/${id}/similar`, age),
     }),
-    getMovieTrailer: builder.query({
-      query: ({ id, age } = {}) => appendAgeFilter(`/movie/${id}/videos`, age),
-    }),
 
     // TV Shows endpoints
     getPopularTVShows: builder.query({
@@ -80,9 +77,6 @@ export const tmdbApiSlice = createApi({
     }),
     getSimilarTVShows: builder.query({
       query: ({ id } = {}) => `/tv/${id}/similar`,
-    }),
-    getTVShowTrailer: builder.query({
-      query: ({ id } = {}) => `/tv/${id}/videos`,
     }),
 
     // Etc
@@ -127,7 +121,21 @@ export const tmdbApiSlice = createApi({
         return { data: { ...data } };
       }
     }),
+    getTrailer: builder.query({
+      async queryFn({ id }, _queryApi, _extraOptions, fetchWithBQ) {
+        const [movieResponse, tvResponse] = await Promise.all([
+          fetchWithBQ(`/movie/${id}/videos`),
+          fetchWithBQ(`/tv/${id}/videos`)
+        ]);
     
+        const movieTrailers = movieResponse.data?.results || [];
+        const tvTrailers = tvResponse.data?.results || [];
+    
+        const trailers = [...movieTrailers, ...tvTrailers];
+        
+        return { data: trailers.length ? trailers : null };
+      }
+    }),
   }),
 });
 
@@ -139,7 +147,6 @@ export const {
   useLazyGetComedyMoviesQuery,
   useLazyGetActionMoviesQuery,
   useLazyGetSimilarMoviesQuery,
-  useLazyGetMovieTrailerQuery,
 
   // TV Shows hooks
   useLazyGetPopularTVShowsQuery,
@@ -148,7 +155,6 @@ export const {
   useLazyGetActionTVShowsQuery,  
   useLazyGetComedyTVShowsQuery,   
   useLazyGetSimilarTVShowsQuery,
-  useLazyGetTVShowTrailerQuery,
 
   // Movies hooks (non-lazy)
   useGetPopularMoviesQuery,
@@ -157,7 +163,6 @@ export const {
   useGetComedyMoviesQuery,
   useGetActionMoviesQuery,
   useGetSimilarMoviesQuery,
-  useGetMovieTrailerQuery,
 
   // TV Shows hooks (non-lazy)
   useGetPopularTVShowsQuery,
@@ -166,11 +171,11 @@ export const {
   useGetActionTVShowsQuery,
   useGetComedyTVShowsQuery,
   useGetSimilarTVShowsQuery,
-  useGetTVShowTrailerQuery,
 
   // Etc hooks
   useLazySearchMoviesAndTVShowsQuery,
   useLazyGetTrendingAllQuery,
   useLazyGetLogosQuery,
   useLazyGetDetailQuery,
+  useLazyGetTrailerQuery,
 } = tmdbApiSlice;
