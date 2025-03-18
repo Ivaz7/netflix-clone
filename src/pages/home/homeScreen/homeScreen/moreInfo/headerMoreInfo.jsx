@@ -140,7 +140,9 @@ const HeaderMoreInfo = ({ dataDetail }) => {
   return (
     <header className="headerMoreInfo">
       {backdrop_path 
-        ? <img className="headerMoreInfo__backdrop" src={`https://image.tmdb.org/t/p/original${backdrop_path}`} alt="backdrop" />
+        ? <div className="headerMoreInfo__backdrop">
+            <img className="headerMoreInfo__backdrop__img" src={`https://image.tmdb.org/t/p/original${backdrop_path}`} alt="backdrop" />
+          </div>
         : <div className="headerMoreInfo__withoutBackdrop">{name || title}</div>
       }
 
