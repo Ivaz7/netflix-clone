@@ -1,10 +1,12 @@
 import PropTypes from "prop-types";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const TrailerMoreInfo = ({ dataTrailer }) => {
   const [visibleCount, setVisibleCount] = useState(5); 
   const increment = 3; 
   const isMax = visibleCount >= dataTrailer.length;
+  const navigate = useNavigate();
 
   const handleClick = () => {
     if (isMax) {
@@ -14,6 +16,10 @@ const TrailerMoreInfo = ({ dataTrailer }) => {
     }
   };
 
+  const handlePlay = (key) => {
+    navigate(`/watch?key=${key}`)
+  }
+
   const renderTrailer = dataTrailer.slice(0, visibleCount).map((val, inx) => {
     const { name, key } = val;
 
@@ -21,6 +27,7 @@ const TrailerMoreInfo = ({ dataTrailer }) => {
       <div
         className="trailerMoreInfo__trailerContainer__trailer d-flex flex-sm-row flex-column gap-2 align-items-center"
         key={inx}
+        onClick={() => handlePlay(key)}
       >
         <div className="d-flex gap-sm-3 gap-2 align-items-center flex-sm-row flex-column">
           <h1>{inx + 1}</h1>

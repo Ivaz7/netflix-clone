@@ -1,8 +1,11 @@
 import PropTypes from "prop-types";
 import { useState } from "react";
 import { useGetDataQuery, useSetDeleteMyListMutation, useSetMyListMutation } from "../../../../../service/redux/API/firebaseDB";
+import useHandlePlay from "../../../../../customHooks/useHandlePlay";
 
-const SimilarShowMoreInfo = ({ similarShows }) => {
+const SimilarShowMoreInfo = ({ dataDetail, similarShows }) => {
+  const { media_type } = dataDetail;
+
   const [visibleCount, setVisibleCount] = useState(3);
   const increment = 3;
   const isMax = visibleCount >= similarShows.length;
@@ -18,6 +21,7 @@ const SimilarShowMoreInfo = ({ similarShows }) => {
   const { data: dataGet, refetch } = useGetDataQuery();
   const [triggerSetMyList] = useSetMyListMutation();
   const [triggerSetDeleteMyList] = useSetDeleteMyListMutation();
+  const handlePlay = useHandlePlay();
   
   const userOptionSelected = dataGet?.userOption[dataGet.userSelected];
   const { myList } = userOptionSelected;
@@ -42,6 +46,7 @@ const SimilarShowMoreInfo = ({ similarShows }) => {
       <div
         className="similarShowMoreInfo__showContainer__show d-flex flex-column"
         key={index}
+        onClick={() => handlePlay(id, media_type)}
       >
         <img
           src={`https://image.tmdb.org/t/p/original${backdrop_path}`}
@@ -88,6 +93,7 @@ const SimilarShowMoreInfo = ({ similarShows }) => {
 
 SimilarShowMoreInfo.propTypes = {
   similarShows: PropTypes.array.isRequired,
+  dataDetail: PropTypes.object.isRequired,
 };
 
 export default SimilarShowMoreInfo;

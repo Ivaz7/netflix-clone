@@ -7,6 +7,7 @@ import SettingsPage from "./pages/home/homeScreen/settings/settingsPage"
 import ProfileEditPage from "./pages/home/homeScreen/settings/profileEditPages"
 import ChooseProfileIcon from "./pages/home/homeScreen/settings/chooseProfileIcon"
 import NotFound from "./pages/404"
+import Watch from "./pages/home/watch"
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route path="/signUp" element={<SignUp />} />
           <Route path="/login" element={<Login />} />
           <Route path="/UserManageProfile" element={<UserManageProfile />} />
+          <Route path="/watch" element={<Watch />} />
           <Route path="/settings" element={<SettingsPage />} />
           <Route path="/settings/ProfileEdit" element={<ProfileEditPage />} />
           <Route path="/settings/ProfileEdit/ChooseProfileIcon" element={<ChooseProfileIcon />} />

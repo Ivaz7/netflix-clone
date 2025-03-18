@@ -38,8 +38,8 @@ const MoreInfo = () => {
       <div ref={moreInfoRef} className="moreInfo">
         {dataDetail && <HeaderMoreInfo dataDetail={dataDetail} />}
         {dataDetail && dataCredit && <DetailMoreInfo dataCredit={dataCredit} dataDetail={dataDetail} />}
-        {dataTrailer?.results && <TrailerMoreInfo dataTrailer={dataTrailer.results} />}
-        {dataSimilar?.results && <SimilarShowMoreInfo similarShows={dataSimilar.results} />}
+        {dataTrailer?.results && dataDetail && <TrailerMoreInfo dataDetail={dataDetail} dataTrailer={dataTrailer.results} />}
+        {dataSimilar?.results && dataDetail && <SimilarShowMoreInfo dataDetail={dataDetail} similarShows={dataSimilar.results} />}
         {dataDetail && dataCredit && <AboutMoreInfo dataCredit={dataCredit} dataDetail={dataDetail} />}
       </div>
     </CustomFloatingComp>

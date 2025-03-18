@@ -6,9 +6,12 @@ import { useClickOutside } from "../customHooks/useClickOutside";
 import { useGetDataQuery, useSetDeleteHistoryMutation, useSetDeleteMyListMutation, useSetHitoryRatingMutation, useSetMyListMutation } from "../service/redux/API/firebaseDB";
 import LoadingComp from "./loadingComp";
 import { useMoreInfo } from "../customHooks/useMoreInfo";
+import useHandlePlay from "../customHooks/useHandlePlay";
 
 const ImgPopUpComp = ({ data }) => {
   const { poster_path, genre_ids, id: idMovie, title, name, media_type } = data;
+
+  const handlePlay = useHandlePlay();
   
   const [ratingIndex, setRatingIndex] = useState(null);
   const [isRating, setIsRating] = useState(false);
@@ -205,7 +208,7 @@ const ImgPopUpComp = ({ data }) => {
 
           <div className="ImgPopUpComp__popUp__optionBtn d-flex flex-row flex-wrap align-items-center justify-content-between">
             <div className="d-flex flex-row flex-wrap gap-1">
-              <button className="buttonPlay buttonOutside">
+              <button onClick={() => handlePlay(idMovie, media_type)} className="buttonPlay buttonOutside">
                 <i className="fa-solid fa-play"></i>
               </button>
 

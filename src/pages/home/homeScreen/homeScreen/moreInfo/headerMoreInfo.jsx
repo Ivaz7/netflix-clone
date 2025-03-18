@@ -5,12 +5,14 @@ import { useMoreInfo } from "../../../../../customHooks/useMoreInfo";
 import { useGetDataQuery } from "../../../../../service/redux/API/firebaseDB";
 import { motion, AnimatePresence } from "framer-motion";
 import { useSetDeleteHistoryMutation, useSetHitoryRatingMutation, useSetDeleteMyListMutation, useSetMyListMutation } from "../../../../../service/redux/API/firebaseDB";
+import useHandlePlay from "../../../../../customHooks/useHandlePlay";
 
 const HeaderMoreInfo = ({ dataDetail }) => {
   const { backdrop_path, id, genre_ids, poster_path, media_type, title, name } = dataDetail;
   const [triggerLogo, { data: dataLogo }] = useLazyGetLogosQuery();
   const { deleteMoreInfo } = useMoreInfo();
   const { data: dataGet, refetch } = useGetDataQuery();
+  const handlePlay = useHandlePlay();
 
   useEffect(() => {
     if (id) {
@@ -158,7 +160,7 @@ const HeaderMoreInfo = ({ dataDetail }) => {
           }
 
           <div className="headerMoreInfo__details__userInteraction__userBtn d-flex flex-row justify-content-start align-items-center gap-2">
-            <button className="headerMoreInfo__details__userInteraction__userBtn__play d-flex flex-row align-items-center gap-md-2 gap-1">
+            <button onClick={() => handlePlay(id, media_type)} className="headerMoreInfo__details__userInteraction__userBtn__play d-flex flex-row align-items-center gap-md-2 gap-1">
               <i className="fa-solid fa-play"></i>
               Play
             </button>

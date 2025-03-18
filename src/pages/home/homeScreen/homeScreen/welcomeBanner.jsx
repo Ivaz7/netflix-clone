@@ -5,6 +5,7 @@ import { useLazyGetTrendingAllQuery, useLazyGetLogosQuery } from "../../../../se
 import { useGetDataQuery } from "../../../../service/redux/API/firebaseDB";
 import { useSearchParams } from "react-router-dom";
 import { useMoreInfo } from "../../../../customHooks/useMoreInfo";
+import useHandlePlay from "../../../../customHooks/useHandlePlay";
 
 const WelcomeBanner = () => {
   const [triggerTrending, { data: dataTrending, isLoading: loadingTrending }] = useLazyGetTrendingAllQuery();
@@ -14,6 +15,7 @@ const WelcomeBanner = () => {
   const [dataFinal, setDataFinal] = useState(null);
   const category = searchParams.get("category");
   const { addMoreInfo } = useMoreInfo();
+  const handlePlay = useHandlePlay();
 
   useEffect(() => {
     if (dataGet) {
@@ -87,7 +89,7 @@ const WelcomeBanner = () => {
         <p>{overview}</p>
 
         <div className="d-flex flex-row gap-md-2 gap-1">
-          <button className="buttonPlay d-flex flex-row align-items-center gap-md-2 gap-1">
+          <button onClick={() => handlePlay(id, media)} className="buttonPlay d-flex flex-row align-items-center gap-md-2 gap-1">
             <i className="fa-solid fa-play"></i>
             Play
           </button>
