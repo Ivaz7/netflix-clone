@@ -51,12 +51,12 @@ const TrailerMoreInfo = ({ dataTrailer }) => {
       <div className="trailerMoreInfo__trailerContainer d-flex flex-column align-items-center">
         {renderTrailer}
 
-        <button 
+        {!(visibleCount >= dataTrailer.length) && <button 
           className="trailerMoreInfo__trailerContainer__btnMore" 
           onClick={handleClick}
         >
           <i className={`fa-solid ${isMax ? "fa-chevron-up" : "fa-chevron-down"}`}></i>
-        </button>
+        </button>}
       </div>
     </div>
   );
