@@ -7,11 +7,28 @@
   }
 
   &__trailerContainer {
+    &__btnMore {
+      width: 3rem;
+      height: 3rem;
+      font-size: 2rem;
+      border-radius: 50%;
+      background-color: rgba(169, 169, 169, 0.5);
+      color: white !important;
+      border: 1px solid white !important;
+      transform: translateY(-50%);
+      transition: 0s;
+
+      &:hover {
+        background-color: rgba(75, 75, 75, 0.5);
+      }
+    }
+
     &__trailer {
       cursor: pointer;
       padding: 1rem 2rem;
       border-bottom: 1px solid rgb(230, 230, 230);
       border-radius: 0.3rem;
+      width: 100%;
 
       & > div {
         width: 50%
