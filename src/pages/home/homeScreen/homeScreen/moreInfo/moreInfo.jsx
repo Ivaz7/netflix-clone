@@ -4,9 +4,10 @@ import { useClickOutside } from "../../../../../customHooks/useClickOutside";
 import { useMoreInfo } from "../../../../../customHooks/useMoreInfo";
 import { useSelector } from "react-redux";
 import HeaderMoreInfo from "./headerMoreInfo";
-import { useLazyGetDetailQuery, useLazyGetTrailerQuery } from "../../../../../service/redux/API/tmdbApiSlicee";
+import { useLazyGetDetailQuery, useLazyGetSimilarQuery, useLazyGetTrailerQuery } from "../../../../../service/redux/API/tmdbApiSlicee";
 import DetailMoreInfo from "./detailMoreInfo";
 import TrailerMoreInfo from "./trailerMoreInfo";
+import SimilarShowMoreInfo from "./similarMoreInfo";
 
 const MoreInfo = () => {
   const moreInfoRef = useRef(null);
@@ -18,13 +19,15 @@ const MoreInfo = () => {
 
   const [triggerDetail, { data: dataCredit }] = useLazyGetDetailQuery();
   const [triggerTrailer, { data: dataTrailer }] = useLazyGetTrailerQuery();
+  const [triggerSimilar, { data: dataSimilar }] = useLazyGetSimilarQuery();
 
   useEffect(() => {
     if (moreInfo) {
       triggerDetail({ id: moreInfo })
       triggerTrailer({ id: moreInfo })
+      triggerSimilar({ id: moreInfo })
     }
-  }, [moreInfo, triggerDetail, triggerTrailer])
+  }, [moreInfo, triggerDetail, triggerTrailer, triggerSimilar])
 
   const dataShows = useSelector((state) => state.showsData.dataShows);
   const dataDetail = dataShows[moreInfo];
@@ -35,6 +38,7 @@ const MoreInfo = () => {
         {dataDetail && <HeaderMoreInfo dataDetail={dataDetail} />}
         {dataDetail && dataCredit && <DetailMoreInfo dataCredit={dataCredit} dataDetail={dataDetail} />}
         {dataTrailer && <TrailerMoreInfo dataTrailer={dataTrailer} />}
+        {dataSimilar && <SimilarShowMoreInfo similarShows={dataSimilar} />}
       </div>
     </CustomFloatingComp>
   )
