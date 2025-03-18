@@ -10,8 +10,8 @@ const AboutMoreInfo = ({ dataCredit, dataDetail }) => {
   const overview = dataDetail?.overview;
   const name = dataDetail?.title || dataDetail?.name;
 
-  const castNames = cast.slice(0, 7).map((member, inx) =>
-    member.name + (inx === cast.slice(0, 7).length - 1 ? "" : ", ")
+  const castNames = cast.map((member, inx) =>
+    member.name + (inx === cast.length - 1 ? "" : ", ")
   );
   
   const directorName = crew.find((member) => {
