@@ -1,4 +1,5 @@
 import PropTypes from "prop-types";
+import { genreMap } from "../../../../../data/movieGenreData";
 
 const DetailMoreInfo = ({ dataCredit, dataDetail }) => {
   const cast = dataCredit?.credits?.cast;
@@ -9,8 +10,7 @@ const DetailMoreInfo = ({ dataCredit, dataDetail }) => {
   const overview = dataDetail?.overview;
   const name = dataDetail?.title || dataDetail?.name;
 
-  const castNames = cast?.map((member) => member.name);
-
+  const castNames = cast?.map((member, inx) => member.name + (inx === cast.length - 1 ? "" : ", "));
   const directorName = crew?.find((member) => {
     const job = member.job.toLowerCase();
     return job === "director" || job === "directing";
@@ -22,6 +22,7 @@ const DetailMoreInfo = ({ dataCredit, dataDetail }) => {
     })
     .map((member) => member.name);
   const year = date ? date.split("-")[0] : "N/A";
+  const renderGenre = genre.map((val, inx) => genreMap[val] +(inx === genre.length - 1 ? "" : ", "));
 
   console.log("castNames", castNames);
   console.log("directorName", directorName);
@@ -33,8 +34,30 @@ const DetailMoreInfo = ({ dataCredit, dataDetail }) => {
   console.log("name", name);
   
   return (
-    <div className="detailMoreInfo">
-      {/* Render komponen atau data lainnya */}
+    <div className="detailMoreInfo d-flex flex-column flex-sm-row gap-2">
+      <div className="detailMoreInfo__leftSide d-flex flex-column gap-2">
+        <p>
+          <span>{year}</span>
+        </p>
+
+        {tagline && <p>
+          &quot;{tagline}&quot;
+        </p>}
+
+        <p>
+          {overview}
+        </p>
+      </div>
+
+      <div className="detailMoreInfo__rightSide d-flex flex-column gap-2">
+        <p>
+          <span>Cast:</span> {castNames}
+        </p>
+
+        <p>
+          <span>Genre:</span> {renderGenre}
+        </p>
+      </div>
     </div>
   );
 };

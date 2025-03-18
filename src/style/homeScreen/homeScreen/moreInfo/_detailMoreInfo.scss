@@ -1,0 +1,13 @@
+.detailMoreInfo {
+  padding: 2rem;
+
+  p {
+    font-size: clamp(0.8rem, 0.5vw + 1rem, 1rem);
+    margin: 0;
+    color: rgb(250, 250, 250) !important;
+  }
+
+  span {
+    color: rgb(169, 169, 169) !important;
+  }
+}
