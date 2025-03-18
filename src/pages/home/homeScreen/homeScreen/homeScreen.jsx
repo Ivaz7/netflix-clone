@@ -25,39 +25,39 @@ const HomeScreen = () => {
 
   const [scrollY, setScrollY] = useState(0);
   const storedScrollY = useRef(0); 
-  const { moreInfo } = useMoreInfo();
+  const { moreInfo, categoryMoreInfo } = useMoreInfo();
 
   useEffect(() => {
     const handleScroll = () => {
-      if (!moreInfo) {
+      if (!moreInfo && categoryMoreInfo) {
         setScrollY(window.scrollY);
       }
     };
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [moreInfo]);
+  }, [moreInfo, categoryMoreInfo]);
 
   useEffect(() => {
     document.documentElement.style.scrollBehavior = "auto";
 
-    if (moreInfo) {
+    if (moreInfo && categoryMoreInfo) {
       storedScrollY.current = scrollY;
       window.scrollTo({ top: 0, behavior: "auto" });
     } else {
       window.scrollTo({ top: storedScrollY.current, behavior: "auto" });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-}, [moreInfo]);
+}, [moreInfo, categoryMoreInfo]);
 
 
   return (
     <>
-      {moreInfo && <MoreInfo />}
+      {moreInfo && categoryMoreInfo && <MoreInfo />}
 
       <div
-        style={{ top: moreInfo ? `-${storedScrollY.current}px` : undefined }}
-        className={`outerHomeScreen ${moreInfo ? "moreInfoIsOn" : ""}`}
+        style={{ top: moreInfo && categoryMoreInfo ? `-${storedScrollY.current}px` : undefined }}
+        className={`outerHomeScreen ${moreInfo && categoryMoreInfo ? "moreInfoIsOn" : ""}`}
       >
         <HeaderHome />
 
