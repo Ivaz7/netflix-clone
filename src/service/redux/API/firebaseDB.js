@@ -498,6 +498,65 @@ export const firebaseDBSlice = createApi({
         }
       }
     }),
+
+    setHistoryWatched: builder.mutation({
+      async queryFn({ id, showName, trailerName, key }) {
+        try {
+          const userUid = await new Promise((resolve, reject) => {
+            const unsubscribe = onAuthStateChanged(
+              auth,
+              (user) => {
+                unsubscribe();
+                if (user) {
+                  resolve(user.uid);
+                } else {
+                  resolve(null);
+                }
+              },
+              (error) => reject(error)
+            );
+          });
+    
+          if (!userUid) {
+            return { data: null };
+          }
+
+          const reference = ref(database, `user/${userUid}`);
+          const snapshot = await get(reference);
+          const snapshotVal = snapshot.exists() ? snapshot.val() : null;
+
+          if (snapshotVal  && Array.isArray(snapshotVal.userOption)) {
+            let updatedUserOption = [...snapshotVal.userOption]
+            let historyWatched = updatedUserOption[snapshotVal.userSelected].historyWatched;
+
+            if (historyWatched !== "empty" && Array.isArray(historyWatched)) {
+              for (let i = 0; i < historyWatched.length; i++) {
+                if (historyWatched[i].id === id) {
+                  if (historyWatched[i].showName === showName && historyWatched[i].trailerName === trailerName && historyWatched[i].key === key) {
+                    return { data: "No changes needed" };
+                  }                  
+                }
+              }
+
+              if (historyWatched.length === 40) {
+                historyWatched.shift();
+              }
+
+              historyWatched.push({ showName: showName, id: id, trailerName: trailerName, key: key });
+            } else {
+              historyWatched = [{ showName: showName, id: id, trailerName: trailerName, key: key }];
+            }
+
+            updatedUserOption[snapshotVal.userSelected].historyWatched = historyWatched;
+            await set(ref(database, `user/${userUid}/userOption`), updatedUserOption);
+          }
+
+          return { data: "History rating updated successfully" };
+        } catch (error) {
+          return { error: error.message };
+        }
+      }
+    })
   }),
 });
 
@@ -513,4 +572,5 @@ export const {
   useSetMyListMutation,
   useSetDeleteHistoryMutation,
   useSetDeleteMyListMutation,
+  useSetHistoryWatchedMutation,
 } = firebaseDBSlice;

@@ -160,7 +160,7 @@ const HeaderMoreInfo = ({ dataDetail }) => {
           }
 
           <div className="headerMoreInfo__details__userInteraction__userBtn d-flex flex-row justify-content-start align-items-center gap-2">
-            <button onClick={() => handlePlay(id, media_type)} className="headerMoreInfo__details__userInteraction__userBtn__play d-flex flex-row align-items-center gap-md-2 gap-1">
+            <button onClick={() => handlePlay(id, media_type, name || title)} className="headerMoreInfo__details__userInteraction__userBtn__play d-flex flex-row align-items-center gap-md-2 gap-1">
               <i className="fa-solid fa-play"></i>
               Play
             </button>

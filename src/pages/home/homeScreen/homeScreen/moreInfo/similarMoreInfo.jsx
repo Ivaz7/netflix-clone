@@ -46,7 +46,7 @@ const SimilarShowMoreInfo = ({ dataDetail, similarShows }) => {
       <div
         className="similarShowMoreInfo__showContainer__show d-flex flex-column"
         key={index}
-        onClick={() => handlePlay(id, media_type)}
+        onClick={() => handlePlay(id, media_type, name || title)}
       >
         <div className="similarShowMoreInfo__showContainer__show__containerPoster">
           <img

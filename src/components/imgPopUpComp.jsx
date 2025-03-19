@@ -208,7 +208,7 @@ const ImgPopUpComp = ({ data }) => {
 
           <div className="ImgPopUpComp__popUp__optionBtn d-flex flex-row flex-wrap align-items-center justify-content-between">
             <div className="d-flex flex-row flex-wrap gap-1">
-              <button onClick={() => handlePlay(idMovie, media_type)} className="buttonPlay buttonOutside">
+              <button onClick={() => handlePlay(idMovie, media_type, name || title)} className="buttonPlay buttonOutside">
                 <i className="fa-solid fa-play"></i>
               </button>
 

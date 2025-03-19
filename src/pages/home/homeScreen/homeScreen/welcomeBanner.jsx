@@ -46,6 +46,7 @@ const WelcomeBanner = () => {
   const media = randomTrending?.media_type;
   const overview = randomTrending?.overview;
   const id = randomTrending?.id;
+  const name = randomTrending?.name || randomTrending?.title;
 
   useEffect(() => {
     if (randomTrending?.id) {
@@ -89,7 +90,7 @@ const WelcomeBanner = () => {
         <p>{overview}</p>
 
         <div className="d-flex flex-row gap-md-2 gap-1">
-          <button onClick={() => handlePlay(id, media)} className="buttonPlay d-flex flex-row align-items-center gap-md-2 gap-1">
+          <button onClick={() => handlePlay(id, media, name)} className="buttonPlay d-flex flex-row align-items-center gap-md-2 gap-1">
             <i className="fa-solid fa-play"></i>
             Play
           </button>
