@@ -7,6 +7,8 @@ import {
 } from "../../service/redux/API/firebaseDB";
 import HeaderSetting from "./headerSetting";
 import { useState, useEffect } from "react";
+import ProfileImg from "../../components/profileImg";
+import Footer from "../../components/footer";
 
 const AgeRestiction = () => {
   const { data: dataStatus, isLoading: isLoadingStatus } = useGetLoginStatusQuery();
@@ -22,6 +24,8 @@ const AgeRestiction = () => {
   const userIndex = (userSelectedData !== "empty" ? userSelectedData : indexUserOption) || 0;
   const userOptionSelected = userOptionArr?.[userIndex];
   const statusAge = userOptionSelected?.statusAge;
+  const imgProfile = userOptionSelected?.imgProfile;
+  const name = userOptionSelected?.name;
 
   useEffect(() => {
     if (statusAge !== undefined) {
@@ -36,12 +40,12 @@ const AgeRestiction = () => {
         value: { statusAge: age },
       });
       await refetch();      
-      navigate("/settings");
+      navigate(-1)
     }
   }
 
   const handleCancel = () => {
-    navigate("/settings");
+    navigate(-1)
   }
 
   if (isLoadingStatus || isLoadingDataGet) {
@@ -68,7 +72,21 @@ const AgeRestiction = () => {
               Change Age Restriction
             </h2>
 
-            <div className="d-flex flex-row gap-2 mb-4">
+            <div className="d-flex flex-row align-items-center gap-2 mb-4">
+              <ProfileImg 
+                avatarImg={imgProfile}
+                scale={"3rem"}
+                statusAge={statusAge}
+                fontSizeKids={"1rem"}
+                sizeShadow={"1px"}
+              />
+
+              <h4 className="m-0">
+                {name}
+              </h4>
+            </div>
+
+            <div className="d-flex flex-row align-items-center  gap-2 mb-4">
               <label className="switch">
                 <input checked={age} value={age} onChange={() => setAge(prev => !prev)} type="checkbox" />
                 <span className="slider"></span>
@@ -90,6 +108,8 @@ const AgeRestiction = () => {
           </div>
         </main>
       </div>
+
+      <Footer type={true}/>
     </div>
   );
 };
