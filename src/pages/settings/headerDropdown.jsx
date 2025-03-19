@@ -14,7 +14,7 @@ import { auth } from "../../backEndFireBase/firebaseConfig";
 const HeaderDropdown = ({ dataGet }) => {
   const { userSelected, userOption } = dataGet;
   const userOptionSelected = userOption[userSelected];
-  const { imgProfile } = userOptionSelected;
+  const { imgProfile, statusAge } = userOptionSelected;
   const [isClicked, setIsClicked] = useState(false);
   const isClickedRef = useRef(null);
   useClickOutside(isClickedRef, isClicked, setIsClicked);
@@ -58,6 +58,9 @@ const HeaderDropdown = ({ dataGet }) => {
         <ProfileImg
           scale={"2rem"}
           avatarImg={imgProfile}
+          statusAge={statusAge}
+          fontSizeKids={"0.5rem"}
+          sizeShadow={"1px"}
         />
 
         <SpanTriangle rotated={!isClicked} color={"rgb(75, 75, 75)"} />
