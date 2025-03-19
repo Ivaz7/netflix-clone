@@ -48,19 +48,25 @@ const SimilarShowMoreInfo = ({ dataDetail, similarShows }) => {
         key={index}
         onClick={() => handlePlay(id, media_type)}
       >
-        <img
-          src={`https://image.tmdb.org/t/p/original${backdrop_path}`}
-          alt={title || name}
-          className="similarShowMoreInfo__showContainer__show__poster"
-        />
+        <div className="similarShowMoreInfo__showContainer__show__containerPoster">
+          <img
+            src={`https://image.tmdb.org/t/p/original${backdrop_path}`}
+            alt={title || name}
+            className="similarShowMoreInfo__showContainer__show__containerPoster__poster"
+          />
+
+          <div className="similarShowMoreInfo__showContainer__show__containerPoster__playHover">
+            <i className="fa-solid fa-play"></i>
+          </div>
+        </div>
 
         <div className="similarShowMoreInfo__showContainer__show__detail d-flex flex-column gap-2">
           <div className="d-flex flex-row justify-content-between align-items-center gap-2">
             <h6 className="m-0">{title || name}</h6>
-            <div className="similarShowMoreInfo__showContainer__show__detail__btnMyList">
+            <div className="similarShowMoreInfo__showContainer__show__detail__btnMyListContainer">
               <button 
                 onClick={() => handleMyList(id, poster_path, genre_ids, title, name, isMyList)} 
-                className="similarShowMoreInfo__showContainer__show__detail__btnMyList"
+                className="similarShowMoreInfo__showContainer__show__detail__btnMyListContainer__btnMyList"
               >
                 {renderMylist}
               </button>
