@@ -1,14 +1,14 @@
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { useGetDataQuery, useGetLoginStatusQuery, useSetChangeUserOptionSelectedMutation } from "../../../../service/redux/API/firebaseDB";
-import LoadingComp from "../../../../components/loadingComp";
+import { useGetDataQuery, useGetLoginStatusQuery, useSetChangeUserOptionSelectedMutation } from "../../service/redux/API/firebaseDB";
+import LoadingComp from "../../components/loadingComp";
 import HeaderSetting from "./headerSetting";
-import ProfileImg from "../../../../components/profileImg";
-import InputForm from "../../../../components/inputForm";
+import ProfileImg from "../../components/profileImg";
+import InputForm from "../../components/inputForm";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setAvatarImgData, setUserName } from "../../../../service/redux/API/profileEditSlice";
+import { setAvatarImgData, setUserName } from "../../service/redux/API/profileEditSlice";
 import DeleteUserOptionBtn from "./deleteUserOptionBtn";
-import Footer from "../../../../components/footer";
+import Footer from "../../components/footer";
 
 const ProfileEditPage = () => {
   const { data: dataStatus, isLoading: isLoadingStatus } = useGetLoginStatusQuery();

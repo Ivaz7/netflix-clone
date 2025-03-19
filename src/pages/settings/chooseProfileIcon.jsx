@@ -1,12 +1,12 @@
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { useGetDataQuery, useGetLoginStatusQuery } from "../../../../service/redux/API/firebaseDB";
-import LoadingComp from "../../../../components/loadingComp";
+import { useGetDataQuery, useGetLoginStatusQuery } from "../../service/redux/API/firebaseDB";
+import LoadingComp from "../../components/loadingComp";
 import HeaderSetting from "./headerSetting";
-import { avatarList } from "../../../../data/avatarProfileArr";
-import ProfileImg from "../../../../components/profileImg";
+import { avatarList } from "../../data/avatarProfileArr";
+import ProfileImg from "../../components/profileImg";
 import { useDispatch } from "react-redux";
-import { setAvatarImgData } from "../../../../service/redux/API/profileEditSlice";
-import Footer from "../../../../components/footer";
+import { setAvatarImgData } from "../../service/redux/API/profileEditSlice";
+import Footer from "../../components/footer";
 
 const ChooseProfileIcon = () => {
   const { data: dataStatus, isLoading: isLoadingStatus } = useGetLoginStatusQuery();

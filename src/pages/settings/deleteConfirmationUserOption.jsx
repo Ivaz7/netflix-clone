@@ -1,11 +1,11 @@
 import PropTypes from "prop-types";
-import { useGetDataQuery, useSetDeleteUserOptionMutation } from '../../../../service/redux/API/firebaseDB';
+import { useGetDataQuery, useSetDeleteUserOptionMutation } from '../../service/redux/API/firebaseDB';
 import { useNavigate } from "react-router-dom";
-import CustomFloatingComp from "../../../../components/customFloatingComp";
-import LoadingComp from "../../../../components/loadingComp";
-import { useClickOutside } from "../../../../customHooks/useClickOutside";
+import CustomFloatingComp from "../../components/customFloatingComp";
+import LoadingComp from "../../components/loadingComp";
+import { useClickOutside } from "../../customHooks/useClickOutside";
 import { useRef } from "react";
-import ProfileImg from "../../../../components/profileImg";
+import ProfileImg from "../../components/profileImg";
 
 const DeleteConfirmationUserOption = ({ isDelete, setIsDelete, index }) => {
   const [triggerDeleteUserOption, { isLoading: isLoadingDelete }] = useSetDeleteUserOptionMutation();

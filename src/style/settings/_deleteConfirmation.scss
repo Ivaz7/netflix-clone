@@ -1,5 +1,5 @@
-@use '../userOption/settingUserOption';
-@use '../../config' as config;
+@use '../homeScreen/userOption/settingUserOption';
+@use '../config' as config;
 
 .outerMainContainer {
   max-width: 90vw;

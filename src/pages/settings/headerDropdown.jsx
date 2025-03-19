@@ -1,15 +1,15 @@
 import PropTypes from "prop-types";
-import ProfileImg from "../../../../components/profileImg";
-import SpanTriangle from "../../../../components/spanTriagle";
+import ProfileImg from "../../components/profileImg";
+import SpanTriangle from "../../components/spanTriagle";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useRef } from "react";
-import { useClickOutside } from "../../../../customHooks/useClickOutside";
+import { useClickOutside } from "../../customHooks/useClickOutside";
 import { useNavigate } from "react-router-dom";
-import { useSetChangedUserDataMutation, useGetDataQuery, useGetLoginStatusQuery } from "../../../../service/redux/API/firebaseDB";
-import LoadingComp from "../../../../components/loadingComp";
-import CustomFloatingComp from "../../../../components/customFloatingComp";
+import { useSetChangedUserDataMutation, useGetDataQuery, useGetLoginStatusQuery } from "../../service/redux/API/firebaseDB";
+import LoadingComp from "../../components/loadingComp";
+import CustomFloatingComp from "../../components/customFloatingComp";
 import { signOut } from "firebase/auth";
-import { auth } from "../../../../backEndFireBase/firebaseConfig";
+import { auth } from "../../backEndFireBase/firebaseConfig";
 
 const HeaderDropdown = ({ dataGet }) => {
   const { userSelected, userOption } = dataGet;

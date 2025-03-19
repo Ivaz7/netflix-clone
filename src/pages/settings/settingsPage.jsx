@@ -1,10 +1,10 @@
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
-import { useGetDataQuery, useGetLoginStatusQuery } from "../../../../service/redux/API/firebaseDB";
+import { useGetDataQuery, useGetLoginStatusQuery } from "../../service/redux/API/firebaseDB";
 import HeaderSetting from "./headerSetting";
 import ContentSettingPage from "./contentSettingsPage";
-import Footer from "../../../../components/footer";
-import ProfileImg from "../../../../components/profileImg";
-import LoadingComp from "../../../../components/loadingComp";
+import Footer from "../../components/footer";
+import ProfileImg from "../../components/profileImg";
+import LoadingComp from "../../components/loadingComp";
 import DeleteUserOptionBtn from "./deleteUserOptionBtn";
 import { useState } from "react";
 
@@ -78,7 +78,7 @@ const SettingsPage = () => {
               <ContentSettingPage 
                 leftSideImg={<svg xmlns="http://www.w3.org/2000/svg" fill="none" role="img" viewBox="0 0 24 24" width="24" height="24" data-icon="HexagonExclamationPointStandard" aria-hidden="true"><path fillRule="evenodd" clipRule="evenodd" d="M2.76237 12.0001L7.38117 20.0001H16.6188L21.2376 12.0001L16.6188 4.00006H7.38117L2.76237 12.0001ZM0.74164 11.5001C0.563008 11.8095 0.563008 12.1907 0.741641 12.5001L5.93779 21.5001C6.11643 21.8095 6.44655 22.0001 6.80382 22.0001H17.1961C17.5534 22.0001 17.8835 21.8095 18.0621 21.5001L23.2583 12.5001C23.4369 12.1907 23.4369 11.8095 23.2583 11.5001L18.0621 2.50006C17.8835 2.19066 17.5534 2.00006 17.1961 2.00006H6.80382C6.44655 2.00006 6.11643 2.19066 5.93779 2.50006L0.74164 11.5001ZM13.5001 15.5C13.5001 16.3285 12.8285 17 12.0001 17C11.1716 17 10.5001 16.3285 10.5001 15.5C10.5001 14.6716 11.1716 14 12.0001 14C12.8285 14 13.5001 14.6716 13.5001 15.5ZM13.5001 7.00002H10.5001L11.0001 13H13.0001L13.5001 7.00002Z" fill="currentColor"></path></svg>}
                 textTop="Viewing restrictions"
-                textBottom="Edit maturity rate and title restrictions"
+                textBottom="Edit age restrictions"
               />
 
               <div className="settingsContainer__main__contentContainer__br"></div>
