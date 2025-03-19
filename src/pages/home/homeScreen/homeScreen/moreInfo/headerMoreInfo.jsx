@@ -76,7 +76,7 @@ const HeaderMoreInfo = ({ dataDetail }) => {
       await triggerSetHistoryRating({ idMovie: id, score: idx, name: title || name });
       await refetch();
     } else if (ratingIndex === idx && rated) {
-      await triggerSetDeleteHistoryRating({ idMovie: id });
+      await triggerSetDeleteHistoryRating({ idMovie: id, name: title || name });
       await refetch();
     }
   };
@@ -133,7 +133,7 @@ const HeaderMoreInfo = ({ dataDetail }) => {
         myList.some((item) => item.id === id)
       ) {
         console.log("test delete")
-        await triggerSetDeleteMyList({ id: id });
+        await triggerSetDeleteMyList({ id: id, title: name || title });
         await refetch();
       }
     }

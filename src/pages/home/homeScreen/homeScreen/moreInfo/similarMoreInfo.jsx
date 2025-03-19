@@ -28,7 +28,7 @@ const SimilarShowMoreInfo = ({ dataDetail, similarShows }) => {
 
   const handleMyList = async (id, poster_path, genre_ids, title, name, isMyList) => {
     if (isMyList) {
-      await triggerSetDeleteMyList({ id });
+      await triggerSetDeleteMyList({ id, title: title || name });
       await refetch();
     } else {
       await triggerSetMyList({ id, poster_path, genre_ids, title: title || name });

@@ -344,6 +344,57 @@ export const firebaseDBSlice = createApi({
       }
     }),
 
+    
+    setDeleteHistory: builder.mutation({
+      async queryFn({ idMovie, name }) {
+        try {
+          const userUid = await new Promise((resolve, reject) => {
+            const unsubscribe = onAuthStateChanged(
+              auth,
+              (user) => {
+                unsubscribe();
+                if (user) {
+                  resolve(user.uid);
+                } else {
+                  resolve(null);
+                }
+              },
+              (error) => reject(error)
+            );
+          });
+    
+          if (!userUid) {
+            return { data: null };
+          }
+
+          const reference = ref(database, `user/${userUid}`);
+          const snapshot = await get(reference);
+          const snapshotVal = snapshot.exists() ? snapshot.val() : null;
+
+          if (snapshotVal  && Array.isArray(snapshotVal.userOption)) {
+            let updatedUserOption = [...snapshotVal.userOption]
+            let historyRating = updatedUserOption[snapshotVal.userSelected].historyRating;
+
+            if (historyRating !== "empty" && Array.isArray(historyRating)) {
+              for (let i = 0; i < historyRating.length; i++) {
+                if (historyRating[i].idMovie === idMovie && historyRating[i].name === name) {                
+                  historyRating.splice(i, 1);
+                  break;
+                }
+              }
+            }
+
+            updatedUserOption[snapshotVal.userSelected].historyRating = historyRating;
+            await set(ref(database, `user/${userUid}/userOption`), updatedUserOption);
+          }
+
+          return { data: "delete history rating is successfully" };
+        } catch (error) {
+          return { error: error.message };
+        }
+      }
+    }),
+
     setMyList: builder.mutation({
       async queryFn({ id, poster_path, genre_ids, title }) {
         try {
@@ -399,58 +450,8 @@ export const firebaseDBSlice = createApi({
       }
     }),
 
-    setDeleteHistory: builder.mutation({
-      async queryFn({ idMovie }) {
-        try {
-          const userUid = await new Promise((resolve, reject) => {
-            const unsubscribe = onAuthStateChanged(
-              auth,
-              (user) => {
-                unsubscribe();
-                if (user) {
-                  resolve(user.uid);
-                } else {
-                  resolve(null);
-                }
-              },
-              (error) => reject(error)
-            );
-          });
-    
-          if (!userUid) {
-            return { data: null };
-          }
-
-          const reference = ref(database, `user/${userUid}`);
-          const snapshot = await get(reference);
-          const snapshotVal = snapshot.exists() ? snapshot.val() : null;
-
-          if (snapshotVal  && Array.isArray(snapshotVal.userOption)) {
-            let updatedUserOption = [...snapshotVal.userOption]
-            let historyRating = updatedUserOption[snapshotVal.userSelected].historyRating;
-
-            if (historyRating !== "empty" && Array.isArray(historyRating)) {
-              for (let i = 0; i < historyRating.length; i++) {
-                if (historyRating[i].idMovie === idMovie) {                
-                  historyRating.splice(i, 1);
-                  break;
-                }
-              }
-            }
-
-            updatedUserOption[snapshotVal.userSelected].historyRating = historyRating;
-            await set(ref(database, `user/${userUid}/userOption`), updatedUserOption);
-          }
-
-          return { data: "delete history rating is successfully" };
-        } catch (error) {
-          return { error: error.message };
-        }
-      }
-    }),
-
     setDeleteMyList: builder.mutation({
-      async queryFn({ id }) {
+      async queryFn({ id, title }) {
         try {
           const userUid = await new Promise((resolve, reject) => {
             const unsubscribe = onAuthStateChanged(
@@ -481,7 +482,7 @@ export const firebaseDBSlice = createApi({
 
             if (myList !== "empty" && Array.isArray(myList)) {
               for (let i = 0; i < myList.length; i++) {
-                if (myList[i].id === id) {
+                if (myList[i].id === id && myList[i].title === title) {
                   myList.splice(i, 1);
                   break;
                 }

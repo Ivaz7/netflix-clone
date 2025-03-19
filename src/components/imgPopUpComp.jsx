@@ -132,7 +132,7 @@ const ImgPopUpComp = ({ data }) => {
       await triggerSetHistoryRating({ idMovie, score: ratingIndex, name: title || name });
       await refetch();
     } else if (ratingIndex === null && rated) {
-      await triggerSetDeleteHistoryRating({ idMovie: idMovie });
+      await triggerSetDeleteHistoryRating({ idMovie: idMovie, name: title || name });
       await refetch();
     }   
 
@@ -152,7 +152,7 @@ const ImgPopUpComp = ({ data }) => {
         myList.some((item) => item.id === idMovie)
       ) {
         console.log("test delete")
-        await triggerSetDeleteMyList({ id: idMovie });
+        await triggerSetDeleteMyList({ id: idMovie, title: title || name });
         await refetch();
       }
     }
