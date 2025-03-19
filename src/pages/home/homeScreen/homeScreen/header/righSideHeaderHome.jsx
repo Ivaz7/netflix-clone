@@ -187,9 +187,15 @@ const RightSideHeaderHome = ({ data }) => {
 
                 <div className="headerHome__inside__rightSide__infoProfileDiv__dropDown__inside__setting d-flex flex-column gap-1">
                   <button onClick={handleClickSettings} className="d-flex flex-row gap-2 align-items-center">
-                    <i className="fa-solid fa-gear"></i>
+                    <div className="headerHome__inside__rightSide__iconSettingActivity">
+                      <i className="fa-solid fa-arrow-right-from-bracket"></i>
 
-                    <p>Setting/History</p>
+                      <i className="fa-solid fa-gear"></i>
+
+                      <i className="fa-solid fa-clock-rotate-left"></i>
+                    </div>
+
+                    <p>Setting/Activity</p>
                   </button>
 
                   <button onClick={handleClickExit} className="d-flex flex-row gap-2 align-items-center">

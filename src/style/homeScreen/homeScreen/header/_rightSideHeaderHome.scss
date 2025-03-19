@@ -6,6 +6,27 @@
     transition: 0.3s;
   }
 
+  &__iconSettingActivity {
+    position: relative;
+
+    .fa-arrow-right-from-bracket {
+      opacity: 0;
+    }
+
+    .fa-gear {
+      position: absolute;
+      left: -7.5%;
+      top: -7.5%;
+    }
+
+    .fa-clock-rotate-left {
+      position: absolute;
+      left: 22.5%;
+      top: 22.5%;
+      text-shadow: -1.5px 0 0 black, 0 1.5px 0 black, 0 -1.5px 0 black, 1.5px 0 0 black;
+    }
+  }
+
   button {
     background-color: transparent;
     border: none;
