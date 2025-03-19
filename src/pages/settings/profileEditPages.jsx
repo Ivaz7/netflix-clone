@@ -80,8 +80,7 @@ const ProfileEditPage = () => {
       return;
     } else {         
       handleReset();
-      const respone = await triggerChangeUserOptionSelected({ index: indexUserOption, value: { imgProfile: avatarImgData || imgProfile, name: userName || name } })
-      console.log(respone)
+      await triggerChangeUserOptionSelected({ index: indexUserOption, value: { imgProfile: avatarImgData || imgProfile, name: userName || name } })
       await refetch();
       navigate(`/settings/?indexUserOption=${indexUserOption}`)
     }; 

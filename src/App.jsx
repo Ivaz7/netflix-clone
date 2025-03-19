@@ -8,6 +8,7 @@ import ProfileEditPage from "./pages/settings/profileEditPages"
 import ChooseProfileIcon from "./pages/settings/chooseProfileIcon"
 import NotFound from "./pages/404"
 import Watch from "./pages/home/watch"
+import AgeRestiction from "./pages/settings/ageRestrictionsPage"
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           <Route path="/settings" element={<SettingsPage />} />
           <Route path="/settings/ProfileEdit" element={<ProfileEditPage />} />
           <Route path="/settings/ProfileEdit/ChooseProfileIcon" element={<ChooseProfileIcon />} />
+          <Route path="/settings/AgeRestriction" element={<AgeRestiction />} />
         </Routes>
       </Router>
     </>

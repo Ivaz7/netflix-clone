@@ -1,0 +1,53 @@
+@use './settingsPage';
+
+.outerAgeRestrictionContainer {
+  @extend .outerSettingsContainer;
+}
+
+.ageRestriction {
+  @extend .settingsContainer;
+
+  &__main {
+    @extend .settingsContainer__main;
+
+    &__backBtn {
+      @extend .settingsContainer__main__backBtn;
+    }
+
+    &__content {
+      @extend .settingsContainer__main__contentContainer;
+    }
+  }
+
+  &__btnSave, &__btnCancel {
+    all: unset;
+    font-weight: bold;
+    padding: 0.6rem 0;
+    font-size: 1.2rem;
+    border-radius: 0.3rem;
+    transition: 250ms;
+  }
+
+  &__btnSave#btnSave {
+    background-color: black !important;
+    color: white !important;
+    
+    &:hover {
+      background-color: rgb(75, 75, 75) !important;
+    }
+  }
+
+  &__btnCancel#btnCancel {
+    background-color: inherit;
+    color: black !important;
+
+    &:hover {
+      background-color: rgb(230, 230, 230);
+    }
+  }
+
+  &__checkbox {
+    height: 1rem;
+    width: 1rem;
+  }
+}
