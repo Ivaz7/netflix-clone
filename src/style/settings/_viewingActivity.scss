@@ -19,7 +19,13 @@
     &.watched {
       color: black !important;
       text-decoration: none !important;
+      cursor: default;
     }
+  }
+
+  &__noActivity {
+    font-size: clamp(1.5rem, 2vw + 2rem, 3rem);
+    font-weight: bold;
   }
 
   &__main {
@@ -54,6 +60,38 @@
               &:hover {
                 color: rgb(10, 10, 10) !important;
                 text-shadow: 1px 0 0 rgb(10, 10, 10), -1px 0 0 rgb(10, 10, 10), 0 1px 0 rgb(10, 10, 10), 0 -1px 0 rgb(10, 10, 10);
+              }
+            }
+          }
+
+          &__watched {
+            &__deleteBtn {
+              position: relative;
+              cursor: pointer;
+
+              i.fa-trash-can {
+                color: rgb(40, 40, 40) !important;
+                font-size: 1rem;
+              }
+
+              span {
+                position: absolute;
+                top: -120%;
+                left: 0;
+                font-size: 80%;
+                transform: translateX(-45%);
+                width: 8.9rem;
+                background-color: white !important;
+                padding: 0.2rem;
+                border-radius: 0.5rem;
+                border: 1px solid black !important;
+              }
+
+              &:hover {
+                i.fa-trash-can {
+                  color: rgb(10, 10, 10) !important;
+                  text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+                }
               }
             }
           }

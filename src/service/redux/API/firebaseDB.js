@@ -557,6 +557,56 @@ export const firebaseDBSlice = createApi({
           return { error: error.message };
         }
       }
+    }),
+
+    setDeleteHistoryWatched: builder.mutation({
+      async queryFn({ id, showName, trailerName }) {
+        try {
+          const userUid = await new Promise((resolve, reject) => {
+            const unsubscribe = onAuthStateChanged(
+              auth,
+              (user) => {
+                unsubscribe();
+                if (user) {
+                  resolve(user.uid);
+                } else {
+                  resolve(null);
+                }
+              },
+              (error) => reject(error)
+            );
+          });
+    
+          if (!userUid) {
+            return { data: null };
+          }
+
+          const reference = ref(database, `user/${userUid}`);
+          const snapshot = await get(reference);
+          const snapshotVal = snapshot.exists() ? snapshot.val() : null;
+
+          if (snapshotVal  && Array.isArray(snapshotVal.userOption)) {
+            let updatedUserOption = [...snapshotVal.userOption]
+            let historyWatched = updatedUserOption[snapshotVal.userSelected].historyWatched;
+
+            if (historyWatched !== "empty" && Array.isArray(historyWatched)) {
+              for (let i = 0; i < historyWatched.length; i++) {
+                if (historyWatched[i].id === id && historyWatched[i].showName === showName && historyWatched[i].trailerName === trailerName) {
+                  historyWatched.splice(i, 1);
+                  break;
+                }
+              }
+            }
+
+            updatedUserOption[snapshotVal.userSelected].historyWatched = historyWatched;
+            await set(ref(database, `user/${userUid}/userOption`), updatedUserOption);
+          }
+
+          return { data: "History rating updated successfully" };
+        } catch (error) {
+          return { error: error.message };
+        }
+      }
     })
   }),
 });
@@ -574,4 +624,5 @@ export const {
   useSetDeleteHistoryRatingMutation,
   useSetDeleteMyListMutation,
   useSetHistoryWatchedMutation,
+  useSetDeleteHistoryWatchedMutation,
 } = firebaseDBSlice;
