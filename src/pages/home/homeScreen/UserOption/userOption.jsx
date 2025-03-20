@@ -7,10 +7,13 @@ import SettingUserOption from "./settingUserOption";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import ProfileImg from "../../../../components/profileImg";
 import LoadingComp from "../../../../components/loadingComp";
+import PinSecurity from "../../../../components/pinSecurity";
 
 const UserOption = ({ refetchData, refetchStatus, dataGet, isLoadingDataGet }) => {
   const [triggerChangedUserData, { isLoading: isLoadingPushedData }] = useSetChangedUserDataMutation();
   const [isAdded, setIsAdded] = useState(false);
+  const [isPin, setIsPin] = useState(false);
+  const [userIndex, setUserIndex] = useState(0);
   const navigate = useNavigate();
   const [searchParam] = useSearchParams();
   const kids = searchParam.get("kids")
@@ -32,7 +35,7 @@ const UserOption = ({ refetchData, refetchStatus, dataGet, isLoadingDataGet }) =
 
     return (
       <div className="userOptionContainerbtn d-flex flex-column align-items-center justify-content-between" key={name}>
-        <button className="userOption_btn d-flex flex-column gap-3" onMouseEnter={() => setTouchIndex(inx)} onMouseLeave={() => setTouchIndex(null)} onClick={() => handleUserSelected(inx)}>
+        <button className="userOption_btn d-flex flex-column gap-3" onMouseEnter={() => setTouchIndex(inx)} onMouseLeave={() => setTouchIndex(null)} onClick={() => handleUserSelected(inx, pinSecurity)}>
           <ProfileImg 
             avatarImg={imgProfile}
             scale={"clamp(5rem, 10vw + 1rem, 10rem)"}
@@ -53,11 +56,16 @@ const UserOption = ({ refetchData, refetchStatus, dataGet, isLoadingDataGet }) =
     )
   })
 
-  const handleUserSelected = async (inx) => {
-    navigate(window.location.pathname, { replace: true });
-    await triggerChangedUserData({ value: { userSelected: inx } });
-    await refetchData();
-    await refetchStatus();
+  const handleUserSelected = async (inx, pinSecurity) => {
+    if (pinSecurity === "empty") {
+      navigate(window.location.pathname, { replace: true });
+      await triggerChangedUserData({ value: { userSelected: inx } });
+      await refetchData();
+      await refetchStatus();
+    } else {
+      setIsPin(true);
+      setUserIndex(inx);
+    }
   }
 
   const handleManageProfile = () => {
@@ -67,6 +75,19 @@ const UserOption = ({ refetchData, refetchStatus, dataGet, isLoadingDataGet }) =
 
   return (
     <>
+      {isPin && 
+        <PinSecurity 
+          setIsPin={setIsPin}
+          inxUser={userIndex}
+          func={async () => {
+            navigate(window.location.pathname, { replace: true });
+            await triggerChangedUserData({ value: { userSelected: userIndex } });
+            await refetchData();
+            await refetchStatus();
+          }}
+        />
+      }
+
       {isAdded ? <SettingUserOption isAdded={isAdded} setIsAdded={setIsAdded} dataGet={dataGet} refetchData={refetchData} /> : <div className="userOption-container">
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
