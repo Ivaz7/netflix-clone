@@ -278,7 +278,7 @@ export const firebaseDBSlice = createApi({
     }),
     
     setHitoryRating: builder.mutation({
-      async queryFn({ idMovie, score, name }) {
+      async queryFn({ id, score, name, media_type }) {
         try {
           const userUid = await new Promise((resolve, reject) => {
             const unsubscribe = onAuthStateChanged(
@@ -311,12 +311,12 @@ export const firebaseDBSlice = createApi({
               let detected = false;
 
               for (let i = 0; i < historyRating.length; i++) {
-                if (historyRating[i].idMovie === idMovie) {
+                if (historyRating[i].id === id) {
                   if (historyRating[i].score === score) {
                     return { data: "No changes needed" };
                   }                  
 
-                  historyRating[i] = { name: name, idMovie: idMovie, score: score };
+                  historyRating[i] = { name: name, id: id, score: score, media_type };
                   detected = true;
                   break;
                 }
@@ -327,10 +327,10 @@ export const firebaseDBSlice = createApi({
                   historyRating.shift();
                 }
 
-                historyRating.push({ name: name, idMovie: idMovie, score: score });
+                historyRating.push({ name: name, id: id, score: score, media_type });
               }
             } else {
-              historyRating = [{ name: name, idMovie: idMovie, score: score }];
+              historyRating = [{ name: name, id: id, score: score, media_type }];
             }
 
             updatedUserOption[snapshotVal.userSelected].historyRating = historyRating;
@@ -345,8 +345,8 @@ export const firebaseDBSlice = createApi({
     }),
 
     
-    setDeleteHistory: builder.mutation({
-      async queryFn({ idMovie, name }) {
+    setDeleteHistoryRating: builder.mutation({
+      async queryFn({ id, name }) {
         try {
           const userUid = await new Promise((resolve, reject) => {
             const unsubscribe = onAuthStateChanged(
@@ -377,7 +377,7 @@ export const firebaseDBSlice = createApi({
 
             if (historyRating !== "empty" && Array.isArray(historyRating)) {
               for (let i = 0; i < historyRating.length; i++) {
-                if (historyRating[i].idMovie === idMovie && historyRating[i].name === name) {                
+                if (historyRating[i].id === id && historyRating[i].name === name) {                
                   historyRating.splice(i, 1);
                   break;
                 }
@@ -396,7 +396,7 @@ export const firebaseDBSlice = createApi({
     }),
 
     setMyList: builder.mutation({
-      async queryFn({ id, poster_path, genre_ids, title }) {
+      async queryFn({ id, poster_path, genre_ids, title, media_type }) {
         try {
           const userUid = await new Promise((resolve, reject) => {
             const unsubscribe = onAuthStateChanged(
@@ -434,9 +434,9 @@ export const firebaseDBSlice = createApi({
                 myList.shift();
               }
 
-              myList.push({ id: id, poster_path: poster_path, genre_ids: genre_ids, title: title });
+              myList.push({ id: id, poster_path: poster_path, genre_ids: genre_ids, title: title, media_type });
             } else {
-              myList = [{ id: id, poster_path: poster_path, genre_ids: genre_ids, title: title }];
+              myList = [{ id: id, poster_path: poster_path, genre_ids: genre_ids, title: title, media_type }];
             }
 
             updatedUserOption[snapshotVal.userSelected].myList = myList;
@@ -501,7 +501,7 @@ export const firebaseDBSlice = createApi({
     }),
 
     setHistoryWatched: builder.mutation({
-      async queryFn({ id, showName, trailerName, key }) {
+      async queryFn({ id, showName, trailerName, key, media_type }) {
         try {
           const userUid = await new Promise((resolve, reject) => {
             const unsubscribe = onAuthStateChanged(
@@ -543,9 +543,9 @@ export const firebaseDBSlice = createApi({
                 historyWatched.shift();
               }
 
-              historyWatched.push({ showName: showName, id: id, trailerName: trailerName, key: key });
+              historyWatched.push({ showName: showName, id: id, trailerName: trailerName, key: key, media_type });
             } else {
-              historyWatched = [{ showName: showName, id: id, trailerName: trailerName, key: key }];
+              historyWatched = [{ showName: showName, id: id, trailerName: trailerName, key: key, media_type }];
             }
 
             updatedUserOption[snapshotVal.userSelected].historyWatched = historyWatched;
@@ -571,7 +571,7 @@ export const {
   useSetChangeUserOptionSelectedMutation,
   useSetHitoryRatingMutation,
   useSetMyListMutation,
-  useSetDeleteHistoryMutation,
+  useSetDeleteHistoryRatingMutation,
   useSetDeleteMyListMutation,
   useSetHistoryWatchedMutation,
 } = firebaseDBSlice;

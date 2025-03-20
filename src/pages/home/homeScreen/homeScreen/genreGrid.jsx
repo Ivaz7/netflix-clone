@@ -88,7 +88,7 @@ const GenreGrid = ({ name }) => {
     
   let renderFinal;
 
-  if (finalValue) {
+  if (finalValue && finalValue !== "empty") {
     renderFinal = finalValue.map((val, index) => (
       <ImgPopUpComp data={val} key={index} />
     ));
@@ -97,7 +97,7 @@ const GenreGrid = ({ name }) => {
   return (
     <div className="genreGrid d-flex flex-column justify-content-center align-items-center">
       <SecondHeader name={name} />
-      {finalValue ? <GridSystemDisplay array={renderFinal} /> : <h1>No Results</h1>}
+      {finalValue && finalValue !== "empty" ? <GridSystemDisplay array={renderFinal} /> : <h1>No Results</h1>}
     </div>
   );
 };

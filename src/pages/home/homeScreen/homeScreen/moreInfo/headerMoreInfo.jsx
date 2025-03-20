@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { useMoreInfo } from "../../../../../customHooks/useMoreInfo";
 import { useGetDataQuery } from "../../../../../service/redux/API/firebaseDB";
 import { motion, AnimatePresence } from "framer-motion";
-import { useSetDeleteHistoryMutation, useSetHitoryRatingMutation, useSetDeleteMyListMutation, useSetMyListMutation } from "../../../../../service/redux/API/firebaseDB";
+import { useSetDeleteHistoryRatingMutation, useSetHitoryRatingMutation, useSetDeleteMyListMutation, useSetMyListMutation } from "../../../../../service/redux/API/firebaseDB";
 import useHandlePlay from "../../../../../customHooks/useHandlePlay";
 
 const HeaderMoreInfo = ({ dataDetail }) => {
@@ -37,12 +37,12 @@ const HeaderMoreInfo = ({ dataDetail }) => {
 
   const [triggerSetHistoryRating] = useSetHitoryRatingMutation();
   const [triggerSetMyList] = useSetMyListMutation();
-  const [triggerSetDeleteHistoryRating] = useSetDeleteHistoryMutation();
+  const [triggerSetDeleteHistoryRating] = useSetDeleteHistoryRatingMutation();
   const [triggerSetDeleteMyList] = useSetDeleteMyListMutation();
 
   const rated =
   historyRating !== "empty" && Array.isArray(historyRating)
-    ? historyRating.find((val) => val.idMovie === id) || null
+    ? historyRating.find((val) => val.id === id) || null
     : null;
 
   useEffect(() => {
@@ -73,10 +73,10 @@ const HeaderMoreInfo = ({ dataDetail }) => {
     setIsRating(false);
 
     if (idx !== null && (!rated || rated.score !== idx)) {
-      await triggerSetHistoryRating({ idMovie: id, score: idx, name: title || name });
+      await triggerSetHistoryRating({ id: id, score: idx, name: title || name, media_type });
       await refetch();
     } else if (ratingIndex === idx && rated) {
-      await triggerSetDeleteHistoryRating({ idMovie: id, name: title || name });
+      await triggerSetDeleteHistoryRating({ id: id, name: title || name });
       await refetch();
     }
   };
@@ -123,7 +123,7 @@ const HeaderMoreInfo = ({ dataDetail }) => {
         myList === "empty" ||
         (Array.isArray(myList) && !myList.some((item) => item.id === id))
       ) {
-        await triggerSetMyList({ id: id, poster_path: poster_path, genre_ids: genre_ids, title: title || name });
+        await triggerSetMyList({ id: id, poster_path: poster_path, genre_ids: genre_ids, title: title || name, media_type });
         await refetch();
       }
     } else {

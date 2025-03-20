@@ -31,7 +31,7 @@ const SimilarShowMoreInfo = ({ dataDetail, similarShows }) => {
       await triggerSetDeleteMyList({ id, title: title || name });
       await refetch();
     } else {
-      await triggerSetMyList({ id, poster_path, genre_ids, title: title || name });
+      await triggerSetMyList({ id, poster_path, genre_ids, title: title || name, media_type });
       await refetch();
     }
   };

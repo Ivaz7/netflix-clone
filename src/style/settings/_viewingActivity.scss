@@ -1,0 +1,64 @@
+@use './settingsPage';
+
+.outerViewingActivity {
+  @extend .outerSettingsContainer;
+}
+
+.viewingActivity {
+  @extend .settingsContainer;
+
+  a {
+    color: blue !important;
+    text-decoration: underline !important;
+    cursor: pointer; 
+
+    &:hover {
+      text-decoration: none !important;
+    }
+
+    &.watched {
+      color: black !important;
+      text-decoration: none !important;
+    }
+  }
+
+  &__main {
+    @extend .settingsContainer__main;
+
+    &__backBtn {
+      @extend .settingsContainer__main__backBtn;
+    }
+
+    &__content {
+      @extend .settingsContainer__main__contentContainer;
+
+      &__inside {
+        &__renderHistory {
+          &__rating, &__watched {
+            border-bottom: 1px solid rgb(169, 169, 169);
+          }
+
+          &__rating {
+            &__ratingBtn#btnRatingHistory {
+              height: 2rem;
+              width: 2rem;
+              font-size: 1.5rem;
+              border: none;
+              background-color: transparent;
+              color: rgb(40, 40, 40) !important;
+
+              &.actived {
+                color: rgb(10, 10, 10) !important;
+              }
+
+              &:hover {
+                color: rgb(10, 10, 10) !important;
+                text-shadow: 1px 0 0 rgb(10, 10, 10), -1px 0 0 rgb(10, 10, 10), 0 1px 0 rgb(10, 10, 10), 0 -1px 0 rgb(10, 10, 10);
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

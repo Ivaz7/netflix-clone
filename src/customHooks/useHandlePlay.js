@@ -8,7 +8,7 @@ const useHandlePlay = () => {
   const [triggerHistoryWatched] = useSetHistoryWatchedMutation();
   const navigate = useNavigate();
   
-  const [currentShow, setCurrentShow] = useState({ id: null, showName: "" });
+  const [currentShow, setCurrentShow] = useState({ id: null, showName: "", media_type: "" });
 
   useEffect(() => {
     if (data && currentShow.id) {
@@ -19,7 +19,8 @@ const useHandlePlay = () => {
         id: currentShow.id, 
         showName: currentShow.showName, 
         key, 
-        trailerName 
+        trailerName,
+        media_type: currentShow.media_type, 
       });
 
       navigate(`/watch?key=${key}`);
@@ -27,7 +28,7 @@ const useHandlePlay = () => {
   }, [data, navigate, triggerHistoryWatched, currentShow]);
 
   const handlePlay = async (id, category, showName) => {
-    setCurrentShow({ id, showName }); 
+    setCurrentShow({ id, showName, media_type: category }); 
     await triggerTrailer({ id, category });
   };
 

@@ -3,13 +3,13 @@ import { useRef, useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { genreMap } from "../data/movieGenreData";
 import { useClickOutside } from "../customHooks/useClickOutside";
-import { useGetDataQuery, useSetDeleteHistoryMutation, useSetDeleteMyListMutation, useSetHitoryRatingMutation, useSetMyListMutation } from "../service/redux/API/firebaseDB";
+import { useGetDataQuery, useSetDeleteHistoryRatingMutation, useSetDeleteMyListMutation, useSetHitoryRatingMutation, useSetMyListMutation } from "../service/redux/API/firebaseDB";
 import LoadingComp from "./loadingComp";
 import { useMoreInfo } from "../customHooks/useMoreInfo";
 import useHandlePlay from "../customHooks/useHandlePlay";
 
 const ImgPopUpComp = ({ data }) => {
-  const { poster_path, genre_ids, id: idMovie, title, name, media_type } = data;
+  const { poster_path, genre_ids, id, title, name, media_type } = data;
 
   const handlePlay = useHandlePlay();
   
@@ -27,7 +27,7 @@ const ImgPopUpComp = ({ data }) => {
   const { data: dataGet, isLoading, refetch } = useGetDataQuery();
   const [triggerSetHistoryRating] = useSetHitoryRatingMutation();
   const [triggerSetMyList] = useSetMyListMutation();
-  const [triggerSetDeleteHistoryRating] = useSetDeleteHistoryMutation();
+  const [triggerSetDeleteHistoryRating] = useSetDeleteHistoryRatingMutation();
   const [triggerSetDeleteMyList] = useSetDeleteMyListMutation();
 
   const userOptionSelected = dataGet?.userOption[dataGet.userSelected];
@@ -35,19 +35,19 @@ const ImgPopUpComp = ({ data }) => {
 
   const rated =
     historyRating !== "empty" && Array.isArray(historyRating)
-      ? historyRating.find((val) => val.idMovie === idMovie) || null
+      ? historyRating.find((val) => val.id === id) || null
       : null;
 
   clickOutSide(optionRatingRef, isRating, setIsRating);
 
   useEffect(() => {
     if (myList !== "empty" && Array.isArray(myList)) {
-      const exists = myList.some(item => item.id === idMovie);
+      const exists = myList.some(item => item.id === id);
       setMylist(exists);
     } else {
       setMylist(false);
     }
-  }, [myList, idMovie]);
+  }, [myList, id]);
   
 
   useEffect(() => {
@@ -129,10 +129,10 @@ const ImgPopUpComp = ({ data }) => {
     }, 250);
   
     if (ratingIndex !== null && (!rated || rated.score !== ratingIndex)) {
-      await triggerSetHistoryRating({ idMovie, score: ratingIndex, name: title || name });
+      await triggerSetHistoryRating({ id, score: ratingIndex, name: title || name, media_type });
       await refetch();
     } else if (ratingIndex === null && rated) {
-      await triggerSetDeleteHistoryRating({ idMovie: idMovie, name: title || name });
+      await triggerSetDeleteHistoryRating({ id: id, name: title || name });
       await refetch();
     }   
 
@@ -140,19 +140,19 @@ const ImgPopUpComp = ({ data }) => {
       if (
         !myList ||
         myList === "empty" ||
-        (Array.isArray(myList) && !myList.some((item) => item.id === idMovie))
+        (Array.isArray(myList) && !myList.some((item) => item.id === id))
       ) {
-        await triggerSetMyList({ id: idMovie, poster_path: poster_path, genre_ids: genre_ids, title: title || name });
+        await triggerSetMyList({ id: id, poster_path: poster_path, genre_ids: genre_ids, title: title || name, media_type });
         await refetch();
       }
     } else {
       if (
         myList !== "empty" &&
         Array.isArray(myList) &&
-        myList.some((item) => item.id === idMovie)
+        myList.some((item) => item.id === id)
       ) {
         console.log("test delete")
-        await triggerSetDeleteMyList({ id: idMovie, title: title || name });
+        await triggerSetDeleteMyList({ id: id, title: title || name });
         await refetch();
       }
     }
@@ -161,7 +161,7 @@ const ImgPopUpComp = ({ data }) => {
   const { addMoreInfo } = useMoreInfo();
 
   const handleMoreInfo = () => {
-    addMoreInfo(idMovie, media_type);
+    addMoreInfo(id, media_type);
   }
   
   if (isLoading) {
@@ -208,7 +208,7 @@ const ImgPopUpComp = ({ data }) => {
 
           <div className="ImgPopUpComp__popUp__optionBtn d-flex flex-row flex-wrap align-items-center justify-content-between">
             <div className="d-flex flex-row flex-wrap gap-1">
-              <button onClick={() => handlePlay(idMovie, media_type, name || title)} className="buttonPlay buttonOutside">
+              <button onClick={() => handlePlay(id, media_type, name || title)} className="buttonPlay buttonOutside">
                 <i className="fa-solid fa-play"></i>
               </button>
 

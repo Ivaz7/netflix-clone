@@ -2,7 +2,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 const TMDB_API_TOKEN = import.meta.env.VITE_TOKEN_TMDB_API;
 
-// Filter untuk endpoint movie
+// Filter endpoint movie
 const appendAgeFilter = (url, age) => {
   let filter = "";
   if (age === true) {
@@ -13,7 +13,7 @@ const appendAgeFilter = (url, age) => {
   return filter ? (url.includes("?") ? `${url}&${filter}` : `${url}?${filter}`) : url;
 };
 
-// Filter untuk endpoint TV
+// Filter endpoint TV
 const appendTVBoolAgeFilter = (url, age) => {
   let filter = "";
   if (age === true) {
@@ -124,6 +124,22 @@ export const tmdbApiSlice = createApi({
       query: ({ category, id }) => `/${category}/${id}/similar`
     }),
 
+    // getMediaType
+    getInfoMediaType: builder.query({
+      async queryFn(id, _queryApi, _extraOptions, fetchWithBQ) {
+        const movieResult = await fetchWithBQ(`/movie/${id}`);
+        if (movieResult.data) {
+          return { data: "movie" };
+        }
+        
+        const tvResult = await fetchWithBQ(`/tv/${id}`);
+        if (tvResult.data) {
+          return { data: "tv" };
+        }
+        
+        return { error: movieResult.error || tvResult.error };
+      }
+    })
   }),
 });
 
@@ -163,4 +179,5 @@ export const {
   useLazyGetDetailQuery,
   useLazyGetTrailerQuery,
   useLazyGetSimilarQuery,
+  useLazyGetInfoMediaTypeQuery,
 } = tmdbApiSlice;
