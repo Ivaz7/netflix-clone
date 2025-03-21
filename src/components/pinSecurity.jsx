@@ -71,7 +71,7 @@ const PinSecurity = ({ setIsPin, func, inxUser }) => {
     <AnimatePresence>
       <div className="pinSecurity">
         <motion.div 
-          className="pinSecurity d-flex flex-column align-items-center justify-content-center"
+          className="pinSecurity d-flex flex-column align-items-center justify-content-start pt-5"
           initial={{ scale: .8 }}
           animate={{ scale: 1 }}
           exit={{ scale: .8 }}
@@ -97,7 +97,7 @@ const PinSecurity = ({ setIsPin, func, inxUser }) => {
             </h1>
           </div>
 
-          <div className="pinSecurity__pinInput d-flex flex-row align-items-center justify-content-center">
+          <div className="pinSecurity__pinInput d-flex flex-row align-items-center justify-content-center gap-3 gap-md-5 flex-wrap">
             {renderInput}
           </div>
         </motion.div>
