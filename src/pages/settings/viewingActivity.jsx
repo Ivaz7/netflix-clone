@@ -46,7 +46,7 @@ const ViewingActivity = () => {
     const data = respone?.data;
     await navigate(`/?moreInfo=${id}&categoryMoreInfo=${data}`);
   }
-  const renderRating = historyRating?.map((val, inx) => {
+  const renderRating = historyRating && historyRating !== "empty" ? historyRating?.map((val, inx) => {
     const { name, score, id } = val;
     
     const ratingList = ["fa-thumbs-down", "fa-thumbs-up", "fa-heart"];
@@ -70,7 +70,7 @@ const ViewingActivity = () => {
         </div>
       </div>
     )
-  })
+  }) : null;
 
   //  history watched
   const [isDeleteHover, setIsDeleteHover] = useState(false);
@@ -78,7 +78,7 @@ const ViewingActivity = () => {
     await triggerSetDeleteHistoryWatched({ id, showName, trailerName });
     refetch();
   }
-  const renderWatched = historyWatched?.map((val, inx) => {
+  const renderWatched = historyWatched && historyWatched !== "empty" ? historyWatched?.map((val, inx) => {
     const { id, showName, media_type, key, trailerName } = val 
 
     return (
@@ -101,7 +101,7 @@ const ViewingActivity = () => {
         </div>
       </div>
     )
-  })
+  }) : null;
 
   const noActivity = (
     <div className="viewingActivity__noActivity d-flex align-items-center justify-content-center">
