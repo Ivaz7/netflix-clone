@@ -4,6 +4,8 @@ import HeaderSetting from "./headerSetting";
 import LoadingComp from "../../components/loadingComp";
 import ProfileImg from "../../components/profileImg";
 import { useEffect, useMemo, useRef, useState } from "react";
+import CustomFloatingComp from "../../components/customFloatingComp";
+import { useClickOutside } from "../../customHooks/useClickOutside";
 
 const ProfileLockSetting = () => {
   const { data: dataStatus, isLoading: isLoadingStatus } = useGetLoginStatusQuery();
@@ -29,6 +31,10 @@ const ProfileLockSetting = () => {
   const inputRefs = useMemo(() => ([ref1, ref2, ref3, ref4]), []);
   const [inputPin, setInputPin] = useState(["", "", "", ""]);
   const [isNotValid, setIsNotValid] = useState(false);
+
+  const [isDelete, setIsDelete] = useState(false);
+  const deleteConfirmRef = useRef(null);
+  useClickOutside(deleteConfirmRef, isDelete, setIsDelete);
 
   useEffect(() => {
     if (inputPin.every(val => val !== "")) {
@@ -88,10 +94,14 @@ const ProfileLockSetting = () => {
     }
   }
 
-  const handleDeletePin = async () => {
+  const handleDeletePin = () => {
+    setIsDelete(true);
+  }
+
+  const handleYes = async () => {
     await triggerChangeUserOptionSelected({
-      index: userIndex,
-      value: { pinSecurity: "empty" },
+    index: userIndex,
+    value: { pinSecurity: "empty" },
     });
     await refetch();      
     navigate(-1);
@@ -109,6 +119,36 @@ const ProfileLockSetting = () => {
   return (
     <div className="outerProfileLock">
       <div className="profileLockSetting d-flex flex-column align-items-center">
+        {isDelete && 
+          <CustomFloatingComp fixed={true}>
+            <div ref={deleteConfirmRef} className="profileLockSetting__deleteConfirmation d-flex flex-column gap-5">
+              <div className="profileLockSetting__deleteConfirmation__head d-flex justify-content-between">
+                <div></div>
+
+                <button onClick={() => setIsDelete(false)} className="profileLockSetting__deleteConfirmation__head__cancelBtn">
+                  <i className="fa-solid fa-x"></i>
+                </button>
+              </div>
+
+              <div className="profileLockSetting__deleteConfirmation__main  d-flex flex-column gap-5">
+                <h5 className="m-0 text-center">
+                  Are You Sure You Want to Delete this Profile PIN?
+                </h5>
+
+                <div className="d-flex justify-content-center flex-wrap align-items-center gap-5">
+                  <button onClick={handleYes} className="profileLockSetting__deleteConfirmation__main__yes" id="yes">
+                    Yes
+                  </button>
+
+                  <button onClick={() => setIsDelete(false)} className="profileLockSetting__deleteConfirmation__main__no" id="no">
+                    No
+                  </button>
+                </div>
+              </div>
+            </div>
+          </CustomFloatingComp>
+        }
+
         <HeaderSetting dataGet={dataGet} indexUserOption={userIndex} />
 
         <main className="profileLockSetting__main  d-flex flex-column flex-lg-row align-items-start my-3">

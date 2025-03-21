@@ -8,6 +8,54 @@
 .profileLockSetting {
   @extend .settingsContainer;
 
+  &__deleteConfirmation {
+    padding: 2rem;
+    border: 2px solid rgb(75, 75, 75);
+    border-radius: 0.7rem;
+    background-color: rgb(250, 250, 250);
+
+    &__head {
+      &__cancelBtn {
+        width: 2rem;
+        height: 2rem;
+        border-radius: 50%;
+        border: none;
+
+        &:hover {
+          background-color: rgb(169, 169, 169);
+        }
+      }
+    }
+
+    &__main {
+      &__yes, &__no {
+        padding: 0.5rem 1rem;
+        border: none;
+        border-radius: 0.3rem;
+        font-weight: bold;
+      }
+
+      &__yes#yes {
+        background-color: rgb(250, 250, 250);
+        color: config.$redLightNetflix !important;
+        border: 1px solid config.$redLightNetflix;
+
+        &:hover {
+          color: rgb(250, 250, 250) !important;
+          background-color: config.$redLightNetflix;
+        }
+      }
+
+      &__no#no {
+        background-color: transparent;
+
+        &:hover {
+          background-color: rgb(169, 169, 169);
+        }
+      }
+    }
+  }
+
   &__main {
     @extend .settingsContainer__main;
 
