@@ -1,0 +1,98 @@
+@use './settingsPage';
+@use '../config' as config;
+
+.outerProfileLock {
+  @extend .outerSettingsContainer;
+}
+
+.profileLockSetting {
+  @extend .settingsContainer;
+
+  &__main {
+    @extend .settingsContainer__main;
+
+    &__backBtn {
+      @extend .settingsContainer__main__backBtn;
+    }
+
+    &__content {
+      @extend .settingsContainer__main__contentContainer;
+
+      &__off {
+        p {
+          color: rgb(186, 158, 0) !important;
+        }
+
+        &__inputArr {
+          input {
+            background-color: transparent;
+            text-align: center;
+            font-size: 3rem;
+            width: 5rem;
+            height: 5rem;
+            border: 1px solid black !important;
+            color: black !important;
+            transition: all 0.3s;
+      
+            &:focus {
+              transform: scale(120%);
+            }
+          }
+        }
+
+        &__btnSave, &__btnCancel {
+          all: unset;
+          font-weight: bold;
+          padding: 0.6rem 0;
+          font-size: 1.2rem;
+          border-radius: 0.3rem;
+          transition: 250ms;
+        }
+      
+        &__btnSave#btnSave {
+          background-color: black !important;
+          color: white !important;
+          
+          &:hover {
+            background-color: rgb(75, 75, 75) !important;
+          }
+        }
+      
+        &__btnCancel#btnCancel {
+          background-color: inherit;
+          color: black !important;
+      
+          &:hover {
+            background-color: rgb(230, 230, 230);
+          }
+        }
+      }
+
+      &__on {
+        &__detail {
+          h3 {
+            font-weight: bold;
+          }
+        }
+
+        &__deleteBtnPin#deleteBtnPin {
+          all: unset;
+          font-weight: bold;
+          padding: 0.6rem 0;
+          font-size: 1.2rem;
+          border-radius: 0.3rem;
+          transition: 250ms;
+          text-align: center;
+          color: config.$redLightNetflix !important;
+          border: 1px solid config.$redLightNetflix;
+          cursor: pointer;
+
+          &:hover {
+            background-color: config.$redLightNetflix !important;
+            color: white !important;
+          }
+        }
+      }
+    }
+  }
+}
