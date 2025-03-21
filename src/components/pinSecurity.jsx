@@ -17,6 +17,17 @@ const PinSecurity = ({ setIsPin, func, inxUser }) => {
   const [isWrong, setIsWrong] = useState(false);
 
   useEffect(() => {
+    const handleEsc = (e) => {
+      if (e.key === "Escape") {
+        setIsPin(false);
+      }
+    };
+  
+    window.addEventListener("keydown", handleEsc);
+    return () => window.removeEventListener("keydown", handleEsc);
+  }, [setIsPin]);  
+
+  useEffect(() => {
     if (inputPin.every(val => val !== "")) {
       if (Number(inputPin.join("")) === pinSecurity) {
         setIsPin(false);
