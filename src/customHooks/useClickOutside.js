@@ -6,20 +6,28 @@ export const useClickOutside = (ref, bool, setBool, func) => {
 
     const handleClickOutside = (e) => {
       if (ref.current && !ref.current.contains(e.target)) {
-        setBool(false)
-
+        setBool(false);
         if (func) {
           func();
         }
       }
-    }
+    };
 
-    if (bool) {
-      document.addEventListener("mousedown", handleClickOutside);
-    }
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape") {
+        setBool(false);
+        if (func) {
+          func();
+        }
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    window.addEventListener("keydown", handleKeyDown);
 
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
-    }
-  }, [setBool, bool, ref, func])
-}
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [setBool, bool, ref, func]);
+};
