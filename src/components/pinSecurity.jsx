@@ -69,37 +69,39 @@ const PinSecurity = ({ setIsPin, func, inxUser }) => {
 
   return (
     <AnimatePresence>
-      <motion.div 
-        className="pinSecurity d-flex flex-column align-items-center justify-content-center"
-        initial={{ scale: .8 }}
-        animate={{ scale: 1 }}
-        exit={{ scale: .8 }}
-        transition={{ duration: 0.3 }}
-      >
-        <div className="pinSecurity__topPart mb-5 d-flex flex-row justify-content-between">
-          <div></div>
+      <div className="pinSecurity">
+        <motion.div 
+          className="pinSecurity d-flex flex-column align-items-center justify-content-center"
+          initial={{ scale: .8 }}
+          animate={{ scale: 1 }}
+          exit={{ scale: .8 }}
+          transition={{ duration: 0.3 }}
+        >
+          <div className="pinSecurity__topPart mb-5 d-flex flex-row justify-content-between">
+            <div></div>
 
-          <button onClick={() => setIsPin(false)}>
-            <i className="fa-solid fa-x"></i>
-          </button>
-        </div>
+            <button onClick={() => setIsPin(false)}>
+              <i className="fa-solid fa-x"></i>
+            </button>
+          </div>
 
-        <div className="pinSecurity__detail d-flex flex-column mt-5 gap-2">
-          <h6 className="m-0 text-center">
-            Profile Lock is currently on.
-          </h6>
+          <div className="pinSecurity__detail d-flex flex-column mt-5 gap-2">
+            <h6 className="m-0 text-center">
+              Profile Lock is currently on.
+            </h6>
 
-          <h1 className={`m-0 text-center ${isWrong ? "yellow" : ""}`}>
-            {!isWrong
-              ? "Enter your PIN to access this profile."
-              : "Wrong PIN, Please try again."}
-          </h1>
-        </div>
+            <h1 className={`m-0 text-center ${isWrong ? "yellow" : ""}`}>
+              {!isWrong
+                ? "Enter your PIN to access this profile."
+                : "Wrong PIN, Please try again."}
+            </h1>
+          </div>
 
-        <div className="pinSecurity__pinInput d-flex flex-row align-items-center justify-content-center">
-          {renderInput}
-        </div>
-      </motion.div>
+          <div className="pinSecurity__pinInput d-flex flex-row align-items-center justify-content-center">
+            {renderInput}
+          </div>
+        </motion.div>
+      </div>
     </AnimatePresence>
   );
 };
