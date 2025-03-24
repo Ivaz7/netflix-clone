@@ -118,6 +118,18 @@ const ImgPopUpComp = ({ data }) => {
       setIsHover(true);
     }, 300);
   };
+
+  const handleClick = () => {
+    if (timeOutDelayPopUpRef.current) {
+      clearTimeout(timeOutDelayPopUpRef.current);
+    }
+
+    if (timeOutMainPopUp.current) {
+      clearTimeout(timeOutMainPopUp.current);
+    }
+
+    setIsHover(prev => !prev);
+  }
   
   const handleLeavePopUP = async () => {
     if (timeOutDelayPopUpRef.current) {
@@ -174,6 +186,7 @@ const ImgPopUpComp = ({ data }) => {
         ? <img
             onMouseEnter={handleEnterPopUp}
             onMouseLeave={handleLeavePopUP}
+            onClick={handleClick}
             className="ImgPopUpComp__mainImg"
             src={`https://image.tmdb.org/t/p/original${poster_path}`}
             alt="background"
@@ -196,6 +209,7 @@ const ImgPopUpComp = ({ data }) => {
           transition={{ duration: 0.25 }}
           onMouseEnter={handleEnterPopUp}
           onMouseLeave={handleLeavePopUP}
+          onClick={handleClick}
         >
           {poster_path 
             ? <img
