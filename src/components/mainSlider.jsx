@@ -14,9 +14,12 @@ const MainSlider = ({ children, name }) => {
   const [page, setPage] = useState(0);
   const maxPage = Math.ceil(totalSlides / pieces);
 
+  const touchStartX = useRef(0);
+  const touchEndX = useRef(0);
+
   const renderPage = new Array(maxPage).fill(null).map((val, index) => (
     <div key={index} className={`mainSlider__inside__barPage__barItem ${index === page ? 'active' : ''}`}>{val}</div>
-  ))
+  ));
 
   const clones = useMemo(() => {
     const cloneCount = pieces + 2;
@@ -100,6 +103,26 @@ const MainSlider = ({ children, name }) => {
     }, 1000);
   };
 
+  const handleTouchStart = (e) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchMove = (e) => {
+    touchEndX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchEnd = () => {
+    const threshold = 39; 
+    const distance = touchStartX.current - touchEndX.current;
+    if (distance > threshold) {
+      handleNext();
+    } else if (distance < -threshold) {
+      handlePrev();
+    }
+    touchStartX.current = 0;
+    touchEndX.current = 0;
+  };
+
   return (
     <div className="mainSlider d-flex flex-column gap-1 gap-sm-2 gap-md-3">
       <h1>{name}</h1>
@@ -123,6 +146,9 @@ const MainSlider = ({ children, name }) => {
             transform: `translateX(${transform}%)`,
             "--widthSlide": `${pieces}`,
           }}
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
         >
           {clones.leftChildren}
           {clones.middleChildren}
