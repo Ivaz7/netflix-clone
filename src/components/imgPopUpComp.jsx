@@ -65,7 +65,8 @@ const ImgPopUpComp = ({ data }) => {
 
   const buttonIcons = ["fa-thumbs-down", "fa-thumbs-up", "fa-heart"];
 
-  const handleOptionRating = (idx) => {
+  const handleOptionRating = (idx, e) => {
+    e.stopPropagation();
     if (ratingIndex === idx) {
       setRatingIndex(null);
     } else {
@@ -86,7 +87,7 @@ const ImgPopUpComp = ({ data }) => {
 
   const renderRatingOption = buttonIcons.map((icon, idx) => {
     return (
-      <button key={idx} onClick={() => handleOptionRating(idx)}>
+      <button key={idx} onClick={(e) => handleOptionRating(idx, e)}>
         <i className={`fa-${ratingIndex === idx ? "solid" : "regular"} ${icon}`}></i>
       </button>
     );
@@ -226,7 +227,7 @@ const ImgPopUpComp = ({ data }) => {
                 <i className="fa-solid fa-play"></i>
               </button>
 
-              <button onClick={() => setMylist(prev => !prev)} className="buttonList buttonOutside">
+              <button onClick={(e) => { setMylist(prev => !prev); e.stopPropagation(); }} className="buttonList buttonOutside">
                 {isMylist 
                   ? <i className="fa-solid fa-check"></i> 
                   : <i className="fa-solid fa-plus"></i>
