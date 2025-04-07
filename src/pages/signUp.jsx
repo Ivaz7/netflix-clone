@@ -6,8 +6,10 @@ import { useSignUpUserMutation } from "../service/redux/API/fireBaseAuthSlice";
 import InputForm from "../components/inputForm";
 import { useGetLoginStatusQuery } from "../service/redux/API/firebaseDB";
 import LoadingComp from "../components/loadingComp";
+import UserTryExample from "../components/userTryExample";
 
 const SignUp = () => {
+  const tryExample = useSelector((state) => state.tryExample.status);
   const email = useSelector((state) => state.signUpEmail.email);
   const navigate = useNavigate();
   
@@ -68,6 +70,8 @@ const SignUp = () => {
 
   return (
     <div className="outerForm-container">
+      {tryExample && <UserTryExample />}
+
       <div className="hero-bg d-flex flex-column gap-3">
         <header>
           <Link to={"/"}>

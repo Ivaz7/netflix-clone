@@ -12,8 +12,22 @@ import Watch from "./pages/home/watch"
 import AgeRestiction from "./pages/settings/ageRestrictionsPage"
 import ViewingActivity from "./pages/settings/viewingActivity"
 import ProfileLockSetting from "./pages/settings/profileLockSetting"
+import { useDispatch } from "react-redux"
+import { useEffect } from "react"
+import { setTrue } from "./service/redux/slice/tryexample"
 
 function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      dispatch(setTrue());
+      console.log("Okay")
+    }, 7000);
+
+    return () => clearTimeout(timer);
+  }, [dispatch]);
+
   return (
     <>
       <Router>

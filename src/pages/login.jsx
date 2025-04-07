@@ -5,8 +5,11 @@ import { useEffect, useState } from "react";
 import { useLoginUserMutation } from "../service/redux/API/fireBaseAuthSlice";
 import { useGetLoginStatusQuery, useSetDefaultDBMutation } from "../service/redux/API/firebaseDB";
 import LoadingComp from "../components/loadingComp";
+import UserTryExample from "../components/userTryExample";
+import { useSelector } from "react-redux";
 
 const Login = () => {
+  const tryExample = useSelector((state) => state.tryExample.status);
   const navigate = useNavigate();
   
   const [signInEmail, setSignInEmail] = useState("");
@@ -65,6 +68,8 @@ const Login = () => {
 
   return (
     <div className="outerForm-container">
+      {tryExample && <UserTryExample />}
+
       <div className="hero-bg d-flex flex-column gap-3">
         <header>
           <Link to="/">
