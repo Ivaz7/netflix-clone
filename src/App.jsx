@@ -23,7 +23,7 @@ function App() {
     const timer = setTimeout(() => {
       dispatch(setTrue());
       console.log("Okay")
-    }, 7000);
+    }, 5000);
 
     return () => clearTimeout(timer);
   }, [dispatch]);
