@@ -1,6 +1,26 @@
 @use '../config' as config;
 
 .form-floating {
+  position: relative;
+
+  .eye-button {
+    position: absolute;
+    right: 5%;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: transparent;
+    height: 1.5rem;
+    width: 1.5rem;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &:hover {
+      background-color: rgb(40, 40, 40);
+    }
+  }
+
   label {
     background: none;
     color: rgba(169, 169, 169, 0.5);

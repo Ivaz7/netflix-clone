@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from "react-redux";
 import { setSignUpEmail } from '../service/redux/slice/signUpEmailSlice';
-import { forwardRef } from 'react';
+import { forwardRef, useState } from 'react';
 
 const InputForm = forwardRef(({ name, type, placeholder, warning, password, setPassword, passwordConfirm, setPasswordConfirm,  validation, setValidation, handleFocusEmail, signInEmail, setSignInEmail, userName, setUserName, setWarning, arrayCheck, whiteVer }, ref) => {
   const email = useSelector((state) => state.signUpEmail.email);
@@ -12,6 +12,9 @@ const InputForm = forwardRef(({ name, type, placeholder, warning, password, setP
   const InValidatePassword = (value) => value.length > 0;
   const validatePasswordConfirm = (value) => value === password;
   const validateUserName = (value) => /^[a-zA-Z0-9]+$/.test(value);
+
+  const [typePass, setTypePass] = useState(type);
+  const pass = name === "password" || name === "passwordConfirm";
 
   let value = null;
 
@@ -29,6 +32,10 @@ const InputForm = forwardRef(({ name, type, placeholder, warning, password, setP
     }
   }
   
+  const handlePass = (e) => {
+    e.preventDefault();
+    setTypePass(prev => prev === "password" ? "text" : "password");
+  }
 
   const handleChange = (e) => {
     const value = e.target.value;
@@ -116,7 +123,7 @@ const InputForm = forwardRef(({ name, type, placeholder, warning, password, setP
           autoComplete={`${typeof signInEmail !== 'undefined' || password ? 'on' : 'off'}`}
           name={name}
           id={name}
-          type={type} 
+          type={pass ? typePass : type} 
           placeholder={placeholder} 
           value={value} 
           className={`form-control text-white ${
@@ -133,6 +140,10 @@ const InputForm = forwardRef(({ name, type, placeholder, warning, password, setP
           onFocus={handleFocusEmail}
           ref={ref}
         />
+
+        {pass && <button onClick={handlePass} className='eye-button'>
+          <i className={`fa-${typePass === "password" ? "regular" : "solid"} fa-eye`}></i>
+        </button>}
 
         {typeof userName !== "undefined" && validation.userName !== undefined ? (
           <p className={`text-start input-warning input-allowed-${validation.userName ? "yes-userName" : "not"}`}>
